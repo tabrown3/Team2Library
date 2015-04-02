@@ -1,0 +1,110 @@
+﻿@model Team2Library_01.Models.Book
+
+@{
+    ViewBag.Title = "A Game of Thrones (A Song of Ice and Fire, Book 1)";
+}
+
+<body>
+
+    <h2>A Game of Thrones (A Song of Ice and Fire, Book 1)</h2>
+    <div style="text-align:center">
+        <hr />
+        <img id="got1" alt="got1_cover" src="@Url.Content("~/Content/Images/got1_cover.png")" />
+        <hr />
+    </div>
+
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title):
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                Author:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Author_FName) @Html.DisplayFor(model => model.Author_LName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Publisher):
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Publisher)
+            </dd>
+
+            <dt>
+                Pages:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NumOfPages)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Year):
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Year)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Genre):
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Genre)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Language):
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Language)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Rating):
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Rating)/5
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Synopsis):
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Synopsis)
+            </dd>
+
+            <dt>
+                Found in:
+            </dt>
+
+            <dd>
+                Shelf @Html.DisplayFor(model => model.Shelf)
+            </dd>
+        </dl>
+    </div>
+    <hr />
+    <p>
+        @Html.ActionLink("Review this book", "Reviews")
+    </p>
+    <p>
+        @Html.ActionLink("Rent this book", "Loans")
+    </p>
+    <p>
+        @Html.ActionLink("Back to List", "Books", "Home")
+    </p>
+
+</body>

@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="T2_LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="BookID" />
+      <PropertyRef Name="ISBN" />
+    </Key>
+    <Property Name="BookID" Type="int" Nullable="false" />
+    <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Author_FName" Type="varchar" MaxLength="30" />
+    <Property Name="Author_LName" Type="varchar" MaxLength="30" />
+    <Property Name="Publisher" Type="varchar" MaxLength="30" />
+    <Property Name="NumOfPages" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Genre" Type="int" Nullable="false" />
+    <Property Name="Language" Type="int" Nullable="false" />
+    <Property Name="Rating" Type="real" />
+    <Property Name="Synopsis" Type="text" />
+    <Property Name="Shelf" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DVD">
+    <Key>
+      <PropertyRef Name="DvdID" />
+      <PropertyRef Name="Title" />
+      <PropertyRef Name="Year" />
+      <PropertyRef Name="Length" />
+      <PropertyRef Name="Director_FName" />
+      <PropertyRef Name="Director_LName" />
+    </Key>
+    <Property Name="DvdID" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Length" Type="int" Nullable="false" />
+    <Property Name="Director_FName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Director_LName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Studio" Type="varchar" MaxLength="30" />
+    <Property Name="Genre" Type="int" />
+    <Property Name="Language" Type="int" Nullable="false" />
+    <Property Name="Rating" Type="real" />
+    <Property Name="Synopsis" Type="text" />
+    <Property Name="Shelf" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Genre">
+    <Key>
+      <PropertyRef Name="GenreID" />
+    </Key>
+    <Property Name="GenreID" Type="int" Nullable="false" />
+    <Property Name="Genre" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Inventory">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="TypeID" Type="int" Nullable="false" />
+    <Property Name="BookID" Type="int" />
+    <Property Name="DvdID" Type="int" />
+    <Property Name="ItemPrice" Type="real" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ItemType">
+    <Key>
+      <PropertyRef Name="TypeID" />
+    </Key>
+    <Property Name="TypeID" Type="int" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="4" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Language">
+    <Key>
+      <PropertyRef Name="LanguageID" />
+    </Key>
+    <Property Name="LanguageID" Type="int" Nullable="false" />
+    <Property Name="Language" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Loan">
+    <Key>
+      <PropertyRef Name="LoanID" />
+    </Key>
+    <Property Name="LoanID" Type="int" Nullable="false" />
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="CardNo" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CheckOutDate" Type="date" Nullable="false" />
+    <Property Name="DueDate" Type="date" Nullable="false" />
+    <Property Name="ReturnDate" Type="date" />
+    <Property Name="Fines" Type="real" Nullable="false" />
+    <Property Name="FinesPaid" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="CardNo" />
+    </Key>
+    <Property Name="CardNo" Type="int" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="FName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="LName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="16" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reservation">
+    <Key>
+      <PropertyRef Name="ReservationID" />
+    </Key>
+    <Property Name="ReservationID" Type="int" Nullable="false" />
+    <Property Name="CardNo" Type="int" Nullable="false" />
+    <Property Name="BookID" Type="int" />
+    <Property Name="DvdID" Type="int" />
+    <Property Name="ReserveDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="ReviewID" />
+    </Key>
+    <Property Name="ReviewID" Type="int" Nullable="false" />
+    <Property Name="BookID" Type="int" />
+    <Property Name="DvdID" Type="int" />
+    <Property Name="CardNo" Type="int" Nullable="false" />
+    <Property Name="Rating" Type="real" Nullable="false" />
+    <Property Name="ReviewText" Type="text" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="Role" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="LoanDuration" Type="int" Nullable="false" />
+    <Property Name="LoanMax" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="T2_LibraryModelStoreContainer">
+    <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DVD" EntityType="Self.DVD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ItemType" EntityType="Self.ItemType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Loan" EntityType="Self.Loan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
