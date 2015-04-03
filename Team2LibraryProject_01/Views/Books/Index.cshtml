@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Team2LibraryProject_01.Models.Book>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Author_FName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author_LName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Publisher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumOfPages)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Synopsis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shelf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre1.Genre1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Language1.Language1)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author_FName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author_LName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Publisher)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumOfPages)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Synopsis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Shelf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre1.Genre1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Language1.Language1)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ISBN }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ISBN }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ISBN })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

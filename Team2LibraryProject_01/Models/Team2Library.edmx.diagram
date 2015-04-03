@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2dcdcde5f27945c7974561e41a26edd0" Name="Diagram1">
+        <EntityTypeShape EntityType="Team2LibraryModel.Book" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team2LibraryModel.Genre" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team2LibraryModel.Inventory" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team2LibraryModel.Language" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team2LibraryModel.Loan" Width="1.5" PointX="7.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team2LibraryModel.Member" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team2LibraryModel.Reservation" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team2LibraryModel.Review" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team2LibraryModel.Role" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <AssociationConnector Association="Team2LibraryModel.Genre_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="Team2LibraryModel.Inventory_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="Team2LibraryModel.Language_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="Team2LibraryModel.Reservation_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="Team2LibraryModel.Review_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="Team2LibraryModel.Loan_Inventory" ManuallyRouted="false" />
+        <AssociationConnector Association="Team2LibraryModel.Loan_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="Team2LibraryModel.Member_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="Team2LibraryModel.Reservation_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="Team2LibraryModel.Review_Member" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
