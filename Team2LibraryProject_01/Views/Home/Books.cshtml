@@ -8,46 +8,21 @@
     <div class="jumbotron">
         <div class="container">
             <h1>Books</h1>
-            <p class="lead">No, we do not stock 50 Shades of Grey.</p>
+            <p class="lead">Choose from our growing selection of books.</p>
         </div>
     </div>
-
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                Author
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Publisher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th></th>
-        </tr>
 
         @foreach (var item in Model)
         {
             string input = item.Title;
             string output = item.ISBN;
-            <tr>
-                <td>
-                    <a href="/Books/BookDetails/@output">@Html.DisplayFor(modelItem => item.Title)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author_LName), @Html.DisplayFor(modelItem => item.Author_FName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Publisher)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Year)
-                </td>
-            </tr>
+            string thumbOut = item.ISBN + ".png";
+            <div class="col-lg-3 col-sm-4 col-xs-6" align="center">
+                <a href="/Books/BookDetails/@output"><img src="~/Content/Images/Thumbs/@thumbOut" align="middle"></a>
+                <br />
+                @Html.DisplayFor(modelItem => item.Title)
+                <br />
+                <br />
+            </div>
         }
-
-    </table>
 </body>

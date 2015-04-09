@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Team2LibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="Team2LibraryModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
   <EntityType Name="Book">
     <Key>
       <PropertyRef Name="ISBN" />
@@ -233,7 +233,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Team2LibraryEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="Team2LibraryEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
     <EntitySet Name="Books" EntityType="Self.Book" />
     <EntitySet Name="Genres" EntityType="Self.Genre" />
     <EntitySet Name="Inventories" EntityType="Self.Inventory" />
@@ -283,5 +283,23 @@
       <End Role="Member" EntitySet="Members" />
       <End Role="Review" EntitySet="Reviews" />
     </AssociationSet>
+    <EntitySet Name="BookDetailsViews" EntityType="Team2LibraryModel.BookDetailsView" />
   </EntityContainer>
+  <EntityType Name="BookDetailsView">
+    <Key>
+      <PropertyRef Name="ISBN" />
+    </Key>
+    <Property Name="ISBN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Author_FName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Author_LName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Publisher" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="NumOfPages" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="Genre" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Language" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Rating" Type="Single" />
+    <Property Name="Synopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Shelf" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>

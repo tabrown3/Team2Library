@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Team2LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Team2LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Book">
           <Key>
             <PropertyRef Name="ISBN" />
@@ -97,6 +97,25 @@
           <Property Name="Role" Type="varchar" MaxLength="7" Nullable="false" />
           <Property Name="LoanDuration" Type="int" Nullable="false" />
           <Property Name="LoanMax" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookDetailsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BookDetailsView">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Author_FName" Type="varchar" MaxLength="30" />
+          <Property Name="Author_LName" Type="varchar" MaxLength="30" />
+          <Property Name="Publisher" Type="varchar" MaxLength="30" />
+          <Property Name="NumOfPages" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Genre" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Language" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Rating" Type="real" />
+          <Property Name="Synopsis" Type="text" />
+          <Property Name="Shelf" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="Genre_Book">
           <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
@@ -228,6 +247,22 @@
           <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookDetailsView" EntityType="Self.BookDetailsView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BookDetailsView].[ISBN] AS [ISBN], 
+    [BookDetailsView].[Author_FName] AS [Author_FName], 
+    [BookDetailsView].[Author_LName] AS [Author_LName], 
+    [BookDetailsView].[Publisher] AS [Publisher], 
+    [BookDetailsView].[NumOfPages] AS [NumOfPages], 
+    [BookDetailsView].[Title] AS [Title], 
+    [BookDetailsView].[Year] AS [Year], 
+    [BookDetailsView].[Genre] AS [Genre], 
+    [BookDetailsView].[Language] AS [Language], 
+    [BookDetailsView].[Rating] AS [Rating], 
+    [BookDetailsView].[Synopsis] AS [Synopsis], 
+    [BookDetailsView].[Shelf] AS [Shelf]
+    FROM [dbo].[BookDetailsView] AS [BookDetailsView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="Genre_Book" Association="Self.Genre_Book">
             <End Role="Genre" EntitySet="Genre" />
             <End Role="Book" EntitySet="Book" />
@@ -269,11 +304,10 @@
             <End Role="Review" EntitySet="Review" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Team2LibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Team2LibraryModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityType Name="Book">
           <Key>
             <PropertyRef Name="ISBN" />
@@ -507,7 +541,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Team2LibraryEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Team2LibraryEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="Books" EntityType="Self.Book" />
           <EntitySet Name="Genres" EntityType="Self.Genre" />
           <EntitySet Name="Inventories" EntityType="Self.Inventory" />
@@ -557,7 +591,25 @@
             <End Role="Member" EntitySet="Members" />
             <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
+          <EntitySet Name="BookDetailsViews" EntityType="Team2LibraryModel.BookDetailsView" />
         </EntityContainer>
+        <EntityType Name="BookDetailsView">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Author_FName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Author_LName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Publisher" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NumOfPages" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="Genre" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Language" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Rating" Type="Single" />
+          <Property Name="Synopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Shelf" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -666,27 +718,45 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BookDetailsViews">
+            <EntityTypeMapping TypeName="Team2LibraryModel.BookDetailsView">
+              <MappingFragment StoreEntitySet="BookDetailsView">
+                <ScalarProperty Name="Shelf" ColumnName="Shelf" />
+                <ScalarProperty Name="Synopsis" ColumnName="Synopsis" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="NumOfPages" ColumnName="NumOfPages" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="Author_LName" ColumnName="Author_LName" />
+                <ScalarProperty Name="Author_FName" ColumnName="Author_FName" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
-    <Connection>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
-      </DesignerInfoPropertySet>
-    </Connection>
-    <Options>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
-      </DesignerInfoPropertySet>
-    </Options>
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <edmx:DesignerProperty Name="EnablePluralization" Value="true" />
+        <edmx:DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <edmx:DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <edmx:DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
-  </Designer>
+    <edmx:Diagrams />
+  </edmx:Designer>
 </edmx:Edmx>

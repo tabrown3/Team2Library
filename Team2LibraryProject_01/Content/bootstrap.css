@@ -567,6 +567,7 @@ ul,
 ol {
   margin-top: 0;
   margin-bottom: 10px;
+  list-style-type: none;
 }
 
 ul ul,
@@ -4504,11 +4505,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-inverse {
   background-color: #b94a48;
-  border-color: #b94a48;
 }
 
 .navbar-inverse .navbar-brand {
-  color: #999999;
+  color: #eeeeee;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -4522,7 +4522,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: #999999;
+  color: #eeeeee;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
@@ -4947,6 +4947,7 @@ a.list-group-item.active > .badge,
 .widewrapper > img {
   width:100%;
 }
+
 .jumbotron h1 {
   line-height: 1;
   color: #fff;
@@ -6024,6 +6025,14 @@ body.modal-open,
   overflow: hidden;
 }
 
+.carousel h1 {
+    font-size: 62px;
+}
+
+.carousel p {
+    font-size: 22px;
+}
+
 .carousel-inner > .item {
   position: relative;
   display: none;
@@ -6132,6 +6141,7 @@ body.modal-open,
 
 .carousel-control .icon-prev,
 .carousel-control .icon-next {
+  font-size: 50px;
   width: 20px;
   height: 20px;
   margin-top: -10px;

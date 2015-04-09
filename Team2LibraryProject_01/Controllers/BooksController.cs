@@ -17,11 +17,10 @@ namespace Team2LibraryProject_01.Controllers
         static string ISBN = null;
 
         //Books In Catalog
-       
         [HttpGet]
         public ActionResult BookDetails(string id)
         {
-            Book book = db.Books.Find(id);
+            BookDetailsView book = db.BookDetailsViews.Find(id);
             if (book == null)
             {
                 return HttpNotFound();
@@ -32,28 +31,89 @@ namespace Team2LibraryProject_01.Controllers
             switch(ISBN)
             {
                 case "553593714":
-                    ViewBag.Image = "~/Content/Images/got1_cover.png";
+                    ViewBag.Image = "~/Content/Images/Books/got1_cover.png";
                     break;
                 case "1844167372":
-                    ViewBag.Image = "~/Content/Images/ravenor_cover.png";
+                    ViewBag.Image = "~/Content/Images/Books/ravenor_cover.png";
                     break;
                 case "399173358":
-                    ViewBag.Image = "~/Content/Images/tc_ff_cover.png";
+                    ViewBag.Image = "~/Content/Images/Books/tc_ff_cover.png";
                     break;
                 case "385474547":
-                    ViewBag.Image = "~/Content/Images/things_cover.png";
+                    ViewBag.Image = "~/Content/Images/Books/things_cover.png";
                     break;
                 case "140481346":
-                    ViewBag.Image = "~/Content/Images/dsales_cover.png";
+                    ViewBag.Image = "~/Content/Images/Books/dsales_cover.png";
                     break;
                 case "486298574":
-                    ViewBag.Image = "~/Content/Images/ywall_cover.png";
+                    ViewBag.Image = "~/Content/Images/Books/ywall_cover.png";
                     break;
                 case "345391802":
-                    ViewBag.Image = "~/Content/Images/hitch_cover.png";
+                    ViewBag.Image = "~/Content/Images/Books/hitch_cover.png";
+                    break;
+                case "486404536":
+                    ViewBag.Image = "~/Content/Images/Books/calc_cover.png";
+                    break;
+                case "1439048479":
+                    ViewBag.Image = "~/Content/Images/Books/alg_trig_cover.png";
+                    break;
+                case "195391144":
+                    ViewBag.Image = "~/Content/Images/Books/mineral_cover.png";
+                    break;
+                case "142400556":
+                    ViewBag.Image = "~/Content/Images/Books/martin_cover.png";
                     break;
             }
             return View(book);
+        }
+
+        //Book Search
+        public ActionResult BookSearch(string bookGenre, string searchString)
+        {
+            var genreList = new List<string>();
+            var genreQuery = from g in db.Genres
+                             orderby g.Genre1
+                             select g.Genre1;
+
+            genreList.AddRange(genreQuery.Distinct());
+            ViewBag.bookGenre = new SelectList(genreList);
+
+            var books = from b in db.Books
+                        select b;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(s => s.Title.Contains(searchString));
+            }
+            if (!string.IsNullOrEmpty(bookGenre))
+            {
+                switch(bookGenre)
+                { 
+                    case "Nonfiction":
+                        books = books.Where(x => x.Genre == 1);
+                        break;
+                    case "Fiction":
+                        books = books.Where(x => x.Genre == 2);
+                        break;
+                    case "Fantasy":
+                        books = books.Where(x => x.Genre == 3);
+                        break;
+                    case "Thriller":
+                        books = books.Where(x => x.Genre == 4);
+                        break;
+                    case "Short Story":
+                        books = books.Where(x => x.Genre == 5);
+                        break;
+                    case "Tragedy":
+                        books = books.Where(x => x.Genre == 6);
+                        break;
+                    case "Science Fiction":
+                        books = books.Where(x => x.Genre == 7);
+                        break;
+                }
+            }
+
+            return View(books);
         }
 
         //Book Reviews

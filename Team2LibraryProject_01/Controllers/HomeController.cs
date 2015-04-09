@@ -11,6 +11,7 @@ namespace Team2LibraryProject_01.Controllers
     {
 
         private Team2LibraryEntities db = new Team2LibraryEntities();
+
         public ActionResult Index()
         {
             return View();
@@ -35,4 +36,4 @@ namespace Team2LibraryProject_01.Controllers
             return View(db.Books.ToList());
         }
     }
-}
+}            

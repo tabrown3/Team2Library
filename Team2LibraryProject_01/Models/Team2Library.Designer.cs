@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'd:\users\jon\documents\visual studio 2013\Projects\Team2LibraryProject_01\Team2LibraryProject_01\Models\Team2Library.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\Models\Team2Library.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -2,29 +2,75 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <div class="container">
-        <h1>Library</h1>
-        <p class="lead">Welcome to the Team 2 Library Home Page.</p>
-    </div>
-</div>
+<body>
+    <!--Carousel Stuff = Does all that fancy transition-->
+    <div id="IndexCarousel" class="carousel slide">
+        <ol class="carousel-indicators">
+            <li data-target="#carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel" data-slide-to="1"></li>
+            <li data-target="#carousel" data-slide-to="2"></li>
+        </ol>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Still Getting Started</h2>
-        <p>
-            This project is frankly still in its early stages, so the site is barebones at the moment. Feel
-            free to take a look around though.
-        </p>
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="~/Content/Images/Carousel/index_carousel_library.png" alt="Library_1" class="img-responsive">
+                <div class="carousel-caption">
+                    <h1 align="left">Welcome</h1>
+                    <p class="lead" align="left">This is the T2 Library service.</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="~/Content/Images/Carousel/index_carousel_book.png" alt="Library_2" class="img-responsive">
+                <div class="carousel-caption">
+                    <h1 align="left">Books</h1>
+                    <p class="lead" align="left">We have a small but good selection of titles.</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="~/Content/Images/Carousel/index_carousel_money.png" alt="Library_3" class="img-responsive">
+                <div class="carousel-caption">
+                    <h1 align="left">Rentals</h1>
+                    <p class="lead" align="left">Rent books. Save money.</p>
+                </div>
+            </div>
+        </div>
+
+        <a class="carousel-control left" href="#IndexCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#IndexCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
     </div>
-    <div class="col-md-4">
-        <h2>Things To Do:</h2>
-        <p>Get the login system up and running</p>
-        <p>Have the reservations and loans relations set up</p>
-        <p>Improve website layout</p>
+    <!--End Carousel-->
+
+    <br />
+
+    <div class="indexcontent">
+        <div class="row">
+            <div class="col-md-4">
+                <h2 align="center">Library Overview</h2>
+                <p>
+                    The T2 Library is committed in providing quality experience with its unique
+                    catalog of books, as well as competitive rental rates for prolific readers.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2 align="center">Online Services</h2>
+                <p>
+                    The library's robust online database ensures great service across its members.
+                    Sign up today to receive unique benefits and content!
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2 align="center">Powerful Search</h2>
+                <p>
+                    Need to find a specific title? Hit the Search link on top to see if we have 
+                    your favorites.
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>We'll get to that.</p>
-    </div>
-</div>
+</body>
