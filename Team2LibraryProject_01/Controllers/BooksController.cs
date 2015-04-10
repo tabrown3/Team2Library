@@ -72,6 +72,24 @@ namespace Team2LibraryProject_01.Controllers
                 case "262033844":
                     ViewBag.Image = "~/Content/Images/Books/algorithms_cover.png";
                     break;
+                case "486426912":
+                    ViewBag.Image = "~/Content/Images/Books/gen_morals_cover.png";
+                    break;
+                case "140447474":
+                    ViewBag.Image = "~/Content/Images/Books/crit_reason_cover.png";
+                    break;
+                case "143034901":
+                    ViewBag.Image = "~/Content/Images/Books/shadow_wind_cover.png";
+                    break;
+                case "140442936":
+                    ViewBag.Image = "~/Content/Images/Books/dream_red_cover.png";
+                    break;
+                case "765367297":
+                    ViewBag.Image = "~/Content/Images/Books/halo_reach_cover.png";
+                    break;
+                case "143039695":
+                    ViewBag.Image = "~/Content/Images/Books/noli_cover.png";
+                    break;
             }
             return View(book);
         }
@@ -119,6 +137,9 @@ namespace Team2LibraryProject_01.Controllers
                     case "Science Fiction":
                         books = books.Where(x => x.Genre == 7);
                         break;
+                    case "Philosophy":
+                        books = books.Where(x => x.Genre == 8);
+                        break;
                 }
             }
 
@@ -134,18 +155,38 @@ namespace Team2LibraryProject_01.Controllers
         [HttpPost]
         public ActionResult Reviews([Bind(Include = "ReviewID,CardNo,Rating,ReviewText,ISBN")] Review review)
         {
+            //Tie the review to the book ISBN
+            review.ISBN = ISBN;
 
-            review.ISBN = ISBN;                                 //Tie the review to the book ISBN
-
-            review.ReviewID = Guid.NewGuid().GetHashCode();     //Random function
+            //Random function 
+            review.ReviewID = Guid.NewGuid().GetHashCode();     
 
             if (ModelState.IsValid)
             {
                 db.Reviews.Add(review);
                 db.SaveChanges();
-                return RedirectToAction("Books", "Home");
             }
-            return View(review);
+
+            //Pulling all reviews related to the book
+            var ratings = db.Database.SqlQuery<Single>("SELECT Rating FROM dbo.Review WHERE ISBN = {0}", ISBN).ToArray();
+
+            float sum = 0;
+            float ratingAv = 0;
+
+            //Average the review
+            for(int i = 0; i < ratings.Length; i++)
+            {
+                sum = sum + ratings[i]; 
+            }
+
+            ratingAv = sum / ratings.Length;
+            
+            //Directly update table values
+            var bookUpdateSQL = @"UPDATE dbo.Book SET Rating = {0} WHERE ISBN = {1}";
+            db.Database.ExecuteSqlCommand(bookUpdateSQL, System.Math.Round(ratingAv, 2), ISBN);
+
+
+            return RedirectToAction("Books", "Home");
         }
 
 

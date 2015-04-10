@@ -12,17 +12,34 @@
         </div>
     </div>
 
-        @foreach (var item in Model)
-        {
-            string input = item.Title;
-            string output = item.ISBN;
-            string thumbOut = item.ISBN + ".png";
-            <div class="col-lg-3 col-sm-4 col-xs-6" align="center">
-                <a href="/Books/BookDetails/@output"><img src="~/Content/Images/Thumbs/@thumbOut" align="middle"></a>
-                <br />
-                @Html.DisplayFor(modelItem => item.Title)
-                <br />
-                <br />
-            </div>
-        }
+    @using (Html.BeginForm())
+    {
+        <p>
+            <h5>Filter By:      
+            Genre: @Html.DropDownList("bookGenre", "All")       
+            Publisher: @Html.DropDownList("bookPublisher", "All")   
+            <input type="submit" value="Submit" /></h5>
+        </p>
+        <p>
+
+        </p>
+
+    }
+
+    <br />
+
+    @foreach (var item in Model)
+    {
+        string input = item.Title;
+        string output = item.ISBN;
+        string thumbOut = item.ISBN + ".png";
+        <div class="col-lg-3 col-sm-4 col-xs-6" align="center">
+            <a href="/Books/BookDetails/@output"><img src="~/Content/Images/Thumbs/@thumbOut" align="middle"></a>
+            <br />
+            @Html.DisplayFor(modelItem => item.Title)
+            <br />
+            <br />
+        </div>
+    }
+
 </body>
