@@ -66,6 +66,12 @@ namespace Team2LibraryProject_01.Controllers
                 case "156027321":
                     ViewBag.Image = "~/Content/Images/Books/life_pi_cover.png";
                     break;
+                case "1439190143":
+                    ViewBag.Image = "~/Content/Images/Books/rin_tin_cover.png";
+                    break;
+                case "262033844":
+                    ViewBag.Image = "~/Content/Images/Books/algorithms_cover.png";
+                    break;
             }
             return View(book);
         }
