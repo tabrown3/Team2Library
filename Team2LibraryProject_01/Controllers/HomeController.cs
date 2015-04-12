@@ -94,5 +94,13 @@ namespace Team2LibraryProject_01.Controllers
             }
             return View(books);
         }
+
+        public ActionResult Admin()
+        {
+            if (Request.IsAuthenticated)
+                return new RedirectResult("Index");
+            else
+                return View();
+        }
     }
 }            

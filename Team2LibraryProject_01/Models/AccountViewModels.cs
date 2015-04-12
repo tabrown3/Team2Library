@@ -78,6 +78,10 @@ namespace Team2LibraryProject_01.Models
         public string LastName { get; set; }
 
         [Required]
+        [Display(Name = "Member Type")]
+        public string MemberType { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

@@ -12,9 +12,18 @@ using Team2LibraryProject_01.Models;
 
 namespace Team2LibraryProject_01.Controllers
 {
+    public static class Globals
+    {
+        public static int currentID;
+    }
+
     [Authorize]
     public class AccountController : Controller
     {
+
+
+        private Team2LibraryEntities db = new Team2LibraryEntities();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -79,7 +88,13 @@ namespace Team2LibraryProject_01.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                        var currentStateID = db.Database.SqlQuery<int>("SELECT CardNo FROM dbo.Member WHERE Email = {0} AND Password = {1}", model.Email, model.Password).Single();
+                        
+                        Globals.currentID = currentStateID;
+
+                        return RedirectToLocal(returnUrl);
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -151,17 +166,28 @@ namespace Team2LibraryProject_01.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, MemberType = model.MemberType};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    //Insert same values to Member relation
+                    Random rand = new Random();
+                    int memberID = rand.Next(0, 5000);
+
+                    var memberRegisterSQL = @"INSERT INTO dbo.Member VALUES ({0}, {1}, {2}, {3}, {4}, {5})";
+
+                    if (model.MemberType == "Student")
+                    {
+                        db.Database.ExecuteSqlCommand(memberRegisterSQL, memberID, 1, model.FirstName, model.LastName, model.Email, model.Password);
+                    }
+                    else if (model.MemberType == "Faculty")
+                    {
+                        db.Database.ExecuteSqlCommand(memberRegisterSQL, memberID, 2, model.FirstName, model.LastName, model.Email, model.Password);
+                    }
+
+                    Globals.currentID = memberID;
 
                     return RedirectToAction("Index", "Home");
                 }

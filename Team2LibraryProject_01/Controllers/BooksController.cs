@@ -28,6 +28,7 @@ namespace Team2LibraryProject_01.Controllers
 
             ISBN = book.ISBN;
             ViewBag.Title = book.Title;
+
             switch(ISBN)
             {
                 case "553593714":
@@ -163,7 +164,8 @@ namespace Team2LibraryProject_01.Controllers
             review.ISBN = ISBN;
 
             //Random function 
-            review.ReviewID = Guid.NewGuid().GetHashCode();     
+            review.ReviewID = Guid.NewGuid().GetHashCode();
+            review.CardNo = Globals.currentID;
 
             if (ModelState.IsValid)
             {
@@ -189,8 +191,7 @@ namespace Team2LibraryProject_01.Controllers
             var bookUpdateSQL = @"UPDATE dbo.Book SET Rating = {0} WHERE ISBN = {1}";
             db.Database.ExecuteSqlCommand(bookUpdateSQL, System.Math.Round(ratingAv, 2), ISBN);
 
-
-            return RedirectToAction("Books", "Home");
+            return RedirectToAction("BookDetails", new { id = ISBN });
         }
 
 

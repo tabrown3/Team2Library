@@ -19,6 +19,7 @@ namespace Team2LibraryProject_01.Models
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string MemberType { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

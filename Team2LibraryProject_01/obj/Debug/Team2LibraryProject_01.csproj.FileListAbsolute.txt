@@ -162,3 +162,9 @@ H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\bin\Microsoft.Owin.Se
 H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.dll
 H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.pdb
+H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.csprojResolveAssemblyReference.cache
+H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\RdlCompile.cache
+H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\RdlCompile.compiled
+H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.Migrations.InitialCreate.resources
+H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.csproj.GenerateResource.Cache
+H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.Migrations.MemberType.resources
