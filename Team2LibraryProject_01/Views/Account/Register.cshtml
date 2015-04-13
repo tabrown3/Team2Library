@@ -3,7 +3,12 @@
     ViewBag.Title = "Register";
 }
 
-<h2>@ViewBag.Title.</h2>
+<div class="jumbotron">
+    <div class="container">
+        <h1>Register</h1>
+        <p class="lead">Join as a member and receive benefits.</p>
+    </div>
+</div>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -32,7 +37,11 @@
         <div class="form-group">
         @Html.LabelFor(m => m.MemberType, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.MemberType, new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.MemberType, new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Student", Value = "Student", Selected = true},
+                    new SelectListItem { Text = "Faculty", Value = "Faculty"},
+                }, "Select Membership", new { style ="font-size: 18px" })
         </div>
     </div>
     <div class="form-group">

@@ -154,6 +154,10 @@ namespace Team2LibraryProject_01.Controllers
         //Book Reviews
         public ActionResult Reviews()
         {
+            BookDetailsView book = db.BookDetailsViews.Find(ISBN);
+
+            ViewBag.BookTitle = book.Title;
+
             return View();
         }
 
