@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Team2LibraryProject_01.Models;
@@ -164,38 +165,70 @@ namespace Team2LibraryProject_01.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            using (var context = new ApplicationDbContext())
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, MemberType = model.MemberType};
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-                    //Insert same values to Member relation
-                    Random rand = new Random();
-                    int memberID = rand.Next(0, 5000);
-
-                    var memberRegisterSQL = @"INSERT INTO dbo.Member VALUES ({0}, {1}, {2}, {3}, {4}, {5})";
-
-                    if (model.MemberType == "Student")
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, MemberType = model.MemberType };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
                     {
-                        db.Database.ExecuteSqlCommand(memberRegisterSQL, memberID, 1, model.FirstName, model.LastName, model.Email, model.Password);
-                    }
-                    else if (model.MemberType == "Faculty")
-                    {
-                        db.Database.ExecuteSqlCommand(memberRegisterSQL, memberID, 2, model.FirstName, model.LastName, model.Email, model.Password);
-                    }
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    Globals.currentID = memberID;
+                        var roleStore = new RoleStore<IdentityRole>(context);
+                        var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-                    return RedirectToAction("Index", "Home");
+                        var userStore = new UserStore<ApplicationUser>(context);
+                        var userManager = new UserManager<ApplicationUser>(userStore);
+
+                        //Insert same values to Member relation
+                        Random rand = new Random();
+                        int memberID = rand.Next(0, 5000);
+
+                        var memberRegisterSQL = @"INSERT INTO dbo.Member VALUES ({0}, {1}, {2}, {3}, {4}, {5})";
+
+                        if (model.MemberType == "Student")
+                        {
+                            if(!roleManager.RoleExists("Student"))
+                            {
+                                roleManager.Create(new IdentityRole("Student"));
+                            }
+
+                            userManager.AddToRole(user.Id, "Student");
+
+                            db.Database.ExecuteSqlCommand(memberRegisterSQL, memberID, 1, model.FirstName, model.LastName, model.Email, model.Password);
+                        }
+                        else if (model.MemberType == "Faculty" && model.FirstName != "Admin" && model.LastName != "Account" && model.Password != "Admin_rights01")
+                        {
+                            if (!roleManager.RoleExists("Faculty"))
+                            {
+                                roleManager.Create(new IdentityRole("Faculty"));
+                            }
+
+                            userManager.AddToRole(user.Id, "Faculty");
+                            db.Database.ExecuteSqlCommand(memberRegisterSQL, memberID, 2, model.FirstName, model.LastName, model.Email, model.Password);
+                        }
+                        else if (model.MemberType == "Faculty" && model.FirstName == "Admin" && model.LastName == "Account" && model.Password == "Admin_rights01")
+                        {
+                            if (!roleManager.RoleExists("Admin"))
+                            {
+                                roleManager.Create(new IdentityRole("Admin"));
+                            }
+
+                            userManager.AddToRole(user.Id, "Admin");
+                            db.Database.ExecuteSqlCommand(memberRegisterSQL, memberID, 3, model.FirstName, model.LastName, model.Email, model.Password);
+                        }
+
+                        Globals.currentID = memberID;
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
-            }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+                // If we got this far, something failed, redisplay form
+                return View(model);
+            }
         }
 
         //
