@@ -18,7 +18,27 @@ namespace Team2LibraryProject_01.Controllers
     public class MembersController : Controller
     {
         private Team2LibraryEntities db = new Team2LibraryEntities();
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
+        public MembersController()
+        {
+
+        }
+        public MembersController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+        }
         // GET: /Default1/
         public ActionResult MemberIndex()
         {
@@ -64,40 +84,7 @@ namespace Team2LibraryProject_01.Controllers
 
             ViewBag.RoleID = new SelectList(db.Roles, "RoleID", "Role1", member.RoleID);
             return View(member);
-        }
-
-        // GET: /Default1/Edit/5
-        public ActionResult EditMember(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Member member = db.Members.Find(id);
-            if (member == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.RoleID = new SelectList(db.Roles, "RoleID", "Role1", member.RoleID);
-            return View(member);
-        }
-
-        // POST: /Default1/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditMember([Bind(Include="CardNo,RoleID,FName,LName,Email,Password")] Member member)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(member).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("MemberIndex");
-            }
-            ViewBag.RoleID = new SelectList(db.Roles, "RoleID", "Role1", member.RoleID);
-            return View(member);
-        }
+        }      
 
         // GET: /Default1/Delete/5
         public ActionResult DeleteMember(int? id)
@@ -114,6 +101,7 @@ namespace Team2LibraryProject_01.Controllers
             return View(member);
         }
 
+
         // POST: /Default1/Delete/5
         [HttpPost, ActionName("DeleteMember")]
         [ValidateAntiForgeryToken]
@@ -121,8 +109,14 @@ namespace Team2LibraryProject_01.Controllers
         {
             Member member = db.Members.Find(id);
 
+            //Remove member from Library database
             db.Members.Remove(member);
             db.SaveChanges();
+
+            //Remove member from ASP.NET account database
+            var user = await UserManager.FindByEmailAsync(member.Email);
+            var deleteRole = UserManager.RemoveFromRole(user.Id, "Student");
+            var deleteMember = await UserManager.DeleteAsync(user);
 
             return RedirectToAction("MemberIndex");
         }
@@ -135,6 +129,7 @@ namespace Team2LibraryProject_01.Controllers
             }
             base.Dispose(disposing);
         }
+
 
     }
 }

@@ -41,10 +41,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GridMvc">
-      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
+      <HintPath>.\GridMvc.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\packages\iTextSharp.5.5.0\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.0\lib\itextsharp.xmlworker.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="MvcRazorToPdf">
+      <HintPath>..\packages\MvcRazorToPdf.1.0.2\lib\40\MvcRazorToPdf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -206,6 +215,9 @@
     <Compile Include="Models\Member.cs">
       <DependentUpon>Team2Library.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MemberReviewsView.cs">
+      <DependentUpon>Team2Library.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Reservation.cs">
       <DependentUpon>Team2Library.tt</DependentUpon>
     </Compile>
@@ -353,6 +365,8 @@
     <Content Include="Views\Books\BookCatalogReport.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\Reviews\ReviewReport.cshtml" />
+    <Content Include="Views\Shared\_PdfLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

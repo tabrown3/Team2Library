@@ -67,7 +67,7 @@
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="FName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="LName" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Email" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="16" Nullable="false" />
         </EntityType>
         <EntityType Name="Reservation">
@@ -103,6 +103,12 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookDetailsView' does not have a 
         <EntityType Name="BookDetailsView">
           <Key>
             <PropertyRef Name="ISBN" />
+            
+            
+            
+            
+            
+            
           </Key>
           <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Author_FName" Type="varchar" MaxLength="30" />
@@ -116,6 +122,27 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookDetailsView' does not have a 
           <Property Name="Rating" Type="real" />
           <Property Name="Synopsis" Type="text" />
           <Property Name="Shelf" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MemberReviewsView">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+            
+            
+            
+            
+            
+            
+          </Key>
+          <Property Name="ReviewID" Type="int" Nullable="false" />
+          <Property Name="FName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CardNo" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Rating" Type="real" Nullable="false" />
+          <Property Name="ReviewText" Type="text" />
         </EntityType>
         <Association Name="Genre_Book">
           <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
@@ -263,6 +290,18 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookDetailsView' does not have a 
     [BookDetailsView].[Shelf] AS [Shelf]
     FROM [dbo].[BookDetailsView] AS [BookDetailsView]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="MemberReviewsView" EntityType="Self.MemberReviewsView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MemberReviewsView].[ReviewID] AS [ReviewID], 
+    [MemberReviewsView].[FName] AS [FName], 
+    [MemberReviewsView].[LName] AS [LName], 
+    [MemberReviewsView].[CardNo] AS [CardNo], 
+    [MemberReviewsView].[Title] AS [Title], 
+    [MemberReviewsView].[ISBN] AS [ISBN], 
+    [MemberReviewsView].[Rating] AS [Rating], 
+    [MemberReviewsView].[ReviewText] AS [ReviewText]
+    FROM [dbo].[MemberReviewsView] AS [MemberReviewsView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="Genre_Book" Association="Self.Genre_Book">
             <End Role="Genre" EntitySet="Genre" />
             <End Role="Book" EntitySet="Book" />
@@ -381,7 +420,7 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookDetailsView' does not have a 
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="FName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Loans" Relationship="Self.Loan_Member" FromRole="Member" ToRole="Loan" />
           <NavigationProperty Name="Role" Relationship="Self.Member_Role" FromRole="Member" ToRole="Role" />
@@ -592,6 +631,7 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookDetailsView' does not have a 
             <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
           <EntitySet Name="BookDetailsViews" EntityType="Team2LibraryModel.BookDetailsView" />
+          <EntitySet Name="MemberReviewsViews" EntityType="Team2LibraryModel.MemberReviewsView" />
         </EntityContainer>
         <EntityType Name="BookDetailsView">
           <Key>
@@ -609,6 +649,19 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookDetailsView' does not have a 
           <Property Name="Rating" Type="Single" />
           <Property Name="Synopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Shelf" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberReviewsView">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="FName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CardNo" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ISBN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Rating" Type="Single" Nullable="false" />
+          <Property Name="ReviewText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewID" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -733,6 +786,20 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookDetailsView' does not have a 
                 <ScalarProperty Name="Author_LName" ColumnName="Author_LName" />
                 <ScalarProperty Name="Author_FName" ColumnName="Author_FName" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberReviewsViews">
+            <EntityTypeMapping TypeName="Team2LibraryModel.MemberReviewsView">
+              <MappingFragment StoreEntitySet="MemberReviewsView">
+                <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+                <ScalarProperty Name="ReviewText" ColumnName="ReviewText" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

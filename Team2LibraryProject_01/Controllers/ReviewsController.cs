@@ -14,6 +14,17 @@ namespace Team2LibraryProject_01.Controllers
     {
         private Team2LibraryEntities db = new Team2LibraryEntities();
 
+        //Review Report
+        public ActionResult ReviewReport()
+        {
+            if (User.IsInRole("Admin"))
+            {
+                return View(db.MemberReviewsViews.ToList());
+            }
+            else
+                return View("~/Views/Home/Index.cshtml");
+        }
+
         // GET: Reviews
         public ActionResult Index()
         {

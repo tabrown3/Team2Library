@@ -108,8 +108,6 @@ D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\bin\Microsoft.Owin.Se
 D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.Migrations.InitialCreate.resources
 D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.Migrations.MemberType.resources
 D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.csproj.GenerateResource.Cache
-D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\RdlCompile.cache
-D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\RdlCompile.compiled
 D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.dll
 D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.pdb
 H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\bin\Team2LibraryProject_01.dll.config
@@ -170,3 +168,9 @@ H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2Librar
 H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.csproj.GenerateResource.Cache
 H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.dll
 H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.pdb
+D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.csprojResolveAssemblyReference.cache
+D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\bin\GridMvc.dll
+D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\bin\itextsharp.dll
+D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\bin\itextsharp.xmlworker.dll
+D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\bin\MvcRazorToPdf.dll
+D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\bin\itextsharp.xml

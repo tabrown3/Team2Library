@@ -7,24 +7,10 @@
 <body>
     <div class="jumbotron">
         <div class="container">
-            <h1>Books</h1>
+            <h1>Book Catalog</h1>
             <p class="lead">Choose from our growing selection of books.</p>
         </div>
     </div>
-
-    @using (Html.BeginForm())
-    {
-        <p>
-            <h5>Filter By:
-            Genre: @Html.DropDownList("bookGenre", "All")
-            Publisher: @Html.DropDownList("bookPublisher", "All")
-            <input type="submit" value="Submit" /></h5>
-        </p>
-        <p>
-
-        </p>
-
-    }
 
     <br />
 

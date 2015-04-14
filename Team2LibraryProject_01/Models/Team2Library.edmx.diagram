@@ -25,6 +25,7 @@
         <AssociationConnector Association="Team2LibraryModel.Reservation_Member" ManuallyRouted="false" />
         <AssociationConnector Association="Team2LibraryModel.Review_Member" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Team2LibraryModel.BookDetailsView" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="Team2LibraryModel.MemberReviewsView" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

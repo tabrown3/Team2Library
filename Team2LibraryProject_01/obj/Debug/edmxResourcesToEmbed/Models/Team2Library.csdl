@@ -73,7 +73,7 @@
     <Property Name="RoleID" Type="Int32" Nullable="false" />
     <Property Name="FName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="LName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Loans" Relationship="Self.Loan_Member" FromRole="Member" ToRole="Loan" />
     <NavigationProperty Name="Role" Relationship="Self.Member_Role" FromRole="Member" ToRole="Role" />
@@ -284,6 +284,7 @@
       <End Role="Review" EntitySet="Reviews" />
     </AssociationSet>
     <EntitySet Name="BookDetailsViews" EntityType="Team2LibraryModel.BookDetailsView" />
+    <EntitySet Name="MemberReviewsViews" EntityType="Team2LibraryModel.MemberReviewsView" />
   </EntityContainer>
   <EntityType Name="BookDetailsView">
     <Key>
@@ -301,5 +302,18 @@
     <Property Name="Rating" Type="Single" />
     <Property Name="Synopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="Shelf" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MemberReviewsView">
+    <Key>
+      <PropertyRef Name="ReviewID" />
+    </Key>
+    <Property Name="FName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="LName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CardNo" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ISBN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Rating" Type="Single" Nullable="false" />
+    <Property Name="ReviewText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ReviewID" Type="Int32" Nullable="false" />
   </EntityType>
 </Schema>

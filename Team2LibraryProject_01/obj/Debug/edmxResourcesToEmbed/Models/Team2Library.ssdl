@@ -62,7 +62,7 @@
     <Property Name="RoleID" Type="int" Nullable="false" />
     <Property Name="FName" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="LName" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="Email" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="varchar" MaxLength="16" Nullable="false" />
   </EntityType>
   <EntityType Name="Reservation">
@@ -111,6 +111,21 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookDetailsView' does not have a 
     <Property Name="Rating" Type="real" />
     <Property Name="Synopsis" Type="text" />
     <Property Name="Shelf" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="MemberReviewsView">
+    <Key>
+      <PropertyRef Name="ReviewID" />
+    </Key>
+    <Property Name="ReviewID" Type="int" Nullable="false" />
+    <Property Name="FName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="LName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CardNo" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Rating" Type="real" Nullable="false" />
+    <Property Name="ReviewText" Type="text" />
   </EntityType>
   <Association Name="Genre_Book">
     <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
@@ -257,6 +272,18 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookDetailsView' does not have a 
     [BookDetailsView].[Synopsis] AS [Synopsis], 
     [BookDetailsView].[Shelf] AS [Shelf]
     FROM [dbo].[BookDetailsView] AS [BookDetailsView]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="MemberReviewsView" EntityType="Self.MemberReviewsView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [MemberReviewsView].[ReviewID] AS [ReviewID], 
+    [MemberReviewsView].[FName] AS [FName], 
+    [MemberReviewsView].[LName] AS [LName], 
+    [MemberReviewsView].[CardNo] AS [CardNo], 
+    [MemberReviewsView].[Title] AS [Title], 
+    [MemberReviewsView].[ISBN] AS [ISBN], 
+    [MemberReviewsView].[Rating] AS [Rating], 
+    [MemberReviewsView].[ReviewText] AS [ReviewText]
+    FROM [dbo].[MemberReviewsView] AS [MemberReviewsView]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="Genre_Book" Association="Self.Genre_Book">
       <End Role="Genre" EntitySet="Genre" />

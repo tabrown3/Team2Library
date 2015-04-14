@@ -9,10 +9,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FName)
+            User First Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LName)
+            User Last Name
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Password)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Role.Role1)
+            Role
         </th>
         <th></th>
     </tr>
@@ -44,7 +44,6 @@
             @Html.DisplayFor(modelItem => item.Role.Role1)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditMember", new { id=item.CardNo }) |
             @Html.ActionLink("Details", "Details", new { id=item.CardNo }) |
             @Html.ActionLink("Delete", "DeleteMember", new { id=item.CardNo })
         </td>

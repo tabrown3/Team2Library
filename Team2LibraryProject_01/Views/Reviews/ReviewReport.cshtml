@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Team2LibraryProject_01.Models.MemberReviewsView>
+
+@{
+    ViewBag.Title = "Review Report";
+}
+
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "Member Reviews Report";
+}
+
+<h2>Book Catalog Report</h2>
+
+<hr />
+<body>
+    @{
+        var grid = new WebGrid(source: Model, rowsPerPage: 20);
+    }
+
+    @Html.Grid(Model).Columns(columns =>
+        {
+            columns.Add(model => model.FName).Titled("User First Name");
+            columns.Add(model => model.LName).Titled("User Last Name");
+            columns.Add(model => model.CardNo).Titled("Card Number");
+            columns.Add(model => model.Title).Titled("Book Title");
+            columns.Add(model => model.Rating).Titled("Rating");
+            columns.Add(model => model.ReviewText).Titled("Review Text");
+        }).WithPaging(10).Sortable(true).Filterable(true)
+</body>
+
+

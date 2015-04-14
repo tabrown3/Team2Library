@@ -108,15 +108,23 @@ namespace Team2LibraryProject_01.Controllers
         }
 
         //Book Search
-        public ActionResult BookSearch(string bookGenre, string searchString)
+        public ActionResult BookSearch(string bookGenre, string searchString, string bookPublisher)
         {
             var genreList = new List<string>();
             var genreQuery = from g in db.Genres
                              orderby g.Genre1
                              select g.Genre1;
 
+            var publisherList = new List<string>();
+            var publisherQuery = from p in db.Books
+                                 orderby p.Publisher
+                                 select p.Publisher;
+
             genreList.AddRange(genreQuery.Distinct());
             ViewBag.bookGenre = new SelectList(genreList);
+
+            publisherList.AddRange(publisherQuery.Distinct());
+            ViewBag.bookPublisher = new SelectList(publisherList);
 
             var books = from b in db.Books
                         select b;
@@ -124,6 +132,10 @@ namespace Team2LibraryProject_01.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 books = books.Where(s => s.Title.Contains(searchString));
+            }
+            if (!string.IsNullOrEmpty(bookPublisher))
+            {
+                books = books.Where(x => x.Publisher == bookPublisher);
             }
             if (!string.IsNullOrEmpty(bookGenre))
             {

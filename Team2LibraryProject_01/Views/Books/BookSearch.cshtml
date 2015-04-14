@@ -16,13 +16,13 @@
         @using (Html.BeginForm())
         {
             <p>
-                <h4>Search Title: @Html.TextBox("SearchString")</h4>
-            </p>
-            <p>
-                <h4>Search Genre: @Html.DropDownList("bookGenre", "All")</h4>
-            </p>
-            <p>
-                <h4><input type="submit" value="Search" /></h4>
+                <h5>Search By
+
+                Title: @Html.TextBox("SearchString")
+                Genre: @Html.DropDownList("bookGenre", "All")
+                Publisher: @Html.DropDownList("bookPublisher", "All")
+
+                <input type="submit" value="Search" /></h5>
             </p>
         }
 
