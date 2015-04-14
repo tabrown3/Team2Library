@@ -3,5 +3,41 @@
     ViewBag.Title = "Admin";
 }
 
-<h2>Admin</h2>
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Admin Area</h1>
+            <p class="lead">Welcome to the control center.</p>
+        </div>
+    </div>
+    <hr />
 
+    <h3>Account Controls</h3>
+    <p>Manage user accounts, including deletion and update of members.</p>
+
+    <br />
+
+    <p>@Html.ActionLink("Access the member list", "MemberIndex", "Members")</p>
+
+    <hr />
+
+    <h3>Inventory Controls</h3>
+    <p>Manage the library inventory for addition or removal of books on offer.</p>
+
+    <br />
+
+    @Html.ActionLink("Access the inventory", "InventoryIndex", "Inventories")
+    <hr />
+
+    <h3>Report Generation</h3>
+    <p>View database statistics and save them as reports.</p>
+
+    <br />
+
+    <p>@Html.ActionLink("View Inventory", "InventoryIndex", "Inventories")</p>
+    <p>@Html.ActionLink("View Members", "MemberIndex", "Members")</p>
+    <p>@Html.ActionLink("View Loans", "LoanIndex", "Loans")</p>
+    <p>@Html.ActionLink("View Reservations", "ReservationIndex", "Reservations")</p>
+    <p>@Html.ActionLink("View Reviews", "ReviewIndex", "Reviews")</p>
+    <hr />
+</body>

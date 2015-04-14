@@ -90,10 +90,12 @@ namespace Team2LibraryProject_01.Controllers
             {
                 case SignInStatus.Success:
                     {
-                        var currentStateID = db.Database.SqlQuery<int>("SELECT CardNo FROM dbo.Member WHERE Email = {0} AND Password = {1}", model.Email, model.Password).Single();
-                        
-                        Globals.currentID = currentStateID;
+                        if (model.Password != "Admin_rights01")
+                        {
+                            var currentStateID = db.Database.SqlQuery<int>("SELECT CardNo FROM dbo.Member WHERE Email = {0} AND Password = {1}", model.Email, model.Password).Single();
 
+                            Globals.currentID = currentStateID;
+                        }
                         return RedirectToLocal(returnUrl);
                     }
                 case SignInStatus.LockedOut:
@@ -198,7 +200,7 @@ namespace Team2LibraryProject_01.Controllers
 
                             db.Database.ExecuteSqlCommand(memberRegisterSQL, memberID, 1, model.FirstName, model.LastName, model.Email, model.Password);
                         }
-                        else if (model.MemberType == "Faculty" && model.FirstName != "Admin" && model.LastName != "Account" && model.Password != "Admin_rights01")
+                        else if (model.MemberType == "Faculty")
                         {
                             if (!roleManager.RoleExists("Faculty"))
                             {
@@ -207,16 +209,6 @@ namespace Team2LibraryProject_01.Controllers
 
                             userManager.AddToRole(user.Id, "Faculty");
                             db.Database.ExecuteSqlCommand(memberRegisterSQL, memberID, 2, model.FirstName, model.LastName, model.Email, model.Password);
-                        }
-                        else if (model.MemberType == "Faculty" && model.FirstName == "Admin" && model.LastName == "Account" && model.Password == "Admin_rights01")
-                        {
-                            if (!roleManager.RoleExists("Admin"))
-                            {
-                                roleManager.Create(new IdentityRole("Admin"));
-                            }
-
-                            userManager.AddToRole(user.Id, "Admin");
-                            db.Database.ExecuteSqlCommand(memberRegisterSQL, memberID, 3, model.FirstName, model.LastName, model.Email, model.Password);
                         }
 
                         Globals.currentID = memberID;

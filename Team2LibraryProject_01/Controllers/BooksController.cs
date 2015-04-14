@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Helpers;
 using Team2LibraryProject_01.Models;
 
 namespace Team2LibraryProject_01.Controllers
@@ -16,6 +17,16 @@ namespace Team2LibraryProject_01.Controllers
 
         static string ISBN = null;
 
+        //Book Report
+        public ActionResult BookCatalogReport()
+        {
+            if (User.IsInRole("Admin"))
+            {
+                return View(db.BookDetailsViews.ToList());
+            }
+            else
+                return View("~/Views/Home/Index.cshtml");
+        }
         //Books In Catalog
         [HttpGet]
         public ActionResult BookDetails(string id)
@@ -154,10 +165,21 @@ namespace Team2LibraryProject_01.Controllers
         //Book Reviews
         public ActionResult Reviews()
         {
-            BookDetailsView book = db.BookDetailsViews.Find(ISBN);
+            if (User.IsInRole("Student") || User.IsInRole("Faculty") || User.IsInRole("Admin"))
+            {
+                BookDetailsView book = db.BookDetailsViews.Find(ISBN);
 
-            ViewBag.BookTitle = book.Title;
+                ViewBag.BookTitle = book.Title;
 
+                return View();
+            }
+            else
+                return View("LoginError");
+        }
+
+        //Login Error
+        public ActionResult LoginError()
+        {
             return View();
         }
 

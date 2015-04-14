@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Team2LibraryProject_01.Models.BookDetailsView>
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "Book Catalog Report";
+}
+
+<h2>Book Catalog Report</h2>
+
+<hr />
+<body>
+        @{
+            var grid = new WebGrid(source: Model, rowsPerPage: 20);
+        }
+
+        @Html.Grid(Model).Columns(columns =>
+        {
+            columns.Add(model => model.ISBN).Titled("ISBN");
+            columns.Add(model => model.Title).Titled("Title");
+            columns.Add(model => model.Author_FName).Titled("Author First Name");
+            columns.Add(model => model.Author_LName).Titled("Author Last Name");
+            columns.Add(model => model.Publisher).Titled("Publisher");
+            columns.Add(model => model.Year).Titled("Year");
+            columns.Add(model => model.Genre).Titled("Genre");
+            columns.Add(model => model.Language).Titled("Language");
+            columns.Add(model => model.NumOfPages).Titled("Number of Pages");
+            columns.Add(model => model.Shelf).Titled("Shelf");
+        }).WithPaging(10).Sortable(true).Filterable(true)
+
+</body>

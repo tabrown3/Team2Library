@@ -14,7 +14,10 @@ namespace Team2LibraryProject_01.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            if (User.IsInRole("Admin"))
+                return View("Admin");
+            else
+                return View();
         }
 
         public ActionResult About()
@@ -95,12 +98,5 @@ namespace Team2LibraryProject_01.Controllers
             return View(books);
         }
 
-        public ActionResult Admin()
-        {
-            if (Request.IsAuthenticated)
-                return new RedirectResult("Index");
-            else
-                return View();
-        }
     }
 }            

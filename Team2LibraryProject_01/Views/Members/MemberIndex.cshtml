@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Team2LibraryProject_01.Models.Member>
+
+@{
+    ViewBag.Title = "Member Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role.Role1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Role.Role1)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditMember", new { id=item.CardNo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CardNo }) |
+            @Html.ActionLink("Delete", "DeleteMember", new { id=item.CardNo })
+        </td>
+    </tr>
+}
+
+</table>
