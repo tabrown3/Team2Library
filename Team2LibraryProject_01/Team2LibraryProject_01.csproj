@@ -215,6 +215,9 @@
     <Compile Include="Models\Member.cs">
       <DependentUpon>Team2Library.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MemberLoansView.cs">
+      <DependentUpon>Team2Library.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MemberReviewsView.cs">
       <DependentUpon>Team2Library.tt</DependentUpon>
     </Compile>

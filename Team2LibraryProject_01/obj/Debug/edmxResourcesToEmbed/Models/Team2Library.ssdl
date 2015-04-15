@@ -113,6 +113,25 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookDetailsView' does not have a 
     <Property Name="Shelf" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
+warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberLoansView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="MemberLoansView">
+    <Key>
+      <PropertyRef Name="LoanID" />
+    </Key>
+    <Property Name="LoanID" Type="int" Nullable="false" />
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CardNo" Type="int" Nullable="false" />
+    <Property Name="FName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="LName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CheckOutDate" Type="date" Nullable="false" />
+    <Property Name="DueDate" Type="date" Nullable="false" />
+    <Property Name="ReturnDate" Type="date" />
+    <Property Name="Fines" Type="real" Nullable="false" />
+    <Property Name="FinesPaid" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
 warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="MemberReviewsView">
     <Key>
@@ -140,7 +159,9 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
     </ReferentialConstraint>
   </Association>
   <Association Name="Inventory_Book">
-    <End Role="Book" Type="Self.Book" Multiplicity="1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Book">
@@ -164,7 +185,9 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
     </ReferentialConstraint>
   </Association>
   <Association Name="Loan_Inventory">
-    <End Role="Inventory" Type="Self.Inventory" Multiplicity="1" />
+    <End Role="Inventory" Type="Self.Inventory" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Inventory">
@@ -176,7 +199,9 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
     </ReferentialConstraint>
   </Association>
   <Association Name="Loan_Member">
-    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Member" Type="Self.Member" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Member">
@@ -200,7 +225,9 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
     </ReferentialConstraint>
   </Association>
   <Association Name="Reservation_Book">
-    <End Role="Book" Type="Self.Book" Multiplicity="1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Book">
@@ -212,7 +239,9 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
     </ReferentialConstraint>
   </Association>
   <Association Name="Reservation_Member">
-    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Member" Type="Self.Member" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Member">
@@ -236,7 +265,9 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
     </ReferentialConstraint>
   </Association>
   <Association Name="Review_Member">
-    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Member" Type="Self.Member" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Review" Type="Self.Review" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Member">
@@ -272,6 +303,22 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
     [BookDetailsView].[Synopsis] AS [Synopsis], 
     [BookDetailsView].[Shelf] AS [Shelf]
     FROM [dbo].[BookDetailsView] AS [BookDetailsView]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="MemberLoansView" EntityType="Self.MemberLoansView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [MemberLoansView].[LoanID] AS [LoanID], 
+    [MemberLoansView].[ItemID] AS [ItemID], 
+    [MemberLoansView].[Title] AS [Title], 
+    [MemberLoansView].[ISBN] AS [ISBN], 
+    [MemberLoansView].[CardNo] AS [CardNo], 
+    [MemberLoansView].[FName] AS [FName], 
+    [MemberLoansView].[LName] AS [LName], 
+    [MemberLoansView].[CheckOutDate] AS [CheckOutDate], 
+    [MemberLoansView].[DueDate] AS [DueDate], 
+    [MemberLoansView].[ReturnDate] AS [ReturnDate], 
+    [MemberLoansView].[Fines] AS [Fines], 
+    [MemberLoansView].[FinesPaid] AS [FinesPaid]
+    FROM [dbo].[MemberLoansView] AS [MemberLoansView]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="MemberReviewsView" EntityType="Self.MemberReviewsView" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
