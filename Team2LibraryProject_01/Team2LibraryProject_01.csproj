@@ -175,6 +175,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\InventoriesController.cs" />
+    <Compile Include="Controllers\LoansController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -198,6 +199,9 @@
     <Compile Include="Models\BookDetailsView.cs">
       <DependentUpon>Team2Library.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookInventoryView.cs">
+      <DependentUpon>Team2Library.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Genre.cs">
       <DependentUpon>Team2Library.tt</DependentUpon>
     </Compile>
@@ -219,6 +223,9 @@
       <DependentUpon>Team2Library.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MemberReviewsView.cs">
+      <DependentUpon>Team2Library.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RentsView.cs">
       <DependentUpon>Team2Library.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Reservation.cs">
@@ -388,6 +395,12 @@
     <Content Include="Views\Inventories\EditInventoryItem.cshtml" />
     <Content Include="Views\Inventories\InventoryIndex.cshtml" />
     <Content Include="Views\Books\DuplicateReviewError.cshtml" />
+    <Content Include="Views\Loans\Create.cshtml" />
+    <Content Include="Views\Loans\Delete.cshtml" />
+    <Content Include="Views\Loans\Details.cshtml" />
+    <Content Include="Views\Loans\Edit.cshtml" />
+    <Content Include="Views\Loans\Index.cshtml" />
+    <Content Include="Views\Books\LoanConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

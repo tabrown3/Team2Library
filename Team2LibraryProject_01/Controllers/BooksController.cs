@@ -200,18 +200,6 @@ namespace Team2LibraryProject_01.Controllers
                 return View("LoginError");
         }
 
-        //Login Error
-        public ActionResult LoginError()
-        {
-            return View();
-        }
-        
-        //Duplicate Review Error
-        public ActionResult DuplicateReviewError()
-        {
-            return View();
-        }
-
         [HttpPost]
         public ActionResult Reviews([Bind(Include = "ReviewID,CardNo,Rating,ReviewText,ISBN")] Review review)
         {
@@ -249,6 +237,46 @@ namespace Team2LibraryProject_01.Controllers
             return RedirectToAction("BookDetails", new { id = ISBN });
         }
 
+        //Login Error
+        public ActionResult LoginError()
+        {
+            return View();
+        }
+        
+        //Duplicate Review Error
+        public ActionResult DuplicateReviewError()
+        {
+            return View();
+        }
+
+        //Loan Confirmation Page
+        public ActionResult LoanConfirmation(string id)
+        {
+            if (User.IsInRole("Admin"))
+            {
+                //List all books in inventory with the same ISBN as the selected book
+                var bookToLoan = db.Inventories.Where(x => x.ISBN == id);
+                
+                BookInventoryView bookInfo = db.BookInventoryViews.Where(x => x.ISBN == id).FirstOrDefault();
+
+                ViewBag.Author = bookInfo.Author_FName + " " + bookInfo.Author_LName;
+                ViewBag.BookTitle = bookInfo.Title;
+                ViewBag.Publisher = bookInfo.Publisher;
+
+                ViewBag.ItemID = new SelectList(db.Inventories.Where(x => x.ISBN == id), "ItemID", "ItemID");
+                ViewBag.CardNo = new SelectList(db.Members, "CardNo", "CardNo");
+
+                if (ViewBag == null)
+                {
+                    //Return error of no inventory for the book
+                    return HttpNotFound();
+                }
+
+                return View(bookToLoan);
+            }
+            else
+                return View("LoginError");
+        }
 
         // GET: Books
         public ActionResult BookIndex()

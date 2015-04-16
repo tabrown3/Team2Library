@@ -97,11 +97,13 @@
     <p>
         @Html.ActionLink("Review this book", "Reviews")
     </p>
-    <p>
-        @Html.ActionLink("Rent this book", "Loans")
-    </p>
+    @if(User.IsInRole("Admin"))
+    { 
+        <p>
+            @Html.ActionLink("Rent this book", "LoanConfirmation", new { id = Model.ISBN })
+        </p>
+    }
     <p>
         @Html.ActionLink("Back to List", "Books", "Home")
     </p>
-
 </body>

@@ -286,6 +286,8 @@
     <EntitySet Name="BookDetailsViews" EntityType="Team2LibraryModel.BookDetailsView" />
     <EntitySet Name="MemberReviewsViews" EntityType="Team2LibraryModel.MemberReviewsView" />
     <EntitySet Name="MemberLoansViews" EntityType="Team2LibraryModel.MemberLoansView" />
+    <EntitySet Name="RentsViews" EntityType="Team2LibraryModel.RentsView" />
+    <EntitySet Name="BookInventoryViews" EntityType="Team2LibraryModel.BookInventoryView" />
   </EntityContainer>
   <EntityType Name="BookDetailsView">
     <Key>
@@ -333,5 +335,30 @@
     <Property Name="ReturnDate" Type="DateTime" Precision="0" />
     <Property Name="Fines" Type="Single" Nullable="false" />
     <Property Name="FinesPaid" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RentsView">
+    <Key>
+      <PropertyRef Name="LoanID" />
+    </Key>
+    <Property Name="LoanID" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ISBN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ItemID" Type="Int32" Nullable="false" />
+    <Property Name="ItemPrice" Type="Single" Nullable="false" />
+    <Property Name="Author_FName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Author_LName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Publisher" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="BookInventoryView">
+    <Key>
+      <PropertyRef Name="ISBN" />
+    </Key>
+    <Property Name="ItemID" Type="Int32" Nullable="false" />
+    <Property Name="ISBN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Author_FName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Author_LName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Publisher" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ItemPrice" Type="Single" Nullable="false" />
   </EntityType>
 </Schema>

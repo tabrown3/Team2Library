@@ -37,5 +37,7 @@ namespace Team2LibraryProject_01.Models
         public virtual DbSet<BookDetailsView> BookDetailsViews { get; set; }
         public virtual DbSet<MemberReviewsView> MemberReviewsViews { get; set; }
         public virtual DbSet<MemberLoansView> MemberLoansViews { get; set; }
+        public virtual DbSet<RentsView> RentsViews { get; set; }
+        public virtual DbSet<BookInventoryView> BookInventoryViews { get; set; }
     }
 }

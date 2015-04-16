@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Team2LibraryProject_01.Models.Inventory>
+
+@{
+    ViewBag.Title = "Loan Confirmation";
+}
+
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>Loan</h1>
+        <p class="lead">Check out and enjoy the read.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Confirm Rent</h3>
+        <p>Please make sure that the book to be loaned is correct.</p>
+        <p>If you are sure, please select from any of the available books in the inventory below.</p>
+        <p>Finally, enter the member's card number to successfully complete the checkout.</p>
+        <br />
+        <hr />
+    </div>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                Title:
+            </dt>
+                
+            <dd>
+                @ViewBag.BookTitle
+            </dd>
+
+            <dt>
+                Author:
+            </dt>
+
+            <dd>
+                @ViewBag.Author
+            </dd>
+
+            <dt>
+                Publisher:
+            </dt>
+
+            <dd>
+                @ViewBag.Publisher
+            </dd>
+
+            </dl>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Available Books in Inventory</h4>
+            <table class="table">
+                <tr>
+                    <th>
+                        Item ID
+                    </th>
+                    <th>
+                        Item Price
+                    </th>
+                    <th>
+                        Date Added
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateAdded)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="col-md-5">
+
+
+            @using (Html.BeginForm())
+            {
+                <h4>Select Book Item to Check Out</h4>
+                <p>
+                    @Html.DropDownList("ItemID", null, htmlAttributes: new { @class = "form-control" })
+                </p>
+                <br />
+                <h4>Select Member Card Number to tie this Loan</h4>
+                <p>
+                    @Html.DropDownList("CardNo", null, htmlAttributes: new { @class = "form-control" })
+                </p>
+                <br />
+                <h4><input type="submit" value="Search" /></h4>
+            }
+        </div>
+    </div>
+</div>

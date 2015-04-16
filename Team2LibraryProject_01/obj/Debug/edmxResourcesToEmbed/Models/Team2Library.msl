@@ -153,5 +153,32 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="RentsViews">
+      <EntityTypeMapping TypeName="Team2LibraryModel.RentsView">
+        <MappingFragment StoreEntitySet="RentsView">
+          <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+          <ScalarProperty Name="Author_LName" ColumnName="Author_LName" />
+          <ScalarProperty Name="Author_FName" ColumnName="Author_FName" />
+          <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="LoanID" ColumnName="LoanID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookInventoryViews">
+      <EntityTypeMapping TypeName="Team2LibraryModel.BookInventoryView">
+        <MappingFragment StoreEntitySet="BookInventoryView">
+          <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
+          <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+          <ScalarProperty Name="Author_LName" ColumnName="Author_LName" />
+          <ScalarProperty Name="Author_FName" ColumnName="Author_FName" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -36,65 +36,10 @@ namespace Team2LibraryProject_01.Controllers
 
         public ActionResult Books(string bookGenre, string bookPublisher)
         {
-
-            //Catalog Filter
-            var genreList = new List<string>();
-            var genreQuery = from g in db.Genres
-                             orderby g.Genre1
-                             select g.Genre1;
-
-            var publisherList = new List<string>();
-            var publisherQuery = from p in db.Books
-                                 orderby p.Publisher
-                                 select p.Publisher;
-
-            genreList.AddRange(genreQuery.Distinct());
-            publisherList.AddRange(publisherQuery.Distinct());
-
-            ViewBag.bookGenre = new SelectList(genreList);
-            ViewBag.bookPublisher = new SelectList(publisherList);
-
             var books = from b in db.Books
                         select b;
 
-            if (!string.IsNullOrEmpty(bookGenre))
-            {
-                switch (bookGenre)
-                {
-                    case "Nonfiction":
-                        books = books.Where(x => x.Genre == 1);
-                        break;
-                    case "Fiction":
-                        books = books.Where(x => x.Genre == 2);
-                        break;
-                    case "Fantasy":
-                        books = books.Where(x => x.Genre == 3);
-                        break;
-                    case "Thriller":
-                        books = books.Where(x => x.Genre == 4);
-                        break;
-                    case "Short Story":
-                        books = books.Where(x => x.Genre == 5);
-                        break;
-                    case "Tragedy":
-                        books = books.Where(x => x.Genre == 6);
-                        break;
-                    case "Science Fiction":
-                        books = books.Where(x => x.Genre == 7);
-                        break;
-                    case "Philosophy":
-                        books = books.Where(x => x.Genre == 8);
-                        break;
-                    case "Reference":
-                        books = books.Where(x => x.Genre == 9);
-                        break;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(bookPublisher))
-            {
-                books = books.Where(x => x.Publisher == bookPublisher);
-            }
+           
             return View(books);
         }
 

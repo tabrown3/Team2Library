@@ -124,6 +124,23 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookDetailsView' does not have a 
           <Property Name="Shelf" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookInventoryView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BookInventoryView">
+          <Key>
+            
+            <PropertyRef Name="ISBN" />
+            
+            
+          </Key>
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Author_FName" Type="varchar" MaxLength="30" />
+          <Property Name="Author_LName" Type="varchar" MaxLength="30" />
+          <Property Name="Publisher" Type="varchar" MaxLength="30" />
+          <Property Name="ItemPrice" Type="real" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberLoansView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MemberLoansView">
           <Key>
@@ -172,6 +189,25 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
           <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Rating" Type="real" Nullable="false" />
           <Property Name="ReviewText" Type="text" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TEAM2LIBRARY.dbo.RentsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RentsView">
+          <Key>
+            <PropertyRef Name="LoanID" />
+            
+            
+            
+            
+          </Key>
+          <Property Name="LoanID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="ItemPrice" Type="real" Nullable="false" />
+          <Property Name="Author_FName" Type="varchar" MaxLength="30" />
+          <Property Name="Author_LName" Type="varchar" MaxLength="30" />
+          <Property Name="Publisher" Type="varchar" MaxLength="30" />
         </EntityType>
         <Association Name="Genre_Book">
           <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
@@ -331,6 +367,17 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
     [BookDetailsView].[Shelf] AS [Shelf]
     FROM [dbo].[BookDetailsView] AS [BookDetailsView]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="BookInventoryView" EntityType="Self.BookInventoryView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BookInventoryView].[ItemID] AS [ItemID], 
+    [BookInventoryView].[ISBN] AS [ISBN], 
+    [BookInventoryView].[Title] AS [Title], 
+    [BookInventoryView].[Author_FName] AS [Author_FName], 
+    [BookInventoryView].[Author_LName] AS [Author_LName], 
+    [BookInventoryView].[Publisher] AS [Publisher], 
+    [BookInventoryView].[ItemPrice] AS [ItemPrice]
+    FROM [dbo].[BookInventoryView] AS [BookInventoryView]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="MemberLoansView" EntityType="Self.MemberLoansView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [MemberLoansView].[LoanID] AS [LoanID], 
@@ -358,6 +405,18 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
     [MemberReviewsView].[Rating] AS [Rating], 
     [MemberReviewsView].[ReviewText] AS [ReviewText]
     FROM [dbo].[MemberReviewsView] AS [MemberReviewsView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RentsView" EntityType="Self.RentsView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RentsView].[LoanID] AS [LoanID], 
+    [RentsView].[Title] AS [Title], 
+    [RentsView].[ISBN] AS [ISBN], 
+    [RentsView].[ItemID] AS [ItemID], 
+    [RentsView].[ItemPrice] AS [ItemPrice], 
+    [RentsView].[Author_FName] AS [Author_FName], 
+    [RentsView].[Author_LName] AS [Author_LName], 
+    [RentsView].[Publisher] AS [Publisher]
+    FROM [dbo].[RentsView] AS [RentsView]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="Genre_Book" Association="Self.Genre_Book">
             <End Role="Genre" EntitySet="Genre" />
@@ -690,6 +749,8 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
           <EntitySet Name="BookDetailsViews" EntityType="Team2LibraryModel.BookDetailsView" />
           <EntitySet Name="MemberReviewsViews" EntityType="Team2LibraryModel.MemberReviewsView" />
           <EntitySet Name="MemberLoansViews" EntityType="Team2LibraryModel.MemberLoansView" />
+          <EntitySet Name="RentsViews" EntityType="Team2LibraryModel.RentsView" />
+          <EntitySet Name="BookInventoryViews" EntityType="Team2LibraryModel.BookInventoryView" />
         </EntityContainer>
         <EntityType Name="BookDetailsView">
           <Key>
@@ -737,6 +798,31 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
           <Property Name="ReturnDate" Type="DateTime" Precision="0" />
           <Property Name="Fines" Type="Single" Nullable="false" />
           <Property Name="FinesPaid" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RentsView">
+          <Key>
+            <PropertyRef Name="LoanID" />
+          </Key>
+          <Property Name="LoanID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ISBN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="ItemPrice" Type="Single" Nullable="false" />
+          <Property Name="Author_FName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Author_LName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Publisher" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BookInventoryView">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="ISBN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Author_FName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Author_LName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Publisher" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ItemPrice" Type="Single" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -893,6 +979,33 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberReviewsView' does not have 
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="LoanID" ColumnName="LoanID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RentsViews">
+            <EntityTypeMapping TypeName="Team2LibraryModel.RentsView">
+              <MappingFragment StoreEntitySet="RentsView">
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="Author_LName" ColumnName="Author_LName" />
+                <ScalarProperty Name="Author_FName" ColumnName="Author_FName" />
+                <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="LoanID" ColumnName="LoanID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookInventoryViews">
+            <EntityTypeMapping TypeName="Team2LibraryModel.BookInventoryView">
+              <MappingFragment StoreEntitySet="BookInventoryView">
+                <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="Author_LName" ColumnName="Author_LName" />
+                <ScalarProperty Name="Author_FName" ColumnName="Author_FName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
