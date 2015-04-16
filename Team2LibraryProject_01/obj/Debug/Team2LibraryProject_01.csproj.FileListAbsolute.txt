@@ -237,3 +237,4 @@ D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2Librar
 D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.dll
 D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.pdb
 H:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.csprojResolveAssemblyReference.cache
+D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.csprojResolveAssemblyReference.cache
