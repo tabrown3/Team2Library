@@ -376,6 +376,7 @@
     <Content Include="Views\Inventories\InventoryItemDetails.cshtml" />
     <Content Include="Views\Inventories\EditInventoryItem.cshtml" />
     <Content Include="Views\Inventories\InventoryIndex.cshtml" />
+    <Content Include="Views\Books\DuplicateReviewError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

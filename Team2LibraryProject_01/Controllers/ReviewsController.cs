@@ -111,34 +111,35 @@ namespace Team2LibraryProject_01.Controllers
                 review.ISBN = currentISBN;
                 db.Entry(review).State = EntityState.Modified;
                 db.SaveChanges();
+
+                //Pulling all reviews related to the book
+                var ratings = db.Database.SqlQuery<Single>("SELECT Rating FROM dbo.Review WHERE ISBN = {0}", currentISBN).ToArray();
+
+                float sum = 0;
+                float ratingAv = 0;
+
+                //Average the review
+                for (int i = 0; i < ratings.Length; i++)
+                {
+                    sum = sum + ratings[i];
+                }
+
+                ratingAv = sum / ratings.Length;
+
+                //Directly update table values
+                var bookUpdateSQL = @"UPDATE dbo.Book SET Rating = {0} WHERE ISBN = {1}";
+                db.Database.ExecuteSqlCommand(bookUpdateSQL, System.Math.Round(ratingAv, 2), currentISBN);
+
                 return RedirectToAction("Index", "Manage");
             }
             ViewBag.ISBN = new SelectList(db.Books, "ISBN", "Author_FName", review.ISBN);
             ViewBag.CardNo = new SelectList(db.Members, "CardNo", "FName", review.CardNo);
 
-            //Pulling all reviews related to the book
-            var ratings = db.Database.SqlQuery<Single>("SELECT Rating FROM dbo.Review WHERE ISBN = {0}", currentISBN).ToArray();
-
-            float sum = 0;
-            float ratingAv = 0;
-
-            //Average the review
-            for (int i = 0; i < ratings.Length; i++)
-            {
-                sum = sum + ratings[i];
-            }
-
-            ratingAv = sum / ratings.Length;
-
-            //Directly update table values
-            var bookUpdateSQL = @"UPDATE dbo.Book SET Rating = {0} WHERE ISBN = {1}";
-            db.Database.ExecuteSqlCommand(bookUpdateSQL, System.Math.Round(ratingAv, 2), currentISBN);
-
             return View(review);
         }
 
         // GET: Reviews/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult DeleteReview(int? id)
         {
             if (id == null)
             {
@@ -177,7 +178,14 @@ namespace Team2LibraryProject_01.Controllers
 
             //Directly update table values
             var bookUpdateSQL = @"UPDATE dbo.Book SET Rating = {0} WHERE ISBN = {1}";
-            db.Database.ExecuteSqlCommand(bookUpdateSQL, System.Math.Round(ratingAv, 2), currentISBN);
+            if ((int)sum == 0)
+            {
+                db.Database.ExecuteSqlCommand(bookUpdateSQL, 0, currentISBN);
+            }
+            else
+            {
+                db.Database.ExecuteSqlCommand(bookUpdateSQL, System.Math.Round(ratingAv, 2), currentISBN);
+            }
 
             return RedirectToAction("Index", "Manage");
         }

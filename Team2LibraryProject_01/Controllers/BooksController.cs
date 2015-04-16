@@ -179,11 +179,22 @@ namespace Team2LibraryProject_01.Controllers
         {
             if (User.IsInRole("Student") || User.IsInRole("Faculty") || User.IsInRole("Admin"))
             {
-                BookDetailsView book = db.BookDetailsViews.Find(ISBN);
+                //Check if user already reviewed the book
+                var alreadyReviewed = (from r in db.Reviews
+                                       where r.Member.CardNo == Globals.currentID && r.ISBN == ISBN
+                                       select r.Member.Email).ToList();
 
-                ViewBag.BookTitle = book.Title;
+                if(alreadyReviewed.Count != 0)
+                {
+                    return View("DuplicateReviewError");
+                }
+                else
+                {
+                    BookDetailsView book = db.BookDetailsViews.Find(ISBN);
 
-                return View();
+                    ViewBag.BookTitle = book.Title;
+                    return View();
+                }
             }
             else
                 return View("LoginError");
@@ -191,6 +202,12 @@ namespace Team2LibraryProject_01.Controllers
 
         //Login Error
         public ActionResult LoginError()
+        {
+            return View();
+        }
+        
+        //Duplicate Review Error
+        public ActionResult DuplicateReviewError()
         {
             return View();
         }
