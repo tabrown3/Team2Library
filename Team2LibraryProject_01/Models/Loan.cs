@@ -6,25 +6,42 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 
 namespace Team2LibraryProject_01.Models
 {
-    using System;
     using System.Collections.Generic;
     
-    public partial class Loan
+    public class Loan
     {
         public int LoanID { get; set; }
         public int ItemID { get; set; }
         public int CardNo { get; set; }
         public string Title { get; set; }
+
+        [Display(Name = "Check Out Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public System.DateTime CheckOutDate { get; set; }
+        [Display(Name = "Due Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public System.DateTime DueDate { get; set; }
+        [Display(Name = "Return Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> ReturnDate { get; set; }
         public float Fines { get; set; }
         public bool FinesPaid { get; set; }
     
         public virtual Inventory Inventory { get; set; }
         public virtual Member Member { get; set; }
+    }
+
+    public class LoanDBContext : DbContext
+    {
+        public DbSet<Loan> Loans { get; set; }
     }
 }
