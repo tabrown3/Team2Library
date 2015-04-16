@@ -234,7 +234,7 @@ namespace Team2LibraryProject_01.Controllers
 
 
         // GET: Books
-        public ActionResult Index()
+        public ActionResult BookIndex()
         {
             var books = db.Books.Include(b => b.Genre1).Include(b => b.Language1);
             return View(books.ToList());
@@ -256,11 +256,16 @@ namespace Team2LibraryProject_01.Controllers
         }
 
         // GET: Books/Create
-        public ActionResult Create()
+        public ActionResult AddBook()
         {
-            ViewBag.Genre = new SelectList(db.Genres, "GenreID", "Genre1");
-            ViewBag.Language = new SelectList(db.Languages, "LanguageID", "Language1");
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.Genre = new SelectList(db.Genres, "GenreID", "Genre1");
+                ViewBag.Language = new SelectList(db.Languages, "LanguageID", "Language1");
+                return View();
+            }
+            else
+                return View("~/Views/Home/Index.cshtml");
         }
 
         // POST: Books/Create
@@ -268,13 +273,13 @@ namespace Team2LibraryProject_01.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ISBN,Author_FName,Author_LName,Publisher,NumOfPages,Title,Year,Genre,Language,Rating,Synopsis,Shelf")] Book book)
+        public ActionResult AddBook([Bind(Include = "ISBN,Author_FName,Author_LName,Publisher,NumOfPages,Title,Year,Genre,Language,Rating,Synopsis,Shelf")] Book book)
         {
             if (ModelState.IsValid)
             {
                 db.Books.Add(book);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("BookIndex");
             }
 
             ViewBag.Genre = new SelectList(db.Genres, "GenreID", "Genre1", book.Genre);
@@ -283,20 +288,25 @@ namespace Team2LibraryProject_01.Controllers
         }
 
         // GET: Books/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult EditBook(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Book book = db.Books.Find(id);
+                if (book == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.Genre = new SelectList(db.Genres, "GenreID", "Genre1", book.Genre);
+                ViewBag.Language = new SelectList(db.Languages, "LanguageID", "Language1", book.Language);
+                return View(book);
             }
-            Book book = db.Books.Find(id);
-            if (book == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Genre = new SelectList(db.Genres, "GenreID", "Genre1", book.Genre);
-            ViewBag.Language = new SelectList(db.Languages, "LanguageID", "Language1", book.Language);
-            return View(book);
+            else
+                return View("~/Views/Home/Index.cshtml");
         }
 
         // POST: Books/Edit/5
@@ -304,13 +314,13 @@ namespace Team2LibraryProject_01.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ISBN,Author_FName,Author_LName,Publisher,NumOfPages,Title,Year,Genre,Language,Rating,Synopsis,Shelf")] Book book)
+        public ActionResult EditBook([Bind(Include = "ISBN,Author_FName,Author_LName,Publisher,NumOfPages,Title,Year,Genre,Language,Rating,Synopsis,Shelf")] Book book)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(book).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("BookIndex");
             }
             ViewBag.Genre = new SelectList(db.Genres, "GenreID", "Genre1", book.Genre);
             ViewBag.Language = new SelectList(db.Languages, "LanguageID", "Language1", book.Language);
@@ -318,29 +328,34 @@ namespace Team2LibraryProject_01.Controllers
         }
 
         // GET: Books/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult DeleteBook(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Book book = db.Books.Find(id);
+                if (book == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(book);
             }
-            Book book = db.Books.Find(id);
-            if (book == null)
-            {
-                return HttpNotFound();
-            }
-            return View(book);
+            else
+                return View("~/Views/Home/Index.cshtml");
         }
 
         // POST: Books/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteBook")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
             Book book = db.Books.Find(id);
             db.Books.Remove(book);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("BookIndex");
         }
 
         protected override void Dispose(bool disposing)

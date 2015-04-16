@@ -4,7 +4,7 @@
     ViewBag.Title = "Member Index";
 }
 
-<h2>Index</h2>
+<h2>Member Index</h2>
 
 <table class="table">
     <tr>
@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.Role.Role1)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.CardNo }) |
+            @Html.ActionLink("Details", "MemberDetails", new { id=item.CardNo }) |
             @Html.ActionLink("Delete", "DeleteMember", new { id=item.CardNo })
         </td>
     </tr>

@@ -47,7 +47,7 @@ namespace Team2LibraryProject_01.Controllers
         }
 
         // GET: /Default1/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult MemberDetails(int? id)
         {
             if (id == null)
             {

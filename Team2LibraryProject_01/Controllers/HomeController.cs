@@ -98,5 +98,12 @@ namespace Team2LibraryProject_01.Controllers
             return View(books);
         }
 
+        public ActionResult Admin()
+        {
+            if (User.IsInRole("Admin"))
+                return View();
+            else
+                return View("Index");
+        }
     }
 }            

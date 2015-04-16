@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Team2LibraryProject_01.Models.Inventory>
+
+@{
+    ViewBag.Title = "Inventory Index";
+}
+
+<h2>Inventory Index</h2>
+
+<hr />
+
+<p>
+    @Html.ActionLink("Create New", "CreateInventoryItem")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateAdded)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Book.Title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateAdded)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.Title)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditInventoryItem", new { id=item.ItemID }) |
+            @Html.ActionLink("Details", "InventoryItemDetails", new { id=item.ItemID }) |
+            @Html.ActionLink("Delete", "DeleteInventoryItem", new { id=item.ItemID })
+        </td>
+    </tr>
+}
+
+</table>

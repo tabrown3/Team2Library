@@ -1,0 +1,45 @@
+﻿@model Team2LibraryProject_01.Models.Review
+
+<body>
+    <div>
+        <br />
+        <h3>Your Review For: @ViewBag.BookTitle</h3>
+        <hr />
+        <br />
+        <br />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Book.Title):
+            </dt>
+            
+            <dd>
+                @Html.DisplayFor(model => model.Book.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Rating):
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Rating)
+            </dd>
+    
+            <dt>
+                Review Text:
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ReviewText)
+            </dd>
+    
+        </dl>
+    </div>
+    <br />
+    <br />
+    <hr />
+    <p>
+        @Html.ActionLink("Edit Review", "Edit", new { id = Model.ReviewID }) | 
+        @Html.ActionLink("Delete Review", "DeleteReview", new { id = Model.ReviewID }) |
+        @Html.ActionLink("Back", "Index", "Manage")
+    </p>
+</body>

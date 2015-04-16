@@ -16,7 +16,7 @@ namespace Team2LibraryProject_01.Controllers
 
        
         // GET: Inventories
-        public ActionResult Index()
+        public ActionResult InventoryIndex()
         {
             if (User.IsInRole("Admin"))
             {
@@ -29,25 +29,35 @@ namespace Team2LibraryProject_01.Controllers
         }
 
         // GET: Inventories/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult InventoryItemDetails(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Inventory inventory = db.Inventories.Find(id);
+                if (inventory == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(inventory);
             }
-            Inventory inventory = db.Inventories.Find(id);
-            if (inventory == null)
-            {
-                return HttpNotFound();
-            }
-            return View(inventory);
+            else
+                return View("~/Views/Home/Index.cshtml");
         }
 
         // GET: Inventories/Create
-        public ActionResult Create()
+        public ActionResult CreateInventoryItem()
         {
-            ViewBag.ISBN = new SelectList(db.Books, "ISBN", "Title");
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.ISBN = new SelectList(db.Books, "ISBN", "Title");
+                return View();
+            }
+            else
+                return View("~/Views/Home/Index.cshtml");
         }
 
         // POST: Inventories/Create
@@ -55,9 +65,9 @@ namespace Team2LibraryProject_01.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ItemID,ItemPrice,DateAdded,ISBN")] Inventory inventory)
+        public ActionResult CreateInventoryItem([Bind(Include = "ItemID,ItemPrice,DateAdded,ISBN")] Inventory inventory)
         {
-            //Insert same values to Member relation
+            //Insert randomized inventory ID
             Random rand = new Random();
             int inventoryID = rand.Next(0, 5000);
 
@@ -66,7 +76,7 @@ namespace Team2LibraryProject_01.Controllers
                 inventory.ItemID = inventoryID;
                 db.Inventories.Add(inventory);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("InventoryIndex");
             }
 
             ViewBag.ISBN = new SelectList(db.Books, "ISBN", "Title", inventory.ISBN);
@@ -74,19 +84,24 @@ namespace Team2LibraryProject_01.Controllers
         }
 
         // GET: Inventories/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult EditInventoryItem(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Inventory inventory = db.Inventories.Find(id);
+                if (inventory == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.ISBN = new SelectList(db.Books, "ISBN", "Title", inventory.ISBN);
+                return View(inventory);
             }
-            Inventory inventory = db.Inventories.Find(id);
-            if (inventory == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ISBN = new SelectList(db.Books, "ISBN", "Title", inventory.ISBN);
-            return View(inventory);
+            else
+                return View("~/Views/Home/Index.cshtml");
         }
 
         // POST: Inventories/Edit/5
@@ -94,42 +109,47 @@ namespace Team2LibraryProject_01.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ItemID,ItemPrice,DateAdded,ISBN")] Inventory inventory)
+        public ActionResult EditInventoryItem([Bind(Include = "ItemID,ItemPrice,DateAdded,ISBN")] Inventory inventory)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(inventory).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("InventoryIndex");
             }
             ViewBag.ISBN = new SelectList(db.Books, "ISBN", "Title", inventory.ISBN);
             return View(inventory);
         }
 
         // GET: Inventories/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult DeleteInventoryItem(int? id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Inventory inventory = db.Inventories.Find(id);
+                if (inventory == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(inventory);
             }
-            Inventory inventory = db.Inventories.Find(id);
-            if (inventory == null)
-            {
-                return HttpNotFound();
-            }
-            return View(inventory);
+            else
+                return View("~/Views/Home/Index.cshtml");
         }
 
         // POST: Inventories/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteInventoryItem")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Inventory inventory = db.Inventories.Find(id);
             db.Inventories.Remove(inventory);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("InventoryIndex");
         }
 
         protected override void Dispose(bool disposing)

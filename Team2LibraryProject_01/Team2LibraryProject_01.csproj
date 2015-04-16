@@ -334,14 +334,14 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Books\Create.cshtml" />
-    <Content Include="Views\Books\Delete.cshtml" />
+    <Content Include="Views\Books\AddBook.cshtml" />
+    <Content Include="Views\Books\DeleteBook.cshtml" />
     <Content Include="Views\Books\Details.cshtml" />
-    <Content Include="Views\Books\Edit.cshtml" />
-    <Content Include="Views\Books\Index.cshtml" />
+    <Content Include="Views\Books\EditBook.cshtml" />
+    <Content Include="Views\Books\BookIndex.cshtml" />
     <Content Include="Views\Reviews\Create.cshtml" />
-    <Content Include="Views\Reviews\Delete.cshtml" />
-    <Content Include="Views\Reviews\Details.cshtml" />
+    <Content Include="Views\Reviews\DeleteReview.cshtml" />
+    <Content Include="Views\Reviews\ReviewDetails.cshtml" />
     <Content Include="Views\Reviews\Edit.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
     <Content Include="Views\Home\Books.cshtml" />
@@ -362,7 +362,7 @@
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Members\Create.cshtml" />
     <Content Include="Views\Members\DeleteMember.cshtml" />
-    <Content Include="Views\Members\Details.cshtml" />
+    <Content Include="Views\Members\MemberDetails.cshtml" />
     <Content Include="Views\Members\EditMember.cshtml" />
     <Content Include="Views\Members\MemberIndex.cshtml" />
     <Content Include="Views\Books\LoginError.cshtml" />
@@ -371,11 +371,11 @@
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Reviews\ReviewReport.cshtml" />
     <Content Include="Views\Shared\_PdfLayout.cshtml" />
-    <Content Include="Views\Inventories\Create.cshtml" />
-    <Content Include="Views\Inventories\Delete.cshtml" />
-    <Content Include="Views\Inventories\Details.cshtml" />
-    <Content Include="Views\Inventories\Edit.cshtml" />
-    <Content Include="Views\Inventories\Index.cshtml" />
+    <Content Include="Views\Inventories\CreateInventoryItem.cshtml" />
+    <Content Include="Views\Inventories\DeleteInventoryItem.cshtml" />
+    <Content Include="Views\Inventories\InventoryItemDetails.cshtml" />
+    <Content Include="Views\Inventories\EditInventoryItem.cshtml" />
+    <Content Include="Views\Inventories\InventoryIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

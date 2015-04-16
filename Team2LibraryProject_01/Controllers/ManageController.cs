@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data;
+using System.Data.Entity;
+using System.Collections.Generic;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -13,6 +18,8 @@ namespace Team2LibraryProject_01.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        private Team2LibraryEntities db = new Team2LibraryEntities();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -62,6 +69,24 @@ namespace Team2LibraryProject_01.Controllers
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
+
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            ViewBag.FName = user.FirstName;
+            ViewBag.LName = user.LastName;
+            ViewBag.Email = user.Email;
+            ViewBag.Type = user.MemberType;
+
+            var reviewListQuery = (from r in db.Reviews
+                                   where r.Member.CardNo == Globals.currentID
+                                   select r.Book.Title).ToList();
+
+            var reviewIDQuery = (from r in db.Reviews
+                                 where r.Member.CardNo == Globals.currentID
+                                 select r.ReviewID).ToList();
+
+            ViewBag.ReviewList = reviewListQuery;
+            ViewBag.IDList = reviewIDQuery;
 
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
@@ -236,6 +261,12 @@ namespace Team2LibraryProject_01.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
+
+                //Upate password in database Member table
+                var changePasswordSQL = @"UPDATE dbo.Member SET Password = {0} WHERE Password = {1}";
+                
+                db.Database.ExecuteSqlCommand(changePasswordSQL, model.NewPassword, model.OldPassword);
+
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
             AddErrors(result);

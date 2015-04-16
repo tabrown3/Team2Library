@@ -14,6 +14,8 @@ namespace Team2LibraryProject_01.Controllers
     {
         private Team2LibraryEntities db = new Team2LibraryEntities();
 
+        static string currentISBN;
+
         //Review Report
         public ActionResult ReviewReport()
         {
@@ -33,7 +35,8 @@ namespace Team2LibraryProject_01.Controllers
         }
 
         // GET: Reviews/Details/5
-        public ActionResult Details(int? id)
+        [HttpGet]
+        public ActionResult ReviewDetails(int? id)
         {
             if (id == null)
             {
@@ -44,6 +47,9 @@ namespace Team2LibraryProject_01.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.BookTitle = review.Book.Title;
+
             return View(review);
         }
 
@@ -88,6 +94,7 @@ namespace Team2LibraryProject_01.Controllers
             }
             ViewBag.ISBN = new SelectList(db.Books, "ISBN", "Author_FName", review.ISBN);
             ViewBag.CardNo = new SelectList(db.Members, "CardNo", "FName", review.CardNo);
+            currentISBN = review.ISBN;
             return View(review);
         }
 
@@ -100,12 +107,33 @@ namespace Team2LibraryProject_01.Controllers
         {
             if (ModelState.IsValid)
             {
+                review.CardNo = Globals.currentID;
+                review.ISBN = currentISBN;
                 db.Entry(review).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Manage");
             }
             ViewBag.ISBN = new SelectList(db.Books, "ISBN", "Author_FName", review.ISBN);
             ViewBag.CardNo = new SelectList(db.Members, "CardNo", "FName", review.CardNo);
+
+            //Pulling all reviews related to the book
+            var ratings = db.Database.SqlQuery<Single>("SELECT Rating FROM dbo.Review WHERE ISBN = {0}", currentISBN).ToArray();
+
+            float sum = 0;
+            float ratingAv = 0;
+
+            //Average the review
+            for (int i = 0; i < ratings.Length; i++)
+            {
+                sum = sum + ratings[i];
+            }
+
+            ratingAv = sum / ratings.Length;
+
+            //Directly update table values
+            var bookUpdateSQL = @"UPDATE dbo.Book SET Rating = {0} WHERE ISBN = {1}";
+            db.Database.ExecuteSqlCommand(bookUpdateSQL, System.Math.Round(ratingAv, 2), currentISBN);
+
             return View(review);
         }
 
@@ -125,14 +153,33 @@ namespace Team2LibraryProject_01.Controllers
         }
 
         // POST: Reviews/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteReview")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Review review = db.Reviews.Find(id);
             db.Reviews.Remove(review);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            //Pulling all reviews related to the book
+            var ratings = db.Database.SqlQuery<Single>("SELECT Rating FROM dbo.Review WHERE ISBN = {0}", currentISBN).ToArray();
+
+            float sum = 0;
+            float ratingAv = 0;
+
+            //Average the review
+            for (int i = 0; i < ratings.Length; i++)
+            {
+                sum = sum + ratings[i];
+            }
+
+            ratingAv = sum / ratings.Length;
+
+            //Directly update table values
+            var bookUpdateSQL = @"UPDATE dbo.Book SET Rating = {0} WHERE ISBN = {1}";
+            db.Database.ExecuteSqlCommand(bookUpdateSQL, System.Math.Round(ratingAv, 2), currentISBN);
+
+            return RedirectToAction("Index", "Manage");
         }
 
         protected override void Dispose(bool disposing)
