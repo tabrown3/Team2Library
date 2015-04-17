@@ -40,6 +40,7 @@
     <Property Name="ISBN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Book" Relationship="Self.Inventory_Book" FromRole="Inventory" ToRole="Book" />
     <NavigationProperty Name="Loans" Relationship="Self.Loan_Inventory" FromRole="Inventory" ToRole="Loan" />
+    <Property Name="OnShelf" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Language">
     <Key>

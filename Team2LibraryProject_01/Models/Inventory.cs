@@ -23,6 +23,7 @@ namespace Team2LibraryProject_01.Models
         public float ItemPrice { get; set; }
         public System.DateTime DateAdded { get; set; }
         public string ISBN { get; set; }
+        public bool OnShelf { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual ICollection<Loan> Loans { get; set; }

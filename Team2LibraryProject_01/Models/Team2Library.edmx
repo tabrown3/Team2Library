@@ -37,6 +37,7 @@
           <Property Name="ItemPrice" Type="real" Nullable="false" />
           <Property Name="DateAdded" Type="date" Nullable="false" />
           <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="OnShelf" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Language">
           <Key>
@@ -503,6 +504,7 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.RentsView' does not have a primar
           <Property Name="ISBN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Book" Relationship="Self.Inventory_Book" FromRole="Inventory" ToRole="Book" />
           <NavigationProperty Name="Loans" Relationship="Self.Loan_Inventory" FromRole="Inventory" ToRole="Loan" />
+          <Property Name="OnShelf" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Language">
           <Key>
@@ -859,6 +861,7 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.RentsView' does not have a primar
           <EntitySetMapping Name="Inventories">
             <EntityTypeMapping TypeName="Team2LibraryModel.Inventory">
               <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="OnShelf" ColumnName="OnShelf" />
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
                 <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />

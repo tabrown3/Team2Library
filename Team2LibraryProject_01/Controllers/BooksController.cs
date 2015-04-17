@@ -255,15 +255,15 @@ namespace Team2LibraryProject_01.Controllers
             if (User.IsInRole("Admin"))
             {
                 //List all books in inventory with the same ISBN as the selected book
-                var bookToLoan = db.Inventories.Where(x => x.ISBN == id);
-                
-                BookInventoryView bookInfo = db.BookInventoryViews.Where(x => x.ISBN == id).FirstOrDefault();
+                var bookToLoan = db.Inventories.Where(x => x.ISBN == id && x.OnShelf == true);
 
-                ViewBag.Author = bookInfo.Author_FName + " " + bookInfo.Author_LName;
-                ViewBag.BookTitle = bookInfo.Title;
-                ViewBag.Publisher = bookInfo.Publisher;
+                var bookInfo = db.Inventories.Where(x => x.ISBN == id && x.OnShelf == true).FirstOrDefault();
 
-                ViewBag.ItemID = new SelectList(db.Inventories.Where(x => x.ISBN == id), "ItemID", "ItemID");
+                ViewBag.Author = bookInfo.Book.Author_FName + " " + bookInfo.Book.Author_LName;
+                ViewBag.BookTitle = bookInfo.Book.Title;
+                ViewBag.Publisher = bookInfo.Book.Publisher;
+
+                ViewBag.ItemID = new SelectList(db.Inventories.Where(x => x.ISBN == id && x.OnShelf == true), "ItemID", "ItemID");
                 ViewBag.CardNo = new SelectList(db.Members, "CardNo", "CardNo");
 
                 if (ViewBag == null)
@@ -276,6 +276,35 @@ namespace Team2LibraryProject_01.Controllers
             }
             else
                 return View("LoginError");
+        }
+
+        [HttpPost]
+        public ActionResult LoanConfirmation([Bind(Include = "LoanID,ItemID,CardNo,Title,CheckOutDate,DueDate,ReturnDate,Fines,FinesPaid")] Loan loan)
+        {
+            Random rand = new Random();
+            int lID = rand.Next(0, 8000);
+
+            if (ModelState.IsValid)
+            {
+                loan.LoanID = lID;
+                DateTime today = DateTime.Now.Date;
+
+                loan.CheckOutDate = today;
+
+                loan.DueDate = today.AddDays(30);
+
+                Member loanMember = db.Members.Find(loan.CardNo);
+                Inventory loanBook = db.Inventories.Find(loan.ItemID);
+                loan.Title = loanBook.Book.Title;
+                loan.FinesPaid = true;
+
+                loanBook.OnShelf = false;
+
+                db.Loans.Add(loan);
+                db.SaveChanges();
+                return RedirectToAction("Admin", "Home");
+            }
+            return View();
         }
 
         // GET: Books

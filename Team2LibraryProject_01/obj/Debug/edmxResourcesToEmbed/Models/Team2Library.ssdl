@@ -32,6 +32,7 @@
     <Property Name="ItemPrice" Type="real" Nullable="false" />
     <Property Name="DateAdded" Type="date" Nullable="false" />
     <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="OnShelf" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Language">
     <Key>

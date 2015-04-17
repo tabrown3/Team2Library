@@ -30,6 +30,7 @@
     <EntitySetMapping Name="Inventories">
       <EntityTypeMapping TypeName="Team2LibraryModel.Inventory">
         <MappingFragment StoreEntitySet="Inventory">
+          <ScalarProperty Name="OnShelf" ColumnName="OnShelf" />
           <ScalarProperty Name="ItemID" ColumnName="ItemID" />
           <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
           <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
