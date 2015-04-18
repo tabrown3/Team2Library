@@ -23,7 +23,39 @@ namespace Team2LibraryProject_01.Controllers
 
                 ViewBag.ItemID = new SelectList(db.Loans.Where(x => x.ReturnDate == null), "ItemID", "ItemID");
 
-                return View(loans.ToList());
+                List<Team2LibraryProject_01.Models.Loan> loansList = loans.ToList();
+
+                bool itemChanged = false;
+
+                foreach (Team2LibraryProject_01.Models.Loan item in loansList)
+                {
+
+                    if (item.DueDate.CompareTo(DateTime.Today) < 0)
+                    {
+                        // Old database values
+                        float oldFines = item.Fines;
+                        bool oldFinesPaid = item.FinesPaid;
+
+                        float newFine = (DateTime.Today - item.DueDate).Days;
+
+                        if (newFine <= item.Inventory.ItemPrice)
+                        {
+                            // New calculated values
+                            item.Fines = newFine;
+                            item.FinesPaid = false;
+                        }
+
+                        // Was anything actually changed?
+                        if((oldFines != item.Fines) || (oldFinesPaid != item.FinesPaid))
+                            itemChanged = true;
+                    }
+                }
+
+                // If something was changed, save it to the DB
+                if(itemChanged)
+                    db.SaveChanges();
+
+                return View(loansList);
             }
             else
                 return View("~/Views/Home/Index.cshtml");

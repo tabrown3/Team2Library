@@ -77,6 +77,10 @@ namespace Team2LibraryProject_01.Controllers
             ViewBag.Email = user.Email;
             ViewBag.Type = user.MemberType;
 
+            var loansList = (from l in db.Loans
+                             where l.Member.CardNo == Globals.currentID && l.ReturnDate == null
+                             select l).ToList();
+
             //Retrieve the list of reviews for the member
             var reviewListQuery = (from r in db.Reviews
                                    where r.Member.CardNo == Globals.currentID
@@ -87,12 +91,10 @@ namespace Team2LibraryProject_01.Controllers
                                  select r.ReviewID).ToList();
 
             //Retrieve the list of rentals/loans for the member
-            var rentListQuery = (from l in db.Loans
-                                 where l.Member.CardNo == Globals.currentID && l.ReturnDate == null
+            var rentListQuery = (from l in loansList
                                  select l.Inventory.Book.Title).ToList();
 
-            var rentIDQuery = (from l in db.Loans
-                               where l.Member.CardNo == Globals.currentID
+            var rentIDQuery = (from l in loansList
                                select l.LoanID).ToList();
 
             //Retrieve the list of reservations for the member
@@ -104,6 +106,38 @@ namespace Team2LibraryProject_01.Controllers
                                     where r.CardNo == Globals.currentID
                                     select r.ReservationID).ToList();
 
+            bool itemChanged = false;
+            float finesSum = 0;
+
+            foreach (var item in loansList)
+            {
+                if (item.DueDate.CompareTo(DateTime.Today) < 0)
+                {
+                    // Old database values
+                    float oldFines = item.Fines;
+                    bool oldFinesPaid = item.FinesPaid;
+
+                    float newFine = (DateTime.Today - item.DueDate).Days;
+
+                    if (newFine <= item.Inventory.ItemPrice)
+                    {
+                        // New calculated values
+                        item.Fines = newFine;
+                        item.FinesPaid = false;
+                    }
+
+                    // Was anything actually changed?
+                    if ((oldFines != item.Fines) || (oldFinesPaid != item.FinesPaid))
+                        itemChanged = true;
+                }
+
+                finesSum += item.Fines;
+            }
+
+            // If something was changed, save it to the DB
+            if (itemChanged)
+                db.SaveChanges();
+
             ViewBag.ReviewList = reviewListQuery;
             ViewBag.IDList = reviewIDQuery;
 
@@ -112,6 +146,8 @@ namespace Team2LibraryProject_01.Controllers
 
             ViewBag.ReserveList = reserveListQuery;
             ViewBag.ReserveIDList = reserveIDQuery;
+
+            ViewBag.FinesSum = finesSum;
 
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel

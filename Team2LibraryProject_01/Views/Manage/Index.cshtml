@@ -89,6 +89,15 @@
                 <a href="Loans/LoanDetails/@rentIDOutput">@bookRented</a>
                 <br />
             }
+
+            @if (ViewBag.FinesSum > 0)
+            {
+                <p style="color: red">Total Fines: $@ViewBag.FinesSum</p>
+            }
+            else
+            {
+                <p style="color: green">You do not have any fines!</p>
+            }
         </div>
     </div>
 </body>
