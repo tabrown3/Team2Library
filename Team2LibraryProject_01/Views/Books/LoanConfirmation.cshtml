@@ -16,7 +16,7 @@
     <div class="col-md-12">
         <h3>Confirm Rent</h3>
         <p>Please make sure that the book to be loaned is correct.</p>
-        <p>If you are sure, please select from any of the available books in the inventory below.</p>
+        <p>If so, please select from any of the available books in the inventory below.</p>
         <p>Finally, enter the member's card number to successfully complete the checkout.</p>
         <br />
         <hr />
@@ -65,7 +65,7 @@
                         Date Added
                     </th>
                 </tr>
-
+               
                 @foreach (var item in Model)
                 {
                     <tr>
@@ -101,4 +101,7 @@
             }
         </div>
     </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Books", "Home")
 </div>

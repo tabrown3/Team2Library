@@ -1,53 +1,69 @@
 ﻿@model IEnumerable<Team2LibraryProject_01.Models.Member>
 
-@{
-    ViewBag.Title = "Member Index";
-}
+    @{
+        ViewBag.Title = "Member Index";
+        string message = TempData["Success"] as string;
+    }
 
-<h2>Member Index</h2>
+    <h2>Member Index</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            User First Name
-        </th>
-        <th>
-            User Last Name
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            Role
-        </th>
-        <th></th>
-    </tr>
+    <body>
+        <hr />
+        @if (!String.IsNullOrEmpty(message))
+        {
+            <hr />
+            <div class="message">
+                <p style="color: darkorange">@message</p>
+            </div>
+            <hr />
+        }
+        <p>
+            @Html.ActionLink("Return to Admin Section", "Admin", "Home")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    User First Name
+                </th>
+                <th>
+                    User Last Name
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Password)
+                </th>
+                <th>
+                    Role
+                </th>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role.Role1)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "MemberDetails", new { id=item.CardNo }) |
-            @Html.ActionLink("Delete", "DeleteMember", new { id=item.CardNo })
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role.Role1)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "MemberDetails", new { id = item.CardNo }) |
+                        @Html.ActionLink("Delete", "DeleteMember", new { id = item.CardNo })
+                    </td>
+                </tr>
+            }
 
-</table>
+        </table>
+    </body>

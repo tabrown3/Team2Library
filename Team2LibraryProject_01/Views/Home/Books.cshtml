@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Books";
+
+    string message = TempData["Success"] as string;
 }
 
 <body>
@@ -12,6 +14,13 @@
         </div>
     </div>
 
+    @if(!String.IsNullOrEmpty(message))
+    {
+        <div class="message">
+            <p style="color: darkorange">Success: @message</p>
+        </div>
+    }
+    
     <br />
 
     @foreach (var item in Model)

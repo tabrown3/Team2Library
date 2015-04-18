@@ -1,7 +1,9 @@
 ﻿@model Team2LibraryProject_01.Models.BookDetailsView
 
 <h3>@ViewBag.Title</h3>
-
+@{
+    bool inStock = ViewBag.inStock;
+}
 <body>
 
     <div style="text-align:center">
@@ -94,6 +96,12 @@
         </dl>
     </div>
     <hr />
+
+    @if (!inStock)
+    {
+        <h5 style="color: red">*We currently have no stocks of this book. Reserve today to guarantee a copy.</h5>
+        <p>@Html.ActionLink("Reserve this Book", "ReserveConfirmation", new { id = Model.ISBN })</p>
+    }
     <p>
         @Html.ActionLink("Review this book", "Reviews")
     </p>

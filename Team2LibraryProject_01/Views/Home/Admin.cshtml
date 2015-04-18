@@ -1,17 +1,24 @@
 ﻿
 @{
     ViewBag.Title = "Admin";
+    string message = TempData["Success"] as string;
 }
 
 <body>
     <div class="jumbotron">
         <div class="container">
             <h1>Admin Area</h1>
-            <p class="lead">Welcome to the control center.</p>
+            <p class="lead">Welcome to the control center, Head Librarian.</p>
         </div>
     </div>
+    @if (!String.IsNullOrEmpty(message))
+    {
+        <hr />
+        <div class="message">
+            <p style="color: darkorange">@message</p>
+        </div>
+    }
     <hr />
-
     <div class="admincontrols">
         <div class="row">
             <div class="col-md-5">
@@ -34,6 +41,16 @@
                 <br />
                 @Html.ActionLink("Access the book catalog", "BookIndex", "Books")
 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Manage Loans</h3>
+                <p>Manage the loan system for book check-ins.</p>
+
+                <br />
+
+                @Html.ActionLink("Access Loans", "LoanIndex", "Loans")
             </div>
         </div>
         <div class="row">

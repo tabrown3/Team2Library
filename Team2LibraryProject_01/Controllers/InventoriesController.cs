@@ -74,8 +74,11 @@ namespace Team2LibraryProject_01.Controllers
             if (ModelState.IsValid)
             {
                 inventory.ItemID = inventoryID;
+                inventory.OnShelf = true;
                 db.Inventories.Add(inventory);
                 db.SaveChanges();
+
+                TempData["Success"] = "Success: The inventory item has been added.";
                 return RedirectToAction("InventoryIndex");
             }
 
@@ -115,6 +118,8 @@ namespace Team2LibraryProject_01.Controllers
             {
                 db.Entry(inventory).State = EntityState.Modified;
                 db.SaveChanges();
+
+                TempData["Success"] = "Success: The inventory item has been edited.";
                 return RedirectToAction("InventoryIndex");
             }
             ViewBag.ISBN = new SelectList(db.Books, "ISBN", "Title", inventory.ISBN);
@@ -135,6 +140,7 @@ namespace Team2LibraryProject_01.Controllers
                 {
                     return HttpNotFound();
                 }
+
                 return View(inventory);
             }
             else
@@ -147,8 +153,22 @@ namespace Team2LibraryProject_01.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Inventory inventory = db.Inventories.Find(id);
+
+            //Check if the inventory item is currently on loan
+            var loan = (from l in db.Loans
+                        where l.ItemID == inventory.ItemID && l.ReturnDate == null
+                        select l).ToList();
+
+            if (loan.Count > 0)
+            {
+                TempData["Success"] = "Error: A member is currently loaning that copy. Unable to delete item.";
+                return RedirectToAction("InventoryIndex");
+            }
+
             db.Inventories.Remove(inventory);
             db.SaveChanges();
+
+            TempData["Success"] = "Success: The inventory item has been deleted.";
             return RedirectToAction("InventoryIndex");
         }
 

@@ -2,6 +2,10 @@
 @{
     ViewBag.Title = "Account Management";
     List<int>.Enumerator e = ViewBag.IDList.GetEnumerator();
+    List<int>.Enumerator f = ViewBag.RentIDList.GetEnumerator();
+    List<int>.Enumerator g = ViewBag.ReserveIDList.GetEnumerator();
+
+    string message = TempData["Success"] as string;
 }
 
 <body>
@@ -11,6 +15,13 @@
             <p class="lead">Welcome to your own personal space.</p>
         </div>
     </div>
+    @if (!String.IsNullOrEmpty(message))
+    {
+        <hr />
+        <div class="message">
+            <p style="color: darkorange">Success: @message</p>
+        </div>
+    }
     <hr />
     <div class="row">
         <div class="col-md-5">
@@ -48,16 +59,36 @@
                 @foreach(var bookReviewed in ((List<string>)ViewBag.ReviewList))
                 {
                     e.MoveNext();
-                    int output = e.Current;
-                    <a href="Reviews/ReviewDetails/@output">@bookReviewed</a>
-                    //@Html.ActionLink(@bookReviewed, "ReviewDetails", "Reviews", new { id = output })
+                    int reviewIDOutput = e.Current;
+                    <a href="Reviews/ReviewDetails/@reviewIDOutput">@bookReviewed</a>
                     <br />
                 }
         </div>
         <div class="col-md-5">
-            <h3>Your Rentals</h3>
+            <h3>Your Reservations</h3>
             <br />
 
+                @foreach (var bookReserved in ((List<string>)ViewBag.ReserveList))
+                {
+                    g.MoveNext();
+                    int reserveIDOutput = g.Current;
+                    <a href="Reservations/ReserveDetails/@reserveIDOutput">@bookReserved</a>
+                    <br />                    
+                }
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <h3>Your Rentals</h3>
+            <br />
+            @foreach (var bookRented in ((List<string>)ViewBag.RentList))
+            {
+                f.MoveNext();
+                int rentIDOutput = f.Current;
+                <a href="Loans/LoanDetails/@rentIDOutput">@bookRented</a>
+                <br />
+            }
         </div>
     </div>
 </body>

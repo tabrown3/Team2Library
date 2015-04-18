@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Team2LibraryProject_01.Models.Reservation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReserveDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Book.Author_FName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Member.FName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReserveDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.Author_FName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Member.FName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReservationID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ReservationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReservationID })
+        </td>
+    </tr>
+}
+
+</table>

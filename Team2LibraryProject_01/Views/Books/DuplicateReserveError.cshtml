@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Duplicate Reserve Error";
+}
+
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Error!</h1>
+            <p class="lead">Something's not right.</p>
+        </div>
+    </div>
+
+    <hr />
+
+    <br />
+    <h3>Duplicate Reserve Error</h3>
+
+    <hr />
+
+    <p>Oops, it seems you already reserved this book.</p>
+    <p>You can either modify your rentals at your profile page, or reserve a different title.</p>
+
+    <p>
+        @Html.ActionLink("Back to List", "Books", "Home")
+    </p>
+</body>
+

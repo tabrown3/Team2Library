@@ -104,6 +104,20 @@ namespace Team2LibraryProject_01.Controllers
                     break;
             }
 
+            var inStock = (from i in db.Inventories
+                           where i.ISBN == id && i.OnShelf == true
+                           select i).ToList();
+
+            if(inStock.Count == 0)
+            {
+                ViewBag.inStock = false;
+            }
+
+            if(inStock.Count > 0)
+            {
+                ViewBag.inStock = true;
+            }
+
             return View(book);
         }
 
@@ -249,6 +263,12 @@ namespace Team2LibraryProject_01.Controllers
             return View();
         }
 
+        //Duplicate Reserve Error
+        public ActionResult DuplicateReserveError()
+        {
+            return View();
+        }
+
         //Loan Confirmation Page
         public ActionResult LoanConfirmation(string id)
         {
@@ -257,11 +277,11 @@ namespace Team2LibraryProject_01.Controllers
                 //List all books in inventory with the same ISBN as the selected book
                 var bookToLoan = db.Inventories.Where(x => x.ISBN == id && x.OnShelf == true);
 
-                var bookInfo = db.Inventories.Where(x => x.ISBN == id && x.OnShelf == true).FirstOrDefault();
+                var bookInfo = db.Books.Where(x => x.ISBN == id).FirstOrDefault();
 
-                ViewBag.Author = bookInfo.Book.Author_FName + " " + bookInfo.Book.Author_LName;
-                ViewBag.BookTitle = bookInfo.Book.Title;
-                ViewBag.Publisher = bookInfo.Book.Publisher;
+                ViewBag.Author = bookInfo.Author_FName + " " + bookInfo.Author_LName;
+                ViewBag.BookTitle = bookInfo.Title;
+                ViewBag.Publisher = bookInfo.Publisher;
 
                 ViewBag.ItemID = new SelectList(db.Inventories.Where(x => x.ISBN == id && x.OnShelf == true), "ItemID", "ItemID");
                 ViewBag.CardNo = new SelectList(db.Members, "CardNo", "CardNo");
@@ -291,22 +311,93 @@ namespace Team2LibraryProject_01.Controllers
 
                 loan.CheckOutDate = today;
 
-                loan.DueDate = today.AddDays(30);
-
                 Member loanMember = db.Members.Find(loan.CardNo);
                 Inventory loanBook = db.Inventories.Find(loan.ItemID);
+
+                //Due date dependent on membership
+                if (loanMember.RoleID == 1)
+                {
+                    loan.DueDate = today.AddDays(30);
+                }
+                else if (loanMember.RoleID == 2)
+                {
+                    loan.DueDate = today.AddDays(120);
+                }
+
                 loan.Title = loanBook.Book.Title;
                 loan.FinesPaid = true;
 
                 loanBook.OnShelf = false;
 
+                //Delete matching reservations if the member has any
+                var reservation = db.Reservations.Where( x => x.CardNo == loan.CardNo);
+                if(reservation != null)
+                {
+
+                    var reserveDeleteSQL = @"DELETE FROM dbo.Reservation WHERE CardNo = {0} AND ISBN = {1}";
+                    db.Database.ExecuteSqlCommand(reserveDeleteSQL, loan.CardNo, loanBook.ISBN);
+                }
+
                 db.Loans.Add(loan);
                 db.SaveChanges();
+
+                TempData["Success"] = "Success: The book has been loaned.";
                 return RedirectToAction("Admin", "Home");
             }
+
             return View();
         }
 
+        //Reserve Confirmation Page
+        public ActionResult ReserveConfirmation(string id)
+        {
+            BookDetailsView book = db.BookDetailsViews.Find(id);
+            
+
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+
+            //Check if member already reserved the same title
+            var reservedAlready = (from r in db.Reservations
+                                  where r.CardNo == Globals.currentID && r.ISBN == book.ISBN
+                                  select r).ToList();
+
+            if(reservedAlready.Count > 0)
+            {
+                return View("DuplicateReserveError");
+            }
+
+            return View(book);
+        }
+
+        [HttpPost]
+
+        public ActionResult ReserveConfirmation([Bind(Include = "ReservationID,CardNo,ISBN,ReserveDate")] Reservation reservation)
+        {
+            Random rand = new Random();
+            int rID = rand.Next(0, 8000);
+
+            if(ModelState.IsValid)
+            {
+                reservation.ReservationID = rID;
+                DateTime today = DateTime.Now.Date;
+
+                reservation.ReserveDate = today;
+
+                reservation.ISBN = ISBN;
+                reservation.CardNo = Globals.currentID;
+
+                db.Reservations.Add(reservation);
+                db.SaveChanges();
+
+                TempData["Success"] = "The book has been reserved.";
+                return RedirectToAction("Books", "Home");
+            }
+
+            return View();
+        }            
         // GET: Books
         public ActionResult BookIndex()
         {

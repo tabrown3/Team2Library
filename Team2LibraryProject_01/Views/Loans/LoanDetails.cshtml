@@ -1,0 +1,48 @@
+﻿@model Team2LibraryProject_01.Models.Loan
+
+
+<body>
+    <div>
+        <br />
+        <h2>Your Rental For: @ViewBag.BookTitle</h2>
+        <hr />
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+                <img id="books" alt="books_cover" src="@Url.Content(ViewBag.Image)" />
+            </div>
+            <div class="col-md-6">
+                <h3>Book Title:</h3>
+                <h4>@Html.DisplayFor(model => model.Inventory.Book.Title)</h4>
+                <h3>Item Price:</h3>
+                <h4>$@Html.DisplayFor(model => model.Inventory.ItemPrice)</h4>
+                <h3>Date Rented:</h3>
+                <h4>@Model.CheckOutDate.ToShortDateString()</h4>
+                <h3>Return Deadline:</h3>
+                <h4>@Model.DueDate.ToShortDateString()</h4>
+            </div>
+        </div>
+        <br />
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Fines Accrued:</h3>
+                <h3>$@Html.DisplayFor(model => model.Fines)</h3>
+                    <br />
+                    <br />
+            </div>
+            <div class="col-md-6">
+                @if (Model.FinesPaid == true)
+                {
+                    <br />
+                    <h4 style="color: dodgerblue">In Good Standing. Well done!</h4>
+                }
+                @if(Model.FinesPaid == false)
+                {
+                    <h4 style="color: red">Warning! You have outstanding fees.</h4>
+                    <h4 style="color: red">Please return the book and make a payment to the librarian immediately.</h4>
+                }
+            </div>
+        </div>
+    </div>
+</body>

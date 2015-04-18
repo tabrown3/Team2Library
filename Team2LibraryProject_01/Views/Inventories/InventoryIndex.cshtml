@@ -1,48 +1,70 @@
 ﻿@model IEnumerable<Team2LibraryProject_01.Models.Inventory>
 
-@{
-    ViewBag.Title = "Inventory Index";
-}
+    @{
+        ViewBag.Title = "Inventory Index";
+        string message = TempData["Success"] as string;
+    }
 
-<h2>Inventory Index</h2>
+    <h2>Inventory Index</h2>
 
-<hr />
+    <body>
+        <hr />
 
-<p>
-    @Html.ActionLink("Create New", "CreateInventoryItem")
-</p>
+        @if (!String.IsNullOrEmpty(message))
+        {
+            <hr />
+            <div class="message">
+                <p style="color: darkorange">@message</p>
+            </div>
+            <hr />
+        }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ItemPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateAdded)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Book.Title)
-        </th>
-        <th></th>
-    </tr>
+        <p>
+            @Html.ActionLink("Create New", "CreateInventoryItem") |
+        </p>
+        <p>
+            @Html.ActionLink("Return to Admin Section", "Admin", "Home")
+        </p>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ItemPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateAdded)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Book.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditInventoryItem", new { id=item.ItemID }) |
-            @Html.ActionLink("Details", "InventoryItemDetails", new { id=item.ItemID }) |
-            @Html.ActionLink("Delete", "DeleteInventoryItem", new { id=item.ItemID })
-        </td>
-    </tr>
-}
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateAdded)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Book.Title)
+                </th>
+                <th></th>
+            </tr>
 
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateAdded)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Book.Title)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditInventoryItem", new { id = item.ItemID }) |
+                        @Html.ActionLink("Details", "InventoryItemDetails", new { id = item.ItemID }) |
+                        @Html.ActionLink("Delete", "DeleteInventoryItem", new { id = item.ItemID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </body>

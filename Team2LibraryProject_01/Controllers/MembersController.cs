@@ -109,6 +109,18 @@ namespace Team2LibraryProject_01.Controllers
         {
             Member member = db.Members.Find(id);
 
+            //Check if the inventory item is currently on loan
+            var loan = (from l in db.Loans
+                        where l.CardNo == member.CardNo
+                        select l).ToList();
+
+            if (loan.Count > 0)
+            {
+                TempData["Success"] = "Error: This member is currently loaning a book. Cannot delete identity.";
+                return RedirectToAction("MemberIndex");
+            }
+
+
             //Remove member from Library database
             db.Members.Remove(member);
             db.SaveChanges();
@@ -118,6 +130,7 @@ namespace Team2LibraryProject_01.Controllers
             var deleteRole = UserManager.RemoveFromRole(user.Id, "Student");
             var deleteMember = await UserManager.DeleteAsync(user);
 
+            TempData["Success"] = "Success: The member has been deleted.";
             return RedirectToAction("MemberIndex");
         }
 

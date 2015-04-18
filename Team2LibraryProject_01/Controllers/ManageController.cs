@@ -77,6 +77,7 @@ namespace Team2LibraryProject_01.Controllers
             ViewBag.Email = user.Email;
             ViewBag.Type = user.MemberType;
 
+            //Retrieve the list of reviews for the member
             var reviewListQuery = (from r in db.Reviews
                                    where r.Member.CardNo == Globals.currentID
                                    select r.Book.Title).ToList();
@@ -85,8 +86,32 @@ namespace Team2LibraryProject_01.Controllers
                                  where r.Member.CardNo == Globals.currentID
                                  select r.ReviewID).ToList();
 
+            //Retrieve the list of rentals/loans for the member
+            var rentListQuery = (from l in db.Loans
+                                 where l.Member.CardNo == Globals.currentID && l.ReturnDate == null
+                                 select l.Inventory.Book.Title).ToList();
+
+            var rentIDQuery = (from l in db.Loans
+                               where l.Member.CardNo == Globals.currentID
+                               select l.LoanID).ToList();
+
+            //Retrieve the list of reservations for the member
+            var reserveListQuery = (from r in db.Reservations
+                                    where r.CardNo == Globals.currentID
+                                    select r.Book.Title).ToList();
+
+            var reserveIDQuery = (from r in db.Reservations
+                                    where r.CardNo == Globals.currentID
+                                    select r.ReservationID).ToList();
+
             ViewBag.ReviewList = reviewListQuery;
             ViewBag.IDList = reviewIDQuery;
+
+            ViewBag.RentList = rentListQuery;
+            ViewBag.RentIDList = rentIDQuery;
+
+            ViewBag.ReserveList = reserveListQuery;
+            ViewBag.ReserveIDList = reserveIDQuery;
 
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel

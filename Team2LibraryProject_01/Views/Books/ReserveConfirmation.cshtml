@@ -1,0 +1,79 @@
+﻿@model Team2LibraryProject_01.Models.BookDetailsView
+
+@{
+    ViewBag.Title = "Reserve Confirmation";
+}
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>Reserve</h1>
+        <p class="lead">Be the first in line.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Confirm Reservation</h3>
+        <p>Please make sure that the book you will reserve is correct.</p>
+        <p>If so, click the submit button to confirm your reservation.</p>
+        <p>You will be notified if there is a copy available to rent.</p>
+        <br />
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <dl class="dl-horizontal">
+        <dt>
+            Title:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            Author:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author_FName) @Html.DisplayFor(model => model.Author_LName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Publisher):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Publisher)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Language):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Language)
+        </dd>
+    </dl>
+</div>
+<br />
+@using (Html.BeginForm())
+{
+    <h4><input type="submit" value="Confirm Reserve" /></h4>
+}
+<hr />
+<div>
+    @Html.ActionLink("Back to List", "Books", "Home")
+</div>

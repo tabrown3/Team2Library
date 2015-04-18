@@ -1,0 +1,40 @@
+﻿@model Team2LibraryProject_01.Models.Reservation
+
+
+<body>
+    <div>
+        <br />
+        <h2>Your Reservation For: @ViewBag.BookTitle</h2>
+        <hr />
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+                <img id="books" alt="books_cover" src="@Url.Content(ViewBag.Image)" />
+            </div>
+            <div class="col-md-6">
+                <h3>Book Title:</h3>
+                <h4>@Html.DisplayFor(model => model.Book.Title)</h4>
+                <h3>Item Price:</h3>
+                @if(ViewBag.Price == "Unavailable")
+                {
+                    <h4>Price Unavailable</h4>                    
+                }
+                @if (ViewBag.Price != "Unavailable")
+                {
+                    <h4>$@ViewBag.Price</h4>
+                }
+                <h3>Date Reserved:</h3>
+                <h4>@Model.ReserveDate.ToShortDateString()</h4>
+                <br />
+            </div>
+        </div>
+        <br />
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                @Html.ActionLink("Delete your Reservation", "DeleteReservation", new { id = Model.ReservationID} ) |
+                @Html.ActionLink("Back to Lounge", "Index", "Manage")
+            </div>
+        </div>
+    </div>
+</body>
