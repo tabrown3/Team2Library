@@ -44,6 +44,12 @@ namespace Team2LibraryProject_01.Controllers
                             item.Fines = newFine;
                             item.FinesPaid = false;
                         }
+                        else
+                        {
+                            // New calculated values
+                            item.Fines = item.Inventory.ItemPrice;
+                            item.FinesPaid = false;
+                        }
 
                         // Was anything actually changed?
                         if((oldFines != item.Fines) || (oldFinesPaid != item.FinesPaid))
