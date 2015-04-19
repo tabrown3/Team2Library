@@ -89,14 +89,18 @@
                 <a href="Loans/LoanDetails/@rentIDOutput">@bookRented</a>
                 <br />
             }
-
+        </div>
+        <div class="col-md-5">
+            <h3>Account Status</h3>
             @if (ViewBag.FinesSum > 0)
             {
-                <p style="color: red">Total Fines: $@ViewBag.FinesSum</p>
+                <br />
+                <h3 style="color: red">Total Fines: $@ViewBag.FinesSum</h3>
+                <h4 style="color: red">Alert! You have outstanding fees. Please return the book/s and make a payment immediately.</h4>
             }
             else
             {
-                <p style="color: green">You do not have any fines!</p>
+                <p style="color: dodgerblue">In Good Standing. Well Done!</p>
             }
         </div>
     </div>
