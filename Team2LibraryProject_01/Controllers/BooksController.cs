@@ -122,7 +122,7 @@ namespace Team2LibraryProject_01.Controllers
         }
 
         //Book Search
-        public ActionResult BookSearch(string bookGenre, string searchString, string bookPublisher)
+        public ActionResult BookSearch(string bookGenre, string searchString, string bookPublisher, string AuthorSearchString)
         {
             var genreList = new List<string>();
             var genreQuery = from g in db.Genres
@@ -146,6 +146,10 @@ namespace Team2LibraryProject_01.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 books = books.Where(s => s.Title.Contains(searchString));
+            }
+            if(!String.IsNullOrEmpty(AuthorSearchString))
+            {
+                books = books.Where(s => s.Author_FName.Contains(AuthorSearchString) || s.Author_LName.Contains(AuthorSearchString));
             }
             if (!string.IsNullOrEmpty(bookPublisher))
             {
