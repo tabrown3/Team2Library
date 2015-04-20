@@ -138,7 +138,7 @@ namespace Team2LibraryProject_01.Controllers
 
             var availableBook = db.Inventories.Where(x => x.ISBN == reservation.Book.ISBN && x.OnShelf == true).ToList();
 
-            if(availableBook != null)
+            if(availableBook.Count > 0)
             {
                 ViewBag.Alert = "Good news! Your reserved title is in stock. Check out this title quickly to get it.";
             }
