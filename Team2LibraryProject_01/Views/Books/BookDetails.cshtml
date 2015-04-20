@@ -1,117 +1,128 @@
 ﻿@model Team2LibraryProject_01.Models.BookDetailsView
 
-<h3>@ViewBag.Title</h3>
+<h2>@ViewBag.Title</h2>
+<hr />
+
 @{
     bool inStock = ViewBag.inStock;
+    string message = TempData["Success"] as string;
 }
+
 <body>
+    <div class="row">
+        <div class="col-md-5">
+            <img id="books" alt="books_cover" src="@Url.Content(ViewBag.Image)" />
+        </div>
 
-    <div style="text-align:center">
-        <hr />
-        <img id="books" alt="books_cover" src="@Url.Content(ViewBag.Image)" />
-        <hr />
-    </div>
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt style="font-size: 16px">
+                    @Html.DisplayNameFor(model => model.Title):
+                </dt>
 
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Title):
-            </dt>
+                <dd style="font-size: 16px">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Title)
-            </dd>
+                <dt style="font-size: 16px">
+                    Author:
+                </dt>
 
-            <dt>
-                Author:
-            </dt>
+                <dd style="font-size: 16px">
+                    @Html.DisplayFor(model => model.Author_FName) @Html.DisplayFor(model => model.Author_LName)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Author_FName) @Html.DisplayFor(model => model.Author_LName)
-            </dd>
+                <dt style="font-size: 16px">
+                    @Html.DisplayNameFor(model => model.Publisher):
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Publisher):
-            </dt>
+                <dd style="font-size: 16px">
+                    @Html.DisplayFor(model => model.Publisher)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Publisher)
-            </dd>
+                <dt style="font-size: 16px">
+                    Pages:
+                </dt>
 
-            <dt>
-                Pages:
-            </dt>
+                <dd style="font-size: 16px">
+                    @Html.DisplayFor(model => model.NumOfPages)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.NumOfPages)
-            </dd>
+                <dt style="font-size: 16px">
+                    @Html.DisplayNameFor(model => model.Year):
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Year):
-            </dt>
+                <dd style="font-size: 16px">
+                    @Html.DisplayFor(model => model.Year)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Year)
-            </dd>
+                <dt style="font-size: 16px">
+                    @Html.DisplayNameFor(model => model.Genre):
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Genre):
-            </dt>
+                <dd style="font-size: 16px">
+                    @Html.DisplayFor(model => model.Genre)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Genre)
-            </dd>
+                <dt style="font-size: 16px">
+                    @Html.DisplayNameFor(model => model.Language):
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Language):
-            </dt>
+                <dd style="font-size: 16px">
+                    @Html.DisplayFor(model => model.Language)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Language)
-            </dd>
+                <dt style="font-size: 16px">
+                    @Html.DisplayNameFor(model => model.Rating):
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Rating):
-            </dt>
+                <dd style="font-size: 16px">
+                    @Html.DisplayFor(model => model.Rating)/5
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Rating)/5
-            </dd>
+                <dt style="font-size: 16px">
+                    @Html.DisplayNameFor(model => model.Synopsis):
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Synopsis):
-            </dt>
+                <dd style="font-size: 16px">
+                    @Html.DisplayFor(model => model.Synopsis)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Synopsis)
-            </dd>
+                <dt style="font-size: 16px">
+                    Found in:
+                </dt>
 
-            <dt>
-                Found in:
-            </dt>
-
-            <dd>
-                Shelf @Html.DisplayFor(model => model.Shelf)
-            </dd>
-        </dl>
+                <dd style="font-size: 16px">
+                    Shelf @Html.DisplayFor(model => model.Shelf)
+                </dd>
+            </dl>
+            @if (!String.IsNullOrEmpty(message))
+            {
+                <hr />
+                <div class="message">
+                    <p style="color: darkorange">@message</p>
+                </div>
+                <hr />
+            }
+        </div>
     </div>
     <hr />
+
 
     @if (!inStock)
     {
         <h5 style="color: red">*We currently have no stocks of this book. Reserve today to guarantee a copy.</h5>
         <p>@Html.ActionLink("Reserve this Book", "ReserveConfirmation", new { id = Model.ISBN })</p>
     }
-    <p>
-        @Html.ActionLink("Review this book", "Reviews")
-    </p>
-    @if(User.IsInRole("Admin"))
-    { 
-        <p>
-            @Html.ActionLink("Rent this book", "LoanConfirmation", new { id = Model.ISBN })
-        </p>
+    
+    @if (User.IsInRole("Admin"))
+    {
+        <p>@Html.ActionLink("Rent this book", "LoanConfirmation", new { id = Model.ISBN })</p>
     }
+    
     <p>
-        @Html.ActionLink("Back to List", "Books", "Home")
+        @Html.ActionLink("Review this book", "Reviews") |
+
+        @Html.ActionLink("Back to List", "Books", "Home") 
     </p>
 </body>

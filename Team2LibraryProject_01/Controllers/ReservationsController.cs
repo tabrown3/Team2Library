@@ -96,18 +96,53 @@ namespace Team2LibraryProject_01.Controllers
                 case "143039695":
                     ViewBag.Image = "~/Content/Images/Books/noli_cover.png";
                     break;
+                case "147670869":
+                    ViewBag.Image = "~/Content/Images/Books/innovators_cover.png";
+                    break;
+                case "865477566":
+                    ViewBag.Image = "~/Content/Images/Books/candy_cover.png";
+                    break;
+                case "1429234148":
+                    ViewBag.Image = "~/Content/Images/Books/lehn_bio_cover.png";
+                    break;
+                case "316055433":
+                    ViewBag.Image = "~/Content/Images/Books/goldfinch_cover.png";
+                    break;
+                case "1476764174":
+                    ViewBag.Image = "~/Content/Images/Books/red_sparrow_cover.png";
+                    break;
+                case "9587046250":
+                    ViewBag.Image = "~/Content/Images/Books/el_des_cover.png";
+                    break;
+                case "62217143":
+                    ViewBag.Image = "~/Content/Images/Books/begin_everything_cover.png";
+                    break;
+                case "316081078":
+                    ViewBag.Image = "~/Content/Images/Books/blackout_cover.png";
+                    break;
+                default:
+                    ViewBag.Image = "~/Content/Images/Books/placeholder_cover.png";
+                    break;
             }
 
             var bookLoaned = db.Inventories.Where(x => x.ISBN == reservation.Book.ISBN).FirstOrDefault();
 
             if (bookLoaned == null)
             {
-                ViewBag.Price = "Unavailable";
+                ViewBag.Price = -1;
             }
             else
             {
                 ViewBag.Price = bookLoaned.ItemPrice;
             }
+
+            var availableBook = db.Inventories.Where(x => x.ISBN == reservation.Book.ISBN && x.OnShelf == true).ToList();
+
+            if(availableBook.Count > 0)
+            {
+                ViewBag.Alert = "Good news! Your reserved title is in stock. Check out this title quickly to get it.";
+            }
+
             ViewBag.BookTitle = reservation.Book.Title;
             return View(reservation);
         }

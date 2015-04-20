@@ -17,7 +17,19 @@ namespace Team2LibraryProject_01.Controllers
             if (User.IsInRole("Admin"))
                 return View("Admin");
             else
+            {
+                var pendingLoan = db.Loans.Where(x => x.CardNo == Globals.currentID).ToList();
+                foreach(var item in pendingLoan)
+                {
+                    if(item.Fines > 0)
+                    {
+                        ViewBag.Alert = "Alert! You have pending fines. Please go to the account page as soon as possible.";
+                        return View();
+                    }
+                }
+
                 return View();
+            }
         }
 
         public ActionResult About()

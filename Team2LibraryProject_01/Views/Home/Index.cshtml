@@ -47,7 +47,13 @@
     <!--End Carousel-->
 
     <br />
-
+    <br />
+    @if(ViewBag.Alert != null)
+    {
+        <hr />
+        <h4 style="color: red">@ViewBag.Alert</h4>
+        <hr />
+    }
     <div class="indexcontent">
         <div class="row">
             <div class="col-md-4">

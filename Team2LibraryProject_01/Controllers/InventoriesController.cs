@@ -69,7 +69,7 @@ namespace Team2LibraryProject_01.Controllers
         {
             //Insert randomized inventory ID
             Random rand = new Random();
-            int inventoryID = rand.Next(0, 5000);
+            int inventoryID = rand.Next(0, 10000);
 
             if (ModelState.IsValid)
             {

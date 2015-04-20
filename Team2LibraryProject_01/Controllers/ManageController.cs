@@ -117,7 +117,7 @@ namespace Team2LibraryProject_01.Controllers
                     float oldFines = item.Fines;
                     bool oldFinesPaid = item.FinesPaid;
 
-                    float newFine = (DateTime.Today - item.DueDate).Days;
+                    float newFine = (float)0.5*((DateTime.Today - item.DueDate).Days);
 
                     if (newFine <= item.Inventory.ItemPrice)
                     {
