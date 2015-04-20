@@ -102,6 +102,33 @@ namespace Team2LibraryProject_01.Controllers
                 case "143039695":
                     ViewBag.Image = "~/Content/Images/Books/noli_cover.png";
                     break;
+                case "147670869":
+                    ViewBag.Image = "~/Content/Images/Books/innovators_cover.png";
+                    break;
+                case "865477566":
+                    ViewBag.Image = "~/Content/Images/Books/candy_cover.png";
+                    break;
+                case "1429234148":
+                    ViewBag.Image = "~/Content/Images/Books/lehn_bio_cover.png";
+                    break;
+                case "316055433":
+                    ViewBag.Image = "~/Content/Images/Books/goldfinch_cover.png";
+                    break;
+                case "1476764174":
+                    ViewBag.Image = "~/Content/Images/Books/red_sparrow_cover.png";
+                    break;
+                case "9587046250":
+                    ViewBag.Image = "~/Content/Images/Books/el_des_cover.png";
+                    break;
+                case "62217143":
+                    ViewBag.Image = "~/Content/Images/Books/begin_everything_cover.png";
+                    break;
+                case "316081078":
+                    ViewBag.Image = "~/Content/Images/Books/begin_everything_cover.png";
+                    break;
+                default:
+                    ViewBag.Image = "~/Content/Images/Books/placeholder_cover.png";
+                    break;
             }
 
             var inStock = (from i in db.Inventories
@@ -252,6 +279,7 @@ namespace Team2LibraryProject_01.Controllers
             var bookUpdateSQL = @"UPDATE dbo.Book SET Rating = {0} WHERE ISBN = {1}";
             db.Database.ExecuteSqlCommand(bookUpdateSQL, System.Math.Round(ratingAv, 2), ISBN);
 
+            TempData["Success"] = "Success: Your review has been posted.";
             return RedirectToAction("BookDetails", new { id = ISBN });
         }
 
@@ -306,7 +334,7 @@ namespace Team2LibraryProject_01.Controllers
         public ActionResult LoanConfirmation([Bind(Include = "LoanID,ItemID,CardNo,Title,CheckOutDate,DueDate,ReturnDate,Fines,FinesPaid")] Loan loan)
         {
             Random rand = new Random();
-            int lID = rand.Next(0, 8000);
+            int lID = rand.Next(0, 10000);
 
             if (ModelState.IsValid)
             {
@@ -381,7 +409,7 @@ namespace Team2LibraryProject_01.Controllers
         public ActionResult ReserveConfirmation([Bind(Include = "ReservationID,CardNo,ISBN,ReserveDate")] Reservation reservation)
         {
             Random rand = new Random();
-            int rID = rand.Next(0, 8000);
+            int rID = rand.Next(0, 10000);
 
             if(ModelState.IsValid)
             {

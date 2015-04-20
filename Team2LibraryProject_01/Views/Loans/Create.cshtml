@@ -6,6 +6,15 @@
 
 <h2>Create</h2>
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+    $(function () {
+        $('.datepicker').datepicker();
+    });
+    </script>
+}
 
 @using (Html.BeginForm()) 
 {
@@ -50,7 +59,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CheckOutDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CheckOutDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.CheckOutDate, new { @class = "form-control datepicker", placeholder = "Enter date here..." })
                 @Html.ValidationMessageFor(model => model.CheckOutDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -58,7 +67,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DueDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.DueDate, new { @class = "form-control datepicker", placeholder = "Enter date here..." })
                 @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -66,7 +75,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ReturnDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.ReturnDate, new { @class = "form-control datepicker", placeholder = "Enter date here..." })
                 @Html.ValidationMessageFor(model => model.ReturnDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -100,7 +109,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

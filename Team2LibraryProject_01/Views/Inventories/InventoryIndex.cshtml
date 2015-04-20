@@ -20,25 +20,26 @@
         }
 
         <p>
-            @Html.ActionLink("Create New", "CreateInventoryItem") |
-        </p>
-        <p>
+            @Html.ActionLink("Create New Inventory Entry", "CreateInventoryItem") |
             @Html.ActionLink("Return to Admin Section", "Admin", "Home")
         </p>
 
         <table class="table">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ItemID)
+                    Item ID
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ItemPrice)
+                    Item Price
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DateAdded)
+                    Date Added
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Book.Title)
+                    ISBN
+                </th>
+                <th>
+                    Title
                 </th>
                 <th></th>
             </tr>
@@ -53,7 +54,10 @@
                         @Html.DisplayFor(modelItem => item.ItemPrice)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.DateAdded)
+                        @item.DateAdded.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Book.ISBN)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Book.Title)

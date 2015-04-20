@@ -14,12 +14,16 @@
     <hr />
 
     <p>
-        @Html.ActionLink("Create New", "AddBook")
+        @Html.ActionLink("Create New Book Entry", "AddBook") |
+        @Html.ActionLink("Return to Admin Section", "Admin", "Home")
     </p>
 
 
     <table class="table">
         <tr>
+            <th>
+                ISBN
+            </th>
             <th>
                 Author First Name
             </th>
@@ -42,9 +46,6 @@
                 @Html.DisplayNameFor(model => model.Rating)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Synopsis)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Shelf)
             </th>
             <th>
@@ -58,6 +59,9 @@
     
     @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBN)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Author_FName)
             </td>
@@ -78,9 +82,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Synopsis)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Shelf)
