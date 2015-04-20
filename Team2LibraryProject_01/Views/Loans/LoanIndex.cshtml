@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     var completedLoan = ViewBag.CompletedLoan as List<Team2LibraryProject_01.Models.Loan>;
+    string message = TempData["Success"] as string;
 }
 
 <div class="jumbotron">
@@ -11,6 +12,15 @@
         <p class="lead">All book returns right here.</p>
     </div>
 </div>
+
+@if (!String.IsNullOrEmpty(message))
+{
+    <hr />
+    <div class="message">
+        <p style="color: darkorange">Success: @message</p>
+    </div>
+    <hr />
+}
 
 <div class="row">
     <div class="col-md-12">
@@ -41,7 +51,9 @@
                 <th>
                     Return Date
                 </th>
-
+                <th>
+                    Fines Paid
+                </th>
                 @foreach (var item in completedLoan)
                 {
                 <tr>
@@ -68,6 +80,9 @@
                     </td>
                     <td>
                         @item.ReturnDate.Value.ToShortDateString()
+                    </td>
+                    <td>
+                        $@item.Fines
                     </td>
                 </tr>
                 }
@@ -130,7 +145,7 @@
                             @item.DueDate.ToShortDateString()
                         </td>
                         <td>
-                           $ @Html.DisplayFor(modelItem => item.Fines)
+                           $@Html.DisplayFor(modelItem => item.Fines)
                         </td>
                     </tr>
                 }
@@ -145,7 +160,7 @@
                 @Html.DropDownList("ItemID", null, htmlAttributes: new { @class = "form-control" })
             </p>
             <br />
-            <p class="color: red">DISCLAIMER: By checking in, you confirm that the member has paid all the fees, if any are applicable.</p>
+            <p style="color: red">DISCLAIMER: By checking in, you confirm that the member has paid all the fees, if any are applicable.</p>
             <br />
             <h4><input type="submit" value="Confirm Check-In" /></h4>
         }
