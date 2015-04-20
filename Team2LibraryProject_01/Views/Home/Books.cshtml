@@ -29,7 +29,7 @@
         string output = item.ISBN;
         string thumbOut = item.ISBN + ".png";
         <div class="col-lg-3 col-sm-4 col-xs-6" align="center">
-            <a href="/Books/BookDetails/@output"><img src="~/Content/Images/Thumbs/@thumbOut" align="middle"></a>
+            <a href="/Books/BookDetails/@output"><img src="~/Content/Images/Thumbs/@thumbOut" onerror="this.onerror = null; this.src = 'http://placehold.it/170x250';" align="middle"></a>
             <br />
             @Html.DisplayFor(modelItem => item.Title)
             <br />

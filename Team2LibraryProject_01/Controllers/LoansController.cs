@@ -19,7 +19,7 @@ namespace Team2LibraryProject_01.Controllers
         {
             if (User.IsInRole("Admin"))
             {
-                var loans = db.Loans.Include(l => l.Inventory).Include(l => l.Member).Where(x => x.ReturnDate == null);
+                var loans = db.Loans.Include(l => l.Inventory).Include(l => l.Member).Where(x => !x.ReturnDate.HasValue);
 
                 ViewBag.ItemID = new SelectList(db.Loans.Where(x => x.ReturnDate == null), "ItemID", "ItemID");
 
@@ -36,7 +36,7 @@ namespace Team2LibraryProject_01.Controllers
                         float oldFines = item.Fines;
                         bool oldFinesPaid = item.FinesPaid;
 
-                        float newFine = (DateTime.Today - item.DueDate).Days;
+                        float newFine = (float)(0.5*((DateTime.Today - item.DueDate).Days));
 
                         if (newFine <= item.Inventory.ItemPrice)
                         {
@@ -60,6 +60,12 @@ namespace Team2LibraryProject_01.Controllers
                 // If something was changed, save it to the DB
                 if(itemChanged)
                     db.SaveChanges();
+
+                List<Loan> completedLoan = (from l in db.Loans
+                                            where l.ReturnDate.HasValue
+                                            select l).ToList();
+
+                ViewBag.CompletedLoan = completedLoan;
 
                 return View(loansList);
             }
@@ -85,7 +91,7 @@ namespace Team2LibraryProject_01.Controllers
                 loan.CheckOutDate = savedLoan.CheckOutDate;
                 loan.DueDate = savedLoan.DueDate;
                 loan.Title = savedLoan.Title;
-                loan.ReturnDate = today;
+                loan.ReturnDate = today.Date;
                 loan.Fines = 0;
                 loan.FinesPaid = true;
 
@@ -181,6 +187,33 @@ namespace Team2LibraryProject_01.Controllers
                 case "143039695":
                     ViewBag.Image = "~/Content/Images/Books/noli_cover.png";
                     break;
+                case "147670869":
+                    ViewBag.Image = "~/Content/Images/Books/innovators_cover.png";
+                    break;
+                case "865477566":
+                    ViewBag.Image = "~/Content/Images/Books/candy_cover.png";
+                    break;
+                case "1429234148":
+                    ViewBag.Image = "~/Content/Images/Books/lehn_bio_cover.png";
+                    break;
+                case "316055433":
+                    ViewBag.Image = "~/Content/Images/Books/goldfinch_cover.png";
+                    break;
+                case "1476764174":
+                    ViewBag.Image = "~/Content/Images/Books/red_sparrow_cover.png";
+                    break;
+                case "9587046250":
+                    ViewBag.Image = "~/Content/Images/Books/el_des_cover.png";
+                    break;
+                case "62217143":
+                    ViewBag.Image = "~/Content/Images/Books/begin_everything_cover.png";
+                    break;
+                case "316081078":
+                    ViewBag.Image = "~/Content/Images/Books/begin_everything_cover.png";
+                    break;
+                default:
+                    ViewBag.Image = "~/Content/Images/Books/placeholder_cover.png";
+                    break;
             }
 
             ViewBag.BookTitle = loan.Inventory.Book.Title;
@@ -190,7 +223,7 @@ namespace Team2LibraryProject_01.Controllers
         // GET: Loans/Create
         public ActionResult Create()
         {
-            ViewBag.ItemID = new SelectList(db.Inventories, "ItemID", "ISBN");
+            ViewBag.ItemID = new SelectList(db.Inventories, "ItemID", "ItemID");
             ViewBag.CardNo = new SelectList(db.Members, "CardNo", "FName");
             return View();
         }
@@ -206,7 +239,7 @@ namespace Team2LibraryProject_01.Controllers
             {
                 db.Loans.Add(loan);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Admin", "Home");
             }
 
             ViewBag.ItemID = new SelectList(db.Inventories, "ItemID", "ISBN", loan.ItemID);

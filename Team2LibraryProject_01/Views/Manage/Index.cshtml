@@ -35,7 +35,7 @@
         <div class="col-md-5">
             <h3>Account Management</h3>
             <br />
-            <p>Change or Create Your Password:
+            <p>Change Your Password:
                 [
                 @if (Model.HasPassword)
                 {
@@ -48,33 +48,6 @@
                 ]
             </p>
             <p class="text-success">@ViewBag.StatusMessage</p>
-        </div>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="col-md-5">
-            <h3>Your Reviews</h3>
-            <br />
-
-                @foreach(var bookReviewed in ((List<string>)ViewBag.ReviewList))
-                {
-                    e.MoveNext();
-                    int reviewIDOutput = e.Current;
-                    <a href="Reviews/ReviewDetails/@reviewIDOutput">@bookReviewed</a>
-                    <br />
-                }
-        </div>
-        <div class="col-md-5">
-            <h3>Your Reservations</h3>
-            <br />
-
-                @foreach (var bookReserved in ((List<string>)ViewBag.ReserveList))
-                {
-                    g.MoveNext();
-                    int reserveIDOutput = g.Current;
-                    <a href="Reservations/ReserveDetails/@reserveIDOutput">@bookReserved</a>
-                    <br />                    
-                }
         </div>
     </div>
     <hr />
@@ -94,13 +67,40 @@
             <h3>Account Status</h3>
             @if (ViewBag.FinesSum > 0)
             {
-                <br />
                 <h3 style="color: red">Total Fines: $@ViewBag.FinesSum</h3>
                 <h4 style="color: red">Alert! You have outstanding fees. Please return the book/s and make a payment immediately.</h4>
             }
             else
             {
+                <br />
                 <p style="color: dodgerblue">In Good Standing. Well Done!</p>
+            }
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <h3>Your Reviews</h3>
+            <br />
+
+            @foreach (var bookReviewed in ((List<string>)ViewBag.ReviewList))
+            {
+                e.MoveNext();
+                int reviewIDOutput = e.Current;
+                <a href="Reviews/ReviewDetails/@reviewIDOutput">@bookReviewed</a>
+                <br />
+            }
+        </div>
+        <div class="col-md-5">
+            <h3>Your Reservations</h3>
+            <br />
+
+            @foreach (var bookReserved in ((List<string>)ViewBag.ReserveList))
+            {
+                g.MoveNext();
+                int reserveIDOutput = g.Current;
+                <a href="Reservations/ReserveDetails/@reserveIDOutput">@bookReserved</a>
+                <br />
             }
         </div>
     </div>

@@ -2,18 +2,82 @@
 
 @{
     ViewBag.Title = "Index";
+    var completedLoan = ViewBag.CompletedLoan as List<Team2LibraryProject_01.Models.Loan>;
 }
 
 <div class="jumbotron">
     <div class="container">
-        <h1>Loan Check-Ins</h1>
+        <h1>Check-Ins</h1>
         <p class="lead">All book returns right here.</p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
-        <h4>All Current Loans</h4>
+        <h3>All Completed Loans</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    Loan ID
+                </th>
+                <th>
+                    Member Card Number
+                </th>
+                <th>
+                    Member Name
+                </th>
+                <th>
+                    Book ID
+                </th>
+                <th>
+                    Book Title
+                </th>
+                <th>
+                    Checkout Date
+                </th>
+                <th>
+                    Due Date
+                </th>
+                <th>
+                    Return Date
+                </th>
+
+                @foreach (var item in completedLoan)
+                {
+                <tr>
+                    <td>
+                        @item.LoanID
+                    </td>
+                    <td>
+                        @item.CardNo
+                    </td>
+                    <td>
+                        @item.Member.FName @item.Member.LName
+                    </td>
+                    <td>
+                        @item.ItemID
+                    </td>
+                    <td>
+                        @item.Title
+                    </td>
+                    <td>
+                        @item.CheckOutDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.DueDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.ReturnDate.Value.ToShortDateString()
+                    </td>
+                </tr>
+                }
+            </table>
+        </div>
+        <hr />
+    </div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>All Pending Loans</h3>
         <table class="table">
             <tr>
                 <th>
@@ -60,10 +124,10 @@
                             @Html.DisplayFor(modelItem => item.Title)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CheckOutDate)
+                            @item.CheckOutDate.ToShortDateString()
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DueDate)
+                            @item.DueDate.ToShortDateString()
                         </td>
                         <td>
                            $ @Html.DisplayFor(modelItem => item.Fines)
