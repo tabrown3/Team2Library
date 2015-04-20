@@ -14,6 +14,25 @@
 
 <hr />
 <body>
+
+    @using (Html.BeginForm())
+    {
+        <p>
+            <h5>
+                Search By
+
+                First Name: @Html.TextBox("firstName")
+                Last Name: @Html.TextBox("lastName")
+                Card Number: @Html.TextBox("cardNumber")
+                Book Title: @Html.TextBox("bookTitle")
+                Compare Sign: @Html.DropDownList("compareSign")
+                Rating: @Html.TextBox("rating")
+
+                <input type="submit" value="Search" />
+            </h5>
+        </p>
+    }
+
     @{
         var grid = new WebGrid(source: Model, rowsPerPage: 20);
     }
@@ -26,7 +45,7 @@
             columns.Add(model => model.Title).Titled("Book Title");
             columns.Add(model => model.Rating).Titled("Rating");
             columns.Add(model => model.ReviewText).Titled("Review Text");
-        }).WithPaging(10).Sortable(true).Filterable(true)
+        }).WithPaging(10).Sortable(true).Filterable(false)
 </body>
 
 

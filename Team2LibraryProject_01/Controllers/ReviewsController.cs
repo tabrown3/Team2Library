@@ -17,11 +17,55 @@ namespace Team2LibraryProject_01.Controllers
         static string currentISBN;
 
         //Review Report
-        public ActionResult ReviewReport()
+        public ActionResult ReviewReport(string firstName, string lastName, string cardNumber, string bookTitle, string compareSign, string rating)
         {
+            List<string> filterList = new List<string>();
+            List<string> compareSigns = new List<string>(new string[] { "=", ">", "<" });
+            var memRevViewList = new List<MemberReviewsView>();
+
+            ViewBag.compareSign = new SelectList(compareSigns);
+
+            //var memRevViewList = db.Database.SqlQuery<MemberReviewsView>("SELECT * FROM dbo.MemberReviewsView").ToList();
+
+            bool searchUsed = false;
+
+            if (!String.IsNullOrEmpty(firstName))
+            {
+                filterList.Add("FName = '" +firstName + "'");
+                searchUsed = true;
+            }
+            if (!String.IsNullOrEmpty(lastName))
+            {
+                filterList.Add("LName = '" + lastName + "'");
+                searchUsed = true;
+            }
+            if (!String.IsNullOrEmpty(cardNumber))
+            {
+                filterList.Add("CardNo = " + cardNumber);
+                searchUsed = true;
+            }
+            if (!string.IsNullOrEmpty(bookTitle))
+            {
+                filterList.Add("Title = '" + bookTitle + "'");
+                searchUsed = true;
+            }
+            if (!string.IsNullOrEmpty(rating))
+            {
+                filterList.Add("Rating " + compareSign + " " + rating);
+                searchUsed = true;
+            }
+
+            if (searchUsed == true)
+            {
+
+                string whereClause = "WHERE " + string.Join(" AND ", filterList);
+                memRevViewList = db.Database.SqlQuery<MemberReviewsView>("SELECT * FROM dbo.MemberReviewsView " + whereClause).ToList();
+            }
+
             if (User.IsInRole("Admin"))
             {
-                return View(db.MemberReviewsViews.ToList());
+                //return View(db.MemberReviewsViews.ToList());
+                return View(memRevViewList);
             }
             else
                 return View("~/Views/Home/Index.cshtml");
