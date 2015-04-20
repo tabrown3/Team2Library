@@ -92,7 +92,7 @@ namespace Team2LibraryProject_01.Controllers
                 loan.DueDate = savedLoan.DueDate;
                 loan.Title = savedLoan.Title;
                 loan.ReturnDate = today.Date;
-                loan.Fines = 0;
+                loan.Fines = savedLoan.Fines;
                 loan.FinesPaid = true;
 
                 //Set the book copy to be available on shelf
@@ -104,7 +104,7 @@ namespace Team2LibraryProject_01.Controllers
                 db.Database.ExecuteSqlCommand(loanUpdateSQL, savedLoan.CardNo, savedLoan.CheckOutDate, savedLoan.DueDate, loan.ReturnDate, loan.Fines, loan.FinesPaid, savedLoan.Title, savedLoan.LoanID);           
 
                 TempData["Success"] = "Success: The book has been returned.";
-                return RedirectToAction("Admin", "Home");
+                return RedirectToAction("LoanIndex", "Loans");
             }
 
             ViewBag.ItemID = new SelectList(db.Inventories, "ItemID", "ItemID", loan.ItemID);
@@ -209,7 +209,7 @@ namespace Team2LibraryProject_01.Controllers
                     ViewBag.Image = "~/Content/Images/Books/begin_everything_cover.png";
                     break;
                 case "316081078":
-                    ViewBag.Image = "~/Content/Images/Books/begin_everything_cover.png";
+                    ViewBag.Image = "~/Content/Images/Books/blackout_cover.png";
                     break;
                 default:
                     ViewBag.Image = "~/Content/Images/Books/placeholder_cover.png";

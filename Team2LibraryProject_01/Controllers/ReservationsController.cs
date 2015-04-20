@@ -118,7 +118,7 @@ namespace Team2LibraryProject_01.Controllers
                     ViewBag.Image = "~/Content/Images/Books/begin_everything_cover.png";
                     break;
                 case "316081078":
-                    ViewBag.Image = "~/Content/Images/Books/begin_everything_cover.png";
+                    ViewBag.Image = "~/Content/Images/Books/blackout_cover.png";
                     break;
                 default:
                     ViewBag.Image = "~/Content/Images/Books/placeholder_cover.png";
