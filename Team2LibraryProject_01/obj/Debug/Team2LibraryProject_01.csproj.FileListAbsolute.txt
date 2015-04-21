@@ -115,7 +115,6 @@ C:\Users\myke\Desktop\Team2Library\Team2LibraryProject_01\obj\Debug\Team2Library
 C:\Users\myke\Desktop\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.csproj.GenerateResource.Cache
 C:\Users\myke\Desktop\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.dll
 C:\Users\myke\Desktop\Team2Library\Team2LibraryProject_01\obj\Debug\Team2LibraryProject_01.pdb
-C:\Users\myke\Desktop\Team2Library\Team2LibraryProject_01\bin\GridMvc.dll
 D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\bin\Team2LibraryProject_01.dll.config
 D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\bin\Team2LibraryProject_01.dll
 D:\Users\Jon\Documents\Team2Library\Team2LibraryProject_01\bin\Team2LibraryProject_01.pdb
