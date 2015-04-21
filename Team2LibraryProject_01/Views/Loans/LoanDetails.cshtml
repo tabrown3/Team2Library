@@ -9,7 +9,7 @@
         <br />
         <div class="row">
             <div class="col-md-6">
-                <img id="books" alt="books_cover" src="@Url.Content(ViewBag.Image)" />
+                <img id="books" alt="books_cover" src="@Url.Content(ViewBag.Image)" onerror="this.onerror = null; this.src = 'http://placehold.it/400x600';">
             </div>
             <div class="col-md-6">
                 <h3>Book Title:</h3>
@@ -39,6 +39,7 @@
                 }
                 @if(Model.FinesPaid == false)
                 {
+                    <br />
                     <h4 style="color: red">Warning! You have outstanding fees.</h4>
                     <h4 style="color: red">Please return the book and make a payment to the librarian immediately.</h4>
                 }
