@@ -19,7 +19,10 @@ namespace Team2LibraryProject_01.Controllers
 
             List<string> filterList = new List<string>();
             List<string> compareSigns = new List<string>(new string[] { "=", ">", "<" });
+            List<string> finesPaidOptions = new List<string>(new string[] { "ALL", "TRUE", "FALSE" });
             var memLoanViewList = new List<MemberLoansView>();
+
+            ViewBag.finesPaid = new SelectList(finesPaidOptions);
 
             //var memRevViewList = db.Database.SqlQuery<MemberReviewsView>("SELECT * FROM dbo.MemberReviewsView").ToList();
 
@@ -67,7 +70,15 @@ namespace Team2LibraryProject_01.Controllers
             }
             if (!string.IsNullOrEmpty(finesPaid))
             {
-                filterList.Add("FinesPaid = '" + finesPaid + "'");
+                if (finesPaid != "ALL")
+                {
+                    filterList.Add("FinesPaid = '" + finesPaid + "'");
+                }
+                else
+                {
+                    filterList.Add("(FinesPaid = 'TRUE' OR FinesPaid = 'FALSE')");
+                }
+
                 searchUsed = true;
             }
 

@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<Team2LibraryProject_01.Models.MemberLoansView>
 
 @{
-    ViewBag.Title = "Loan Report";
+    ViewBag.Title = "Fees Report";
 }
 
-<h2>Loan Report</h2>
+<h2>Fees Report</h2>
 
 @using GridMvc.Html
 
 <hr />
+
 <body>
 
     @using (Html.BeginForm())
@@ -21,9 +22,7 @@
                 Last Name: @Html.TextBox("lastName")
                 Card Number: @Html.TextBox("cardNumber")
                 Book Title: @Html.TextBox("bookTitle")
-                Check Out Date: @Html.TextBox("checkOutDate")
-                Due Date: @Html.TextBox("dueDate")
-                Return Date: @Html.TextBox("returnDate")
+                Compare Sign: @Html.DropDownList("compareSign")
                 Fines: @Html.TextBox("fines")
                 Fines Paid: @Html.DropDownList("finesPaid")
 
@@ -43,9 +42,6 @@
             columns.Add(model => model.LName).Titled("User Last Name");
             columns.Add(model => model.CardNo).Titled("Card Number");
             columns.Add(model => model.Title).Titled("Book Title");
-            columns.Add(model => model.CheckOutDate).Titled("Check Out Date");
-            columns.Add(model => model.DueDate).Titled("Due Date");
-            columns.Add(model => model.ReturnDate).Titled("Return Date");
             columns.Add(model => model.Fines).Titled("Fines");
             columns.Add(model => model.FinesPaid).Titled("Fines Paid");
         })
