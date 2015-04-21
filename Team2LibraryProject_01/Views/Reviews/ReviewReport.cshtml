@@ -33,6 +33,7 @@
         </p>
     }
 
+
     @{
         var grid = new WebGrid(source: Model, rowsPerPage: 20);
     }
@@ -45,7 +46,7 @@
             columns.Add(model => model.Title).Titled("Book Title");
             columns.Add(model => model.Rating).Titled("Rating");
             columns.Add(model => model.ReviewText).Titled("Review Text");
-        }).WithPaging(10).Sortable(true).Filterable(false)
+        })
 </body>
 
 
