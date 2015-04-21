@@ -15,61 +15,61 @@
     {
         <hr />
         <div class="message">
-            <p style="color: darkorange">@message</p>
+            <p style="color: darkorange; font-size: 16px">@message</p>
         </div>
     }
     <hr />
     <div class="admincontrols">
         <div class="row">
             <div class="col-md-5">
-                <h3>Account Controls</h3>
-                <p>Manage user accounts, including viewing and deletion of members.</p>
+                <h2>Account Controls</h2>
+                <p style="font-size: 16px">Manage user accounts, including viewing and deletion of members.</p>
 
                 <br />
 
-                <p>@Html.ActionLink("Access the member list", "MemberIndex", "Members")</p>
+                <p style="font-size: 16px">@Html.ActionLink("Access the member list", "MemberIndex", "Members")</p>
 
             </div>
 
             <div class="col-md-5">
-                <h3>Inventory Controls</h3>
-                <p>Manage the library inventory for addition or removal of books on offer.</p>
+                <h2>Inventory Controls</h2>
+                <p style="font-size: 16px">Manage the library inventory for addition or removal of books on offer.</p>
 
                 <br />
 
-                @Html.ActionLink("Access the inventory", "InventoryIndex", "Inventories")
-                <br />
-                @Html.ActionLink("Access the book catalog", "BookIndex", "Books")
+                <p style="font-size: 16px">@Html.ActionLink("Access the inventory", "InventoryIndex", "Inventories")</p>
+                <p style="font-size: 16px">@Html.ActionLink("Access the book catalog", "BookIndex", "Books")</p>
 
+</div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Manage Loans</h2>
+                <p style="font-size: 16px">Manage the loan system for book check-ins.</p>
+                <br />
+                <p style="font-size: 16px">@Html.ActionLink("Access Loans", "LoanIndex", "Loans")</p>
             </div>
         </div>
         <hr />
         <div class="row">
             <div class="col-md-12">
-                <h3>Manage Loans</h3>
-                <p>Manage the loan system for book check-ins.</p>
-                @Html.ActionLink("Access Loans", "LoanIndex", "Loans")
-            </div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Report Generation</h3>
-                <p>View database statistics and save them as reports.</p>
+                <h2>Report Generation</h2>
+                <p style="font-size: 16px">View database statistics and save them as reports.</p>
 
                 <br />
                 <div class="col-md-5">
-                    <h4>Inventory Reports</h4>
-                    <p>@Html.ActionLink("Current Book Inventory", "InventoryReport", "Inventories")</p>
-                    <p>@Html.ActionLink("Books in Catalog", "BookCatalogReport", "Books")</p>
-                    <p>@Html.ActionLink("Loans on Books", "BookLoanReport", "Loans")</p>
+                    <h3>Inventory Reports</h3>
+                    <p style="font-size: 16px">@Html.ActionLink("Current Book Inventory", "InventoryReport", "Inventories")</p>
+                    <p style="font-size: 16px">@Html.ActionLink("Books in Catalog", "BookCatalogReport", "Books")</p>
+                    <p style="font-size: 16px">@Html.ActionLink("Loans on Books", "BookLoanReport", "Loans")</p>
                 </div>
                 <div class="col-md-5">
-                    <h4>Member Reports</h4>
-                    <p>@Html.ActionLink("Current Membership", "MemberReport", "Members")</p>
-                    <p>@Html.ActionLink("Loans per Member", "LoanReport", "Loans")</p>
-                    <p>@Html.ActionLink("Reviews made by Members", "ReviewReport", "Reviews")</p>
-                    <p>@Html.ActionLink("Late fees on Members", "FeesReport", "Reservations")</p>
+                    <h3>Member Reports</h3>
+                    <p style="font-size: 16px">@Html.ActionLink("Current Membership", "MemberReport", "Members")</p>
+                    <p style="font-size: 16px">@Html.ActionLink("Loans per Member", "LoanReport", "Loans")</p>
+                    <p style="font-size: 16px">@Html.ActionLink("Reviews made by Members", "ReviewReport", "Reviews")</p>
+                    <p style="font-size: 16px">@Html.ActionLink("Late fees on Members", "FeesReport", "Reservations")</p>
                     </div>
                 </div>
             </div>

@@ -311,7 +311,7 @@ html {
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Roboto';
   font-size: 14px;
   line-height: 1.428571429;
   color: #333333;
@@ -322,7 +322,7 @@ input,
 button,
 select,
 textarea {
-  font-family: inherit;
+  font-family: 'Roboto';
   font-size: inherit;
   line-height: inherit;
 }
@@ -361,6 +361,11 @@ img {
   max-width: 100%;
 }
 
+.img-center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 .img-rounded {
   border-radius: 6px;
 }
@@ -462,21 +467,29 @@ cite {
   text-align: center;
 }
 
-h1,
-h2,
-h3,
+
+
 h4,
 h5,
 h6,
-.h1,
-.h2,
-.h3,
+
+
 .h4,
 .h5,
 .h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Roboto';
   font-weight: 500;
   line-height: 1.1;
+}
+
+h1,
+h2,
+h3,
+.h3,
+.h1,
+.h2 {
+    font-family: 'Roboto';
+    font-weight: 300;
 }
 
 h1 small,
@@ -512,17 +525,17 @@ h6 {
 
 h1,
 .h1 {
-  font-size: 36px;
+  font-size: 42px;
 }
 
 h2,
 .h2 {
-  font-size: 30px;
+  font-size: 36px;
 }
 
 h3,
 .h3 {
-  font-size: 24px;
+  font-size: 28px;
 }
 
 h4,
@@ -1996,6 +2009,7 @@ textarea.input-lg {
 @media (min-width: 768px) {
   .form-horizontal .control-label {
     text-align: right;
+    font-size: 16px;
   }
 }
 

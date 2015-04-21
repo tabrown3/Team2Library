@@ -25,17 +25,18 @@
     <hr />
     <div class="row">
         <div class="col-md-5">
-            <h3>About You</h3>
+            <h2>About You</h2>
             <br />
-            <p>Name: @ViewBag.FName @ViewBag.Lname</p>
-            <p>Email: @ViewBag.Email</p>
-            <p>Member Type: @ViewBag.Type</p>
+            <p style="font-size: 16px">Name: @ViewBag.FName @ViewBag.Lname</p>
+            <p style="font-size: 16px">Email: @ViewBag.Email</p>
+            <p style="font-size: 16px">Member Type: @ViewBag.Type</p>
         </div>
 
         <div class="col-md-5">
-            <h3>Account Management</h3>
+            <h2>Account Management</h2>
             <br />
-            <p>Change Your Password:
+            <p style="font-size: 16px">
+                Change Your Password:
                 [
                 @if (Model.HasPassword)
                 {
@@ -53,18 +54,18 @@
     <hr />
     <div class="row">
         <div class="col-md-5">
-            <h3>Your Rentals</h3>
+            <h2>Your Rentals</h2>
             <br />
             @foreach (var bookRented in ((List<string>)ViewBag.RentList))
             {
                 f.MoveNext();
                 int rentIDOutput = f.Current;
-                <a href="Loans/LoanDetails/@rentIDOutput">@bookRented</a>
+                <a href="Loans/LoanDetails/@rentIDOutput" style="font-size: 16px">@bookRented</a>
                 <br />
             }
         </div>
         <div class="col-md-5">
-            <h3>Account Status</h3>
+            <h2>Account Status</h2>
             @if (ViewBag.FinesSum > 0)
             {
                 <h3 style="color: red">Total Fines: $@ViewBag.FinesSum</h3>
@@ -73,33 +74,33 @@
             else
             {
                 <br />
-                <p style="color: dodgerblue">In Good Standing. Well Done!</p>
+                <p style="color: dodgerblue; font-size: 18px">In Good Standing. Well Done!</p>
             }
         </div>
     </div>
     <hr />
     <div class="row">
         <div class="col-md-5">
-            <h3>Your Reviews</h3>
+            <h3 style="font-size: 36px; font-weight: 300">Your Reviews</h3>
             <br />
 
             @foreach (var bookReviewed in ((List<string>)ViewBag.ReviewList))
             {
                 e.MoveNext();
                 int reviewIDOutput = e.Current;
-                <a href="Reviews/ReviewDetails/@reviewIDOutput">@bookReviewed</a>
+                <a href="Reviews/ReviewDetails/@reviewIDOutput" style="font-size: 16px">@bookReviewed</a>
                 <br />
             }
         </div>
         <div class="col-md-5">
-            <h3>Your Reservations</h3>
+            <h3 style="font-size: 36px; font-weight: 300">Your Reservations</h3>
             <br />
 
             @foreach (var bookReserved in ((List<string>)ViewBag.ReserveList))
             {
                 g.MoveNext();
                 int reserveIDOutput = g.Current;
-                <a href="Reservations/ReserveDetails/@reserveIDOutput">@bookReserved</a>
+                <a href="Reservations/ReserveDetails/@reserveIDOutput" style="font-size: 16px">@bookReserved</a>
                 <br />
             }
         </div>
