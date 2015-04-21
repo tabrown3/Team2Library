@@ -77,7 +77,8 @@
                 </dt>
 
                 <dd style="font-size: 16px">
-                    @Html.DisplayFor(model => model.Rating)/5
+                    @Html.DisplayFor(model => model.Rating)/5  
+                    <p>@Html.ActionLink("View Reviews", "ReviewList", "Reviews", new { id = Model.ISBN }, null)</p>       
                 </dd>
 
                 <dt style="font-size: 16px">
