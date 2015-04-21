@@ -1,17 +1,52 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<h2>Contact Us</h2>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<style>
+    #map-canvas {
+        width: 500px;
+        height: 400px;
+    }
+</style>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script>
+      function initialize() {
+        var mapCanvas = document.getElementById('map-canvas');
+        var mapOptions = {
+          center: new google.maps.LatLng(29.721024, -95.341939),
+          zoom: 17,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions)
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<body>
+    <div class="row">
+        <div class="col-md-6">
+            <br />
+            <br />
+            <address style="font-size: 26px; font-weight: 300">
+                114 University Drive<br />
+                Houston, TX 77004<br />
+                (713) 423-1050
+            </address>
+            <br />
+            <p style="font-size: 24px">
+                Follow Us:
+            </p>
+            <br />
+            <a href="https://www.facebook.com/" target="_blank"><img src="~/Content/Images/Contact/facebook.png" alt="facebook"></a>
+            <a href="https://www.twitter.com/" target="_blank"><img src="~/Content/Images/Contact/twitter.png" alt="twitter"></a>
+            <a href="https://www.plus.google.com/" target="_blank"><img src="~/Content/Images/Contact/google_plus.png" alt="googleplus"></a>
+            <a href="https://www.instagram.com/" target="_blank"><img src="~/Content/Images/Contact/instagram.png" alt="instagram"></a>
+            <a href="https://www.linkedin.com/" target="_blank"><img src="~/Content/Images/Contact/linkedin.png" alt="linkedin"></a>
+        </div>
+        <div class="col-md-6">
+            <div id="map-canvas"></div>
+        </div>
+    </div>
+</body>
