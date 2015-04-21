@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Team2LibraryProject_01.Models.Review>
+@{
+    string isbn = null;
+}
+<h2>Member Reviews For: <span style="font-size: 26px">@ViewBag.BookTitle</span></h2>
+
+<hr />
+
+@foreach (var item in Model) {
+    <h3>@item.Member.FName @item.Member.LName, <span style="font-size: 18px">@item.Member.Role.Role1</span></h3>
+    <h3>@item.Rating/5</h3>
+    <br />
+    <h4>@item.ReviewText</h4>
+    <hr />
+    
+    isbn = item.ISBN;
+}
+
+<a href="/Books/BookDetails/@isbn">Return to Book</a>

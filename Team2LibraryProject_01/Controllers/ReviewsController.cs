@@ -107,6 +107,23 @@ namespace Team2LibraryProject_01.Controllers
             return View();
         }
 
+
+        //List of Reviews on Book
+        public ActionResult ReviewList(string id)
+        {
+            var reviews = (from r in db.Reviews
+                              where r.ISBN == id
+                                 select r);
+
+            var bookTitle = (from r in db.Reviews
+                             where r.ISBN == id
+                             select r.Book.Title).FirstOrDefault();
+
+            ViewBag.BookTitle = bookTitle;
+
+            return View(reviews);
+        }
+
         // POST: Reviews/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
