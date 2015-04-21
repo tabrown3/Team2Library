@@ -38,8 +38,6 @@
         @Html.ActionLink("Edit", "EditBook", new { Id = id }, null)
         <span>|</span>
         @Html.ActionLink("Details", "Details", new { Id = id }, null)
-        <span>|</span>
-        @Html.ActionLink("Delete", "DeleteBook", new { Id = id }, null)
     }
 
     @Html.Grid(Model).Columns(columns =>
