@@ -21,5 +21,7 @@ namespace Team2LibraryProject_01.Models
         public string Author_LName { get; set; }
         public string Publisher { get; set; }
         public float ItemPrice { get; set; }
+        public System.DateTime DateAdded { get; set; }
+        public bool OnShelf { get; set; }
     }
 }

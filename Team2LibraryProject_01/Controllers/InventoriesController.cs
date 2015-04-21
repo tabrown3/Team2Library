@@ -14,6 +14,85 @@ namespace Team2LibraryProject_01.Controllers
     {
         private Team2LibraryEntities db = new Team2LibraryEntities();
 
+        public ActionResult InventoryReport(string isbn, string title, string authorName, string itemPrice, string dateAdded1, string dateAdded2, string onShelf)
+        {
+            List<string> onShelfOptions = new List<string>(new string[] { "ALL", "TRUE", "FALSE" });
+            var bookInvViewList = new List<BookInventoryView>();
+            List<string> filterList = new List<string>();
+
+            ViewBag.onShelf = new SelectList(onShelfOptions);
+
+            bool searchUsed = false;
+
+            if (!String.IsNullOrEmpty(isbn))
+            {
+                filterList.Add("ISBN = '" + isbn + "'");
+                searchUsed = true;
+            }
+            if (!String.IsNullOrEmpty(title))
+            {
+                filterList.Add("Title = '" + title + "'");
+                searchUsed = true;
+            }
+            if (!String.IsNullOrEmpty(authorName))
+            {
+                filterList.Add("Author_LName = " + authorName);
+                searchUsed = true;
+            }
+            if (!string.IsNullOrEmpty(itemPrice))
+            {
+                filterList.Add("ItemPrice = '" + itemPrice + "'");
+                searchUsed = true;
+            }
+            if (!string.IsNullOrEmpty(dateAdded1) || !string.IsNullOrEmpty(dateAdded2))
+            {
+                if (string.IsNullOrEmpty(dateAdded2))
+                {
+
+                    filterList.Add("DateAdded = '" + dateAdded1 + "'");
+                }
+                else if (string.IsNullOrEmpty(dateAdded1))
+                {
+
+                    filterList.Add("DateAdded = '" + dateAdded2 + "'");
+                }
+                else
+                {
+                    filterList.Add("(DateAdded BETWEEN '" + dateAdded1 + "' AND '" + dateAdded2 + "')");
+                }
+
+                searchUsed = true;
+            }
+
+            if (!string.IsNullOrEmpty(onShelf))
+            {
+                if (onShelf != "ALL")
+                {
+                    filterList.Add("OnShelf = '" + onShelf + "'");
+                }
+                else
+                {
+                    filterList.Add("(OnShelf = 'TRUE' OR OnShelf = 'FALSE')");
+                }
+
+                searchUsed = true;
+            }
+
+            if (searchUsed == true)
+            {
+
+                string whereClause = "WHERE " + string.Join(" AND ", filterList);
+                bookInvViewList = db.Database.SqlQuery<BookInventoryView>("SELECT * FROM dbo.BookInventoryView " + whereClause).ToList();
+            }
+
+            if (User.IsInRole("Admin"))
+            {
+                //return View(db.MemberReviewsViews.ToList());
+                return View(bookInvViewList);
+            }
+            else
+                return View("~/Views/Home/Index.cshtml");
+        }
        
         // GET: Inventories
         public ActionResult InventoryIndex()

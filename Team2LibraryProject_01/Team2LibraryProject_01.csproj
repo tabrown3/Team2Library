@@ -448,6 +448,7 @@
     <Content Include="Views\Reservations\Index.cshtml" />
     <Content Include="Views\Loans\LoanReport.cshtml" />
     <Content Include="Views\Reservations\FeesReport.cshtml" />
+    <Content Include="Views\Inventories\InventoryReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

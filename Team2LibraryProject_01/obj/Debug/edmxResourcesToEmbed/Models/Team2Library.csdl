@@ -361,5 +361,7 @@
     <Property Name="Author_LName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="Publisher" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="ItemPrice" Type="Single" Nullable="false" />
+    <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="OnShelf" Type="Boolean" Nullable="false" />
   </EntityType>
 </Schema>

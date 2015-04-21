@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Team2LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Team2LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Book">
           <Key>
             <PropertyRef Name="ISBN" />
@@ -130,8 +130,6 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookInventoryView' does not have 
           <Key>
             
             <PropertyRef Name="ISBN" />
-            
-            
           </Key>
           <Property Name="ItemID" Type="int" Nullable="false" />
           <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
@@ -140,6 +138,8 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.BookInventoryView' does not have 
           <Property Name="Author_LName" Type="varchar" MaxLength="30" />
           <Property Name="Publisher" Type="varchar" MaxLength="30" />
           <Property Name="ItemPrice" Type="real" Nullable="false" />
+          <Property Name="DateAdded" Type="date" Nullable="false" />
+          <Property Name="OnShelf" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'TEAM2LIBRARY.dbo.MemberLoansView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -376,7 +376,9 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.RentsView' does not have a primar
     [BookInventoryView].[Author_FName] AS [Author_FName], 
     [BookInventoryView].[Author_LName] AS [Author_LName], 
     [BookInventoryView].[Publisher] AS [Publisher], 
-    [BookInventoryView].[ItemPrice] AS [ItemPrice]
+    [BookInventoryView].[ItemPrice] AS [ItemPrice], 
+    [BookInventoryView].[DateAdded] AS [DateAdded], 
+    [BookInventoryView].[OnShelf] AS [OnShelf]
     FROM [dbo].[BookInventoryView] AS [BookInventoryView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="MemberLoansView" EntityType="Self.MemberLoansView" store:Type="Views" store:Schema="dbo">
@@ -825,6 +827,8 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.RentsView' does not have a primar
           <Property Name="Author_LName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Publisher" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="ItemPrice" Type="Single" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="OnShelf" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1002,6 +1006,8 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.RentsView' does not have a primar
           <EntitySetMapping Name="BookInventoryViews">
             <EntityTypeMapping TypeName="Team2LibraryModel.BookInventoryView">
               <MappingFragment StoreEntitySet="BookInventoryView">
+                <ScalarProperty Name="OnShelf" ColumnName="OnShelf" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
                 <ScalarProperty Name="Publisher" ColumnName="Publisher" />
                 <ScalarProperty Name="Author_LName" ColumnName="Author_LName" />

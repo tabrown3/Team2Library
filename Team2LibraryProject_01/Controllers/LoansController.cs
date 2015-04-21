@@ -14,7 +14,9 @@ namespace Team2LibraryProject_01.Controllers
     {
         private Team2LibraryEntities db = new Team2LibraryEntities();
 
-        public ActionResult LoanReport(string firstName, string lastName, string cardNumber, string bookTitle, string checkOutDate, string dueDate, string returnDate, string fines, string finesPaid)
+        public ActionResult LoanReport(string firstName, string lastName, string cardNumber, string bookTitle,
+            string checkOutDate1, string checkOutDate2, string dueDate1, string dueDate2, string returnDate1,
+            string returnDate2, string fines, string finesPaid)
         {
 
             List<string> filterList = new List<string>();
@@ -48,19 +50,60 @@ namespace Team2LibraryProject_01.Controllers
                 filterList.Add("Title = '" + bookTitle + "'");
                 searchUsed = true;
             }
-            if (!string.IsNullOrEmpty(checkOutDate))
+            if (!string.IsNullOrEmpty(checkOutDate1) || !string.IsNullOrEmpty(checkOutDate2))
             {
-                filterList.Add("CheckOutDate = '" + checkOutDate + "'");
+                if(string.IsNullOrEmpty(checkOutDate2)){
+
+                    filterList.Add("CheckOutDate = '" + checkOutDate1 + "'");
+                }
+                else if (string.IsNullOrEmpty(checkOutDate1))
+                {
+
+                    filterList.Add("CheckOutDate = '" + checkOutDate2 + "'");
+                }
+                else
+                {
+                    filterList.Add("(CheckOutDate BETWEEN '" + checkOutDate1 + "' AND '" + checkOutDate2 + "')");
+                }
+                
                 searchUsed = true;
             }
-            if (!string.IsNullOrEmpty(dueDate))
+            if (!string.IsNullOrEmpty(dueDate1) || !string.IsNullOrEmpty(dueDate2))
             {
-                filterList.Add("DueDate = '" + dueDate + "'");
+                if (string.IsNullOrEmpty(dueDate2))
+                {
+
+                    filterList.Add("DueDate = '" + dueDate1 + "'");
+                }
+                else if (string.IsNullOrEmpty(dueDate1))
+                {
+
+                    filterList.Add("DueDate = '" + dueDate2 + "'");
+                }
+                else
+                {
+                    filterList.Add("(DueDate BETWEEN '" + dueDate1 + "' AND '" + dueDate2 + "')");
+                }
+
                 searchUsed = true;
             }
-            if (!string.IsNullOrEmpty(returnDate))
+            if (!string.IsNullOrEmpty(returnDate1) || !string.IsNullOrEmpty(returnDate2))
             {
-                filterList.Add("ReturnDate = '" + returnDate + "'");
+                if (string.IsNullOrEmpty(returnDate2))
+                {
+
+                    filterList.Add("ReturnDate = '" + returnDate1 + "'");
+                }
+                else if (string.IsNullOrEmpty(returnDate1))
+                {
+
+                    filterList.Add("ReturnDate = '" + returnDate2 + "'");
+                }
+                else
+                {
+                    filterList.Add("(ReturnDate BETWEEN '" + returnDate1 + "' AND '" + returnDate2 + "')");
+                }
+
                 searchUsed = true;
             }
             if (!string.IsNullOrEmpty(fines))
