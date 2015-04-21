@@ -14,6 +14,79 @@ namespace Team2LibraryProject_01.Controllers
     {
         private Team2LibraryEntities db = new Team2LibraryEntities();
 
+        public ActionResult LoanReport(string firstName, string lastName, string cardNumber, string bookTitle, string checkOutDate, string dueDate, string returnDate, string fines, string finesPaid)
+        {
+
+            List<string> filterList = new List<string>();
+            List<string> compareSigns = new List<string>(new string[] { "=", ">", "<" });
+            var memLoanViewList = new List<MemberLoansView>();
+
+            //var memRevViewList = db.Database.SqlQuery<MemberReviewsView>("SELECT * FROM dbo.MemberReviewsView").ToList();
+
+            bool searchUsed = false;
+
+            if (!String.IsNullOrEmpty(firstName))
+            {
+                filterList.Add("FName = '" + firstName + "'");
+                searchUsed = true;
+            }
+            if (!String.IsNullOrEmpty(lastName))
+            {
+                filterList.Add("LName = '" + lastName + "'");
+                searchUsed = true;
+            }
+            if (!String.IsNullOrEmpty(cardNumber))
+            {
+                filterList.Add("CardNo = " + cardNumber);
+                searchUsed = true;
+            }
+            if (!string.IsNullOrEmpty(bookTitle))
+            {
+                filterList.Add("Title = '" + bookTitle + "'");
+                searchUsed = true;
+            }
+            if (!string.IsNullOrEmpty(checkOutDate))
+            {
+                filterList.Add("CheckOutDate = '" + checkOutDate + "'");
+                searchUsed = true;
+            }
+            if (!string.IsNullOrEmpty(dueDate))
+            {
+                filterList.Add("DueDate = '" + dueDate + "'");
+                searchUsed = true;
+            }
+            if (!string.IsNullOrEmpty(returnDate))
+            {
+                filterList.Add("ReturnDate = '" + returnDate + "'");
+                searchUsed = true;
+            }
+            if (!string.IsNullOrEmpty(fines))
+            {
+                filterList.Add("Fines = " + fines);
+                searchUsed = true;
+            }
+            if (!string.IsNullOrEmpty(finesPaid))
+            {
+                filterList.Add("FinesPaid = '" + finesPaid + "'");
+                searchUsed = true;
+            }
+
+            if (searchUsed == true)
+            {
+
+                string whereClause = "WHERE " + string.Join(" AND ", filterList);
+                memLoanViewList = db.Database.SqlQuery<MemberLoansView>("SELECT * FROM dbo.MemberLoansView " + whereClause).ToList();
+            }
+
+            if (User.IsInRole("Admin"))
+            {
+                //return View(db.MemberReviewsViews.ToList());
+                return View(memLoanViewList);
+            }
+            else
+                return View("~/Views/Home/Index.cshtml");
+        }
+
         // GET: Loans
         public ActionResult LoanIndex()
         {
