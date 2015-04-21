@@ -5,6 +5,7 @@
         string message = TempData["Success"] as string;
     }
 
+    @using GridMvc.Html
     <h2>Member Index</h2>
 
     <body>
@@ -20,50 +21,27 @@
         <p>
             @Html.ActionLink("Return to Admin Section", "Admin", "Home")
         </p>
-        <table class="table">
-            <tr>
-                <th>
-                    User First Name
-                </th>
-                <th>
-                    User Last Name
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Password)
-                </th>
-                <th>
-                    Role
-                </th>
-                <th></th>
-            </tr>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Password)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Role.Role1)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Details", "MemberDetails", new { id = item.CardNo }) |
-                        @Html.ActionLink("Delete", "DeleteMember", new { id = item.CardNo })
-                    </td>
-                </tr>
-            }
+        @{
+            var memberGrid = new WebGrid(source: Model);
+        }
 
-        </table>
+        <hr />
+
+        @helper GridManageItemColumn(int id)
+        {
+            @Html.ActionLink("Details", "MemberDetails", new { Id = id }, null)
+            <span>|</span>
+            @Html.ActionLink("Delete", "DeleteMember", new { Id = id }, null)
+        }
+
+        @Html.Grid(Model).Columns(columns =>
+                         {
+                             columns.Add(model => model.FName).Titled("First Name");
+                             columns.Add(model => model.LName).Titled("Last Name");
+                             columns.Add(model => model.Email).Titled("Email");
+                             columns.Add(model => model.Password).Titled("Password");
+                             columns.Add(model => model.Role.Role1).Titled("Membership Type");
+                             columns.Add(o => o.CardNo).Titled("Manage Member").Encoded(false).Sanitized(false).RenderValueAs(o => GridManageItemColumn(o.CardNo).ToHtmlString());
+                         }).WithPaging(50).Sortable(true)
     </body>

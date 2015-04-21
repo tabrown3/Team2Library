@@ -1,17 +1,25 @@
 ﻿@model IEnumerable<Team2LibraryProject_01.Models.Book>
 
+    @{
+        ViewBag.Title = "Member Index";
+        string message = TempData["Success"] as string;
+    }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Book Index</title>
-</head>
 <body>
 
     <h2>Book Index</h2>
     <hr />
+
+    @if (!String.IsNullOrEmpty(message))
+    {
+        <hr />
+        <div class="message">
+            <p style="color: darkorange">@message</p>
+        </div>
+        <hr />
+    }
+
+    @using GridMvc.Html
 
     <p>
         @Html.ActionLink("Create New Book Entry", "AddBook") |
@@ -19,87 +27,35 @@
     </p>
 
 
-    <table class="table">
-        <tr>
-            <th>
-                ISBN
-            </th>
-            <th>
-                Author First Name
-            </th>
-            <th>
-                Author Last Name
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Publisher)
-            </th>
-            <th>
-                Number of Pages
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Shelf)
-            </th>
-            <th>
-                Genre
-            </th>
-            <th>
-                Language
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ISBN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author_FName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author_LName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Publisher)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumOfPages)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Shelf)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre1.Genre1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Language1.Language1)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditBook", new { id=item.ISBN }) |
-                @Html.ActionLink("Details", "Details", new { id=item.ISBN }) |
-                @Html.ActionLink("Delete", "DeleteBook", new { id=item.ISBN })
-            </td>
-        </tr>
+    @{
+        var catalogGrid = new WebGrid(source: Model);
     }
-    
-    </table>
+
+    <hr />
+
+    @helper GridManageItemColumn(string id)
+    {
+        @Html.ActionLink("Edit", "EditBook", new { Id = id }, null)
+        <span>|</span>
+        @Html.ActionLink("Details", "Details", new { Id = id }, null)
+        <span>|</span>
+        @Html.ActionLink("Delete", "DeleteBook", new { Id = id }, null)
+    }
+
+    @Html.Grid(Model).Columns(columns =>
+                         {
+                             columns.Add(model => model.ISBN).Titled("ISBN");
+                             columns.Add(model => model.Author_FName).Titled("First Name");
+                             columns.Add(model => model.Author_LName).Titled("Last Name");
+                             columns.Add(model => model.Title).Titled("Title");
+                             columns.Add(model => model.Publisher).Titled("Publisher");
+                             columns.Add(model => model.NumOfPages).Titled("Pages");
+                             columns.Add(model => model.Year).Titled("Year");
+                             columns.Add(model => model.Genre).Titled("Genre");
+                             columns.Add(model => model.Language).Titled("Language");
+                             columns.Add(model => model.Rating).Titled("Rating");
+                             columns.Add(model => model.Shelf).Titled("Shelf");
+                             columns.Add(o => o.ISBN, "Duplicate Column").Titled("Manage Book").Encoded(false).Sanitized(false).RenderValueAs(o => GridManageItemColumn(o.ISBN).ToHtmlString());
+                         }).WithPaging(50).Sortable(true)
 </body>
 </html>

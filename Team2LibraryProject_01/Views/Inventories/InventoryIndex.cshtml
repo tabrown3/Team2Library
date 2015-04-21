@@ -4,11 +4,12 @@
         ViewBag.Title = "Inventory Index";
         string message = TempData["Success"] as string;
     }
+    @using GridMvc.Html
 
     <h2>Inventory Index</h2>
 
-    <body>
-        <hr />
+<body>
+    <hr />
 
         @if (!String.IsNullOrEmpty(message))
         {
@@ -24,51 +25,28 @@
             @Html.ActionLink("Return to Admin Section", "Admin", "Home")
         </p>
 
-        <table class="table">
-            <tr>
-                <th>
-                    Item ID
-                </th>
-                <th>
-                    Item Price
-                </th>
-                <th>
-                    Date Added
-                </th>
-                <th>
-                    ISBN
-                </th>
-                <th>
-                    Title
-                </th>
-                <th></th>
-            </tr>
+       @{
+           var inventoryGrid = new WebGrid(source: Model);
+       }
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ItemID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ItemPrice)
-                    </td>
-                    <td>
-                        @item.DateAdded.ToShortDateString()
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Book.ISBN)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Book.Title)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "EditInventoryItem", new { id = item.ItemID }) |
-                        @Html.ActionLink("Details", "InventoryItemDetails", new { id = item.ItemID }) |
-                        @Html.ActionLink("Delete", "DeleteInventoryItem", new { id = item.ItemID })
-                    </td>
-                </tr>
-            }
+        <hr />
+       @helper GridManageItemColumn(int id)
+        {
+            @Html.ActionLink("Edit", "EditInventoryItem", new { Id = id }, null)
+            <span>|</span>
+            @Html.ActionLink("Details", "InventoryItemDetails", new { Id = id }, null)
+            <span>|</span>
+            @Html.ActionLink("Delete", "DeleteInventoryItem", new { Id = id }, null)
+        }
 
-        </table>
-    </body>
+       @Html.Grid(Model).Columns(columns =>
+                         {
+                             columns.Add(model => model.ItemID).Titled("Item ID");
+                             columns.Add(model => model.ItemPrice).Titled("Item Price");
+                             columns.Add(model => model.DateAdded).Titled("Date Added").Format("{0:dd/MM/yyyy}");
+                             columns.Add(model => model.ISBN).Titled("ISBN");
+                             columns.Add(model => model.Book.Title).Titled("Title");
+                             columns.Add(model => model.OnShelf).Titled("On Shelf");
+                             columns.Add(o => o.ItemID, "Duplicate Column").Titled("Manage Item").Encoded(false).Sanitized(false).RenderValueAs(o => GridManageItemColumn(o.ItemID).ToHtmlString());                           
+                         }).WithPaging(50).Sortable(true)
+</body>

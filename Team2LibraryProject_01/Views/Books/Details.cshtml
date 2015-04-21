@@ -14,7 +14,7 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Author_FName)
+                Author First Name
             </dt>
     
             <dd>
@@ -22,7 +22,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Author_LName)
+                Author Last Name
             </dt>
     
             <dd>
@@ -38,7 +38,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.NumOfPages)
+                Number of Pages
             </dt>
     
             <dd>
@@ -86,7 +86,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Genre1.Genre1)
+                Genre
             </dt>
     
             <dd>
@@ -94,7 +94,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Language1.Language1)
+                Language
             </dt>
     
             <dd>
@@ -104,8 +104,8 @@
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ISBN }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Edit", "EditBook", new { id = Model.ISBN }) |
+        @Html.ActionLink("Back to List", "BookIndex")
     </p>
 </body>
 </html>

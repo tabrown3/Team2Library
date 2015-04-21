@@ -476,6 +476,8 @@ namespace Team2LibraryProject_01.Controllers
             {
                 db.Books.Add(book);
                 db.SaveChanges();
+
+                TempData["Success"] = "Success: The book has been added to the catalog.";
                 return RedirectToAction("BookIndex");
             }
 
@@ -517,6 +519,8 @@ namespace Team2LibraryProject_01.Controllers
             {
                 db.Entry(book).State = EntityState.Modified;
                 db.SaveChanges();
+
+                TempData["Success"] = "Success: The book details are changed.";
                 return RedirectToAction("BookIndex");
             }
             ViewBag.Genre = new SelectList(db.Genres, "GenreID", "Genre1", book.Genre);
@@ -552,6 +556,8 @@ namespace Team2LibraryProject_01.Controllers
             Book book = db.Books.Find(id);
             db.Books.Remove(book);
             db.SaveChanges();
+
+            TempData["Success"] = "Success: The book has been removed from the catalog.";
             return RedirectToAction("BookIndex");
         }
 
