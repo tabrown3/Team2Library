@@ -171,6 +171,8 @@
     <EntitySetMapping Name="BookInventoryViews">
       <EntityTypeMapping TypeName="Team2LibraryModel.BookInventoryView">
         <MappingFragment StoreEntitySet="BookInventoryView">
+          <ScalarProperty Name="OnShelf" ColumnName="OnShelf" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
           <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
           <ScalarProperty Name="Publisher" ColumnName="Publisher" />
           <ScalarProperty Name="Author_LName" ColumnName="Author_LName" />

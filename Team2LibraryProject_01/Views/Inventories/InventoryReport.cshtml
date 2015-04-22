@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Team2LibraryProject_01.Models.BookInventoryView>
+
+@{
+    //ViewBag.Title = "Inventory Report";
+}
+
+<h2>Inventory Report</h2>
+
+@using GridMvc.Html
+
+<hr />
+<body>
+
+    @using (Html.BeginForm())
+    {
+        <p>
+            <h5>
+                Search By
+
+                ISBN: @Html.TextBox("isbn")
+                Title: @Html.TextBox("title")
+                Item Price: @Html.TextBox("itemPrice")
+                Date Added from: @Html.TextBox("dateAdded1")
+                to @Html.TextBox("dateAdded2")
+                On Shelf: @Html.DropDownList("onShelf")
+
+                <input type="submit" value="Search" />
+            </h5>
+        </p>
+    }
+
+
+    @{
+        var grid = new WebGrid(source: Model, rowsPerPage: 20);
+    }
+
+    @Html.Grid(Model).Columns(columns =>
+        {
+            columns.Add(model => model.ISBN).Titled("ISBN");
+            columns.Add(model => model.Title).Titled("Title");
+            columns.Add(model => model.ItemPrice).Titled("Item Price");
+            columns.Add(model => model.DateAdded).Titled("Date Added");
+            columns.Add(model => model.OnShelf).Titled("On Shelf");
+        })
+</body>

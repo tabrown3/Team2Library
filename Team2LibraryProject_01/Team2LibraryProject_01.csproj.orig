@@ -447,10 +447,13 @@
     <Content Include="Views\Reservations\ReserveDetails.cshtml" />
     <Content Include="Views\Reservations\Edit.cshtml" />
     <Content Include="Views\Reservations\Index.cshtml" />
-    <Content Include="Views\Loans\LoanReport.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Reviews\ReviewList.cshtml" />
+=======
+    <Content Include="Views\Loans\LoanReport.cshtml" />
     <Content Include="Views\Reservations\FeesReport.cshtml" />
     <Content Include="Views\Inventories\InventoryReport.cshtml" />
+>>>>>>> e5ee213076e92aef463b0ebc7b783e6964c4c876
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

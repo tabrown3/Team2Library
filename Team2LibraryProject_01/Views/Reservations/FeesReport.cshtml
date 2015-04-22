@@ -1,14 +1,15 @@
-﻿@model IEnumerable<Team2LibraryProject_01.Models.MemberReviewsView>
+﻿@model IEnumerable<Team2LibraryProject_01.Models.MemberLoansView>
+
+@{
+    ViewBag.Title = "Fees Report";
+}
+
+<h2>Fees Report</h2>
 
 @using GridMvc.Html
 
-@{
-    ViewBag.Title = "Member Reviews Report";
-}
-
-<h2>Member Reviews Report</h2>
-
 <hr />
+
 <body>
 
     @using (Html.BeginForm())
@@ -22,7 +23,8 @@
                 Card Number: @Html.TextBox("cardNumber")
                 Book Title: @Html.TextBox("bookTitle")
                 Compare Sign: @Html.DropDownList("compareSign")
-                Rating: @Html.TextBox("rating")
+                Fines: @Html.TextBox("fines")
+                Fines Paid: @Html.DropDownList("finesPaid")
 
                 <input type="submit" value="Search" />
             </h5>
@@ -40,9 +42,7 @@
             columns.Add(model => model.LName).Titled("User Last Name");
             columns.Add(model => model.CardNo).Titled("Card Number");
             columns.Add(model => model.Title).Titled("Book Title");
-            columns.Add(model => model.Rating).Titled("Rating");
-            columns.Add(model => model.ReviewText).Titled("Review Text");
+            columns.Add(model => model.Fines).Titled("Fines");
+            columns.Add(model => model.FinesPaid).Titled("Fines Paid");
         })
 </body>
-
-

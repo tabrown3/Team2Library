@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Team2LibraryProject_01.Models.MemberLoansView>
+
+@{
+    ViewBag.Title = "Loan Report";
+}
+
+<h2>Loan Report</h2>
+
+@using GridMvc.Html
+
+<hr />
+<body>
+
+    @using (Html.BeginForm())
+    {
+        <p>
+            <h5>
+                Search By
+
+                First Name: @Html.TextBox("firstName")
+                Last Name: @Html.TextBox("lastName")
+                Card Number: @Html.TextBox("cardNumber")
+                Book Title: @Html.TextBox("bookTitle")
+                Check Out from: @Html.TextBox("checkOutDate1")
+                to @Html.TextBox("checkOutDate2")
+                Due Date from: @Html.TextBox("dueDate1")
+                to @Html.TextBox("dueDate2")
+                Return Date from: @Html.TextBox("returnDate1")
+                to @Html.TextBox("returnDate2")
+                Fines: @Html.TextBox("fines")
+                Fines Paid: @Html.DropDownList("finesPaid")
+
+                <input type="submit" value="Search" />
+            </h5>
+        </p>
+    }
+
+
+    @{
+        var grid = new WebGrid(source: Model, rowsPerPage: 20);
+    }
+
+    @Html.Grid(Model).Columns(columns =>
+        {
+            columns.Add(model => model.FName).Titled("User First Name");
+            columns.Add(model => model.LName).Titled("User Last Name");
+            columns.Add(model => model.CardNo).Titled("Card Number");
+            columns.Add(model => model.Title).Titled("Book Title");
+            columns.Add(model => model.CheckOutDate).Titled("Check Out Date");
+            columns.Add(model => model.DueDate).Titled("Due Date");
+            columns.Add(model => model.ReturnDate).Titled("Return Date");
+            columns.Add(model => model.Fines).Titled("Fines");
+            columns.Add(model => model.FinesPaid).Titled("Fines Paid");
+        })
+</body>
