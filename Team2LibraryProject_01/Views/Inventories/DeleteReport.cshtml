@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Team2LibraryProject_01.Models.InventoryDeleteLog>
+
+@{
+    ViewBag.Title = "Item Deletion Report";
+}
+
+<h2>Item Deletion Report</h2>
+
+@using GridMvc.Html
+
+<hr />
+<body>
+
+    @using (Html.BeginForm())
+    {
+        <h4>Display a report on deleted inventory items based on query input.</h4>
+        <div class="row">
+            <div class="col-md-5">
+                <h3>Book Details</h3>
+                <hr />
+                <h5>ISBN: @Html.TextBox("itemID")</h5>
+                <h5>Title: @Html.TextBox("isbn")</h5>
+            </div>
+            <div class="col-md-6">
+                <h3>Date Range</h3>
+                <hr />
+                <h4>Date Removed</h4>
+                <h5>From: @Html.TextBox("dateRemoved1") To: @Html.TextBox("dateRemoved2")</h5>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <input type="submit" value="Search" />
+            </div>
+            <hr />
+        </div>
+    }
+
+
+    @{
+        var grid = new WebGrid(source: Model, rowsPerPage: 20);
+    }
+
+    @Html.Grid(Model).Columns(columns =>
+        {
+            columns.Add(model => model.ItemID).Titled("Item ID");
+            columns.Add(model => model.ISBN).Titled("ISBN");
+            columns.Add(model => model.DateRemoved).Titled("Date Removed").Format("{0:MM/dd/yyyy}");
+        })
+</body>

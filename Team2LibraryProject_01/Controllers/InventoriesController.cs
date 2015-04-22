@@ -14,6 +14,59 @@ namespace Team2LibraryProject_01.Controllers
     {
         private Team2LibraryEntities db = new Team2LibraryEntities();
 
+        public ActionResult DeleteReport(string itemID, string isbn, string dateRemoved1, string dateRemoved2)
+        {
+            var invDeleteLogList = new List<InventoryDeleteLog>();
+            List<string> filterList = new List<string>();
+
+            bool searchUsed = false;
+
+            if (!String.IsNullOrEmpty(itemID))
+            {
+                filterList.Add("ItemID = '" + itemID + "'");
+                searchUsed = true;
+            }
+            if (!String.IsNullOrEmpty(isbn))
+            {
+                filterList.Add("ISBN = '" + isbn + "'");
+                searchUsed = true;
+            }
+            if (!string.IsNullOrEmpty(dateRemoved1) || !string.IsNullOrEmpty(dateRemoved2))
+            {
+                if (string.IsNullOrEmpty(dateRemoved2))
+                {
+
+                    filterList.Add("DateRemoved = '" + dateRemoved1 + "'");
+                }
+                else if (string.IsNullOrEmpty(dateRemoved1))
+                {
+
+                    filterList.Add("DateRemoved = '" + dateRemoved2 + "'");
+                }
+                else
+                {
+                    filterList.Add("(DateRemoved BETWEEN '" + dateRemoved1 + "' AND '" + dateRemoved2 + "')");
+                }
+
+                searchUsed = true;
+            }
+
+            if (searchUsed == true)
+            {
+
+                string whereClause = "WHERE " + string.Join(" AND ", filterList);
+                invDeleteLogList = db.Database.SqlQuery<InventoryDeleteLog>("SELECT * FROM dbo.InventoryDeleteLog " + whereClause).ToList();
+            }
+
+            if (User.IsInRole("Admin"))
+            {
+                //return View(db.MemberReviewsViews.ToList());
+                return View(invDeleteLogList);
+            }
+            else
+                return View("~/Views/Home/Index.cshtml");
+        }
+
         public ActionResult InventoryReport(string isbn, string title, string authorName, string itemPrice, string dateAdded1, string dateAdded2, string onShelf)
         {
             List<string> onShelfOptions = new List<string>(new string[] { "ALL", "TRUE", "FALSE" });
