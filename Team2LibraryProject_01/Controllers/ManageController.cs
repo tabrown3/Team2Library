@@ -61,15 +61,6 @@ namespace Team2LibraryProject_01.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
-
             var user = UserManager.FindById(User.Identity.GetUserId());
 
             ViewBag.FName = user.FirstName;
@@ -155,7 +146,31 @@ namespace Team2LibraryProject_01.Controllers
 
             ViewBag.FinesSum = finesSum;
 
+            //Check if the user has reached the maximum loans
+            var maxLoan = (from l in db.Loans
+                           where l.CardNo == Globals.currentID && l.ReturnDate.Value.ToString() == ""
+                           select l).ToList();
+
+            if ((maxLoan.Count == 5 && User.IsInRole("Student")) || (maxLoan.Count == 10 && User.IsInRole("Faculty")))
+            {
+                ViewBag.MaxAlert = 1;
+            }
+            else
+            {
+                ViewBag.MaxAlert = 0;
+                
+                if(User.IsInRole("Student"))
+                {
+                    ViewBag.RemainingLoans = 5 - maxLoan.Count;
+                }
+                else if(User.IsInRole("Faculty"))
+                {
+                    ViewBag.RemainingLoans = 10 - maxLoan.Count;
+                }
+            }
+
             var userId = User.Identity.GetUserId();
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),

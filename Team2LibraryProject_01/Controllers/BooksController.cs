@@ -257,6 +257,17 @@ namespace Team2LibraryProject_01.Controllers
                 Member loanMember = db.Members.Find(loan.CardNo);
                 Inventory loanBook = db.Inventories.Find(loan.ItemID);
 
+                //Check if member is trying to check in more than the maximum loans
+                var maxLoan = (from l in db.Loans
+                               where l.CardNo == loan.CardNo && l.ReturnDate.Value.ToString() == ""
+                               select l).ToList();
+
+                if ((maxLoan.Count == 5 && loanMember.RoleID == 1) || (maxLoan.Count == 10 && loanMember.RoleID == 2))
+                {
+                    TempData["Success"] = "Error: That member has reached the maximum pending loans and could not rent more.";
+                    return RedirectToAction("Books", "Home");
+                }
+
                 //Due date dependent on membership
                 if (loanMember.RoleID == 1)
                 {
