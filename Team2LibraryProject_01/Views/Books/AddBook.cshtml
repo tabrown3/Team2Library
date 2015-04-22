@@ -1,5 +1,7 @@
 ﻿@model Team2LibraryProject_01.Models.Book
 
+@using System.Collections
+
 <h2>Create Book Entry</h2>
 <hr />
 <body>
@@ -7,7 +9,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     
     
-    @using (Html.BeginForm()) 
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) 
     {
         @Html.AntiForgeryToken()
         
@@ -108,6 +110,13 @@
                     @Html.ValidationMessageFor(model => model.Shelf, "", new { @class = "text-danger" })
                 </div>
             </div>
+            
+            <div class="form-group">
+                @Html.Label("Cover Image", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" name="file" id="file" />
+                </div>
+            </div>
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
@@ -116,10 +125,6 @@
             </div>
         </div>
     }
-    <hr />
-    <p style="color: red">*Note: Creating a new book will require code changes to properly implement thumbnails.</p>
-    <p style="color: red">Placeholder images will be used on the interim.</p>    
-    <hr />
     <div>
         @Html.ActionLink("Back to List", "BookIndex")
     </div>

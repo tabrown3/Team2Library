@@ -381,8 +381,9 @@ namespace Team2LibraryProject_01.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddBook([Bind(Include = "ISBN,Author_FName,Author_LName,Publisher,NumOfPages,Title,Year,Genre,Language,Rating,Synopsis,Shelf")] Book book)
+        public ActionResult AddBook([Bind(Include = "ISBN,Author_FName,Author_LName,Publisher,NumOfPages,Title,Year,Genre,Language,Rating,Synopsis,Shelf")] Book book, HttpPostedFileBase file)
         {
+            ViewBag.ISBN = book.ISBN;
             if (ModelState.IsValid)
             {
                 db.Books.Add(book);
@@ -394,6 +395,14 @@ namespace Team2LibraryProject_01.Controllers
 
             ViewBag.Genre = new SelectList(db.Genres, "GenreID", "Genre1", book.Genre);
             ViewBag.Language = new SelectList(db.Languages, "LanguageID", "Language1", book.Language);
+
+            if (file != null && file.ContentLength > 0) 
+            {
+                var filename = ISBN + ".png";
+                var path = Server.MapPath("~/Content/Images/Books/");
+                path = System.IO.Path.Combine(path, filename);
+                file.SaveAs(path);
+            }
             return View(book);
         }
 
