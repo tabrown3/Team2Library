@@ -170,6 +170,7 @@ namespace Team2LibraryProject_01.Controllers
             }
 
             var userId = User.Identity.GetUserId();
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
