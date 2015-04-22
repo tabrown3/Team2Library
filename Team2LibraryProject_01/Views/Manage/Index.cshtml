@@ -76,6 +76,17 @@
                 <br />
                 <p style="color: dodgerblue; font-size: 18px">In Good Standing. Well Done!</p>
             }
+            @if (ViewBag.MaxAlert == 1)
+            {
+                <h4 style="color: red">
+                    Alert! You have reached your maximum number of pending loans. Please
+                    return at least one of the books in order to be eligible for loans again.
+                </h4>
+            }
+            else
+            {
+                <p style="color: dodgerblue; font-size: 18px">You can still loan @ViewBag.RemainingLoans books.</p>
+            }
         </div>
     </div>
     <hr />
