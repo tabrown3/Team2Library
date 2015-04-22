@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Team2LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Team2LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Book">
           <Key>
             <PropertyRef Name="ISBN" />
@@ -44,9 +44,8 @@
             <PropertyRef Name="ItemID" />
           </Key>
           <Property Name="ItemID" Type="int" Nullable="false" />
-          <Property Name="BookTitle" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="DateRemoved" Type="date" Nullable="false" />
+          <Property Name="DateRemoved" Type="date" />
         </EntityType>
         <EntityType Name="Language">
           <Key>
@@ -850,9 +849,8 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.RentsView' does not have a primar
             <PropertyRef Name="ItemID" />
           </Key>
           <Property Name="ItemID" Type="Int32" Nullable="false" />
-          <Property Name="BookTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ISBN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="DateRemoved" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateRemoved" Type="DateTime" Precision="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1047,7 +1045,6 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.RentsView' does not have a primar
               <MappingFragment StoreEntitySet="InventoryDeleteLog">
                 <ScalarProperty Name="DateRemoved" ColumnName="DateRemoved" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-                <ScalarProperty Name="BookTitle" ColumnName="BookTitle" />
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
               </MappingFragment>
             </EntityTypeMapping>

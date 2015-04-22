@@ -370,8 +370,7 @@
       <PropertyRef Name="ItemID" />
     </Key>
     <Property Name="ItemID" Type="Int32" Nullable="false" />
-    <Property Name="BookTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ISBN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="DateRemoved" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DateRemoved" Type="DateTime" Precision="0" />
   </EntityType>
 </Schema>
