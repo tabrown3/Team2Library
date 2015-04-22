@@ -15,8 +15,7 @@ namespace Team2LibraryProject_01.Models
     public partial class InventoryDeleteLog
     {
         public int ItemID { get; set; }
-        public string BookTitle { get; set; }
         public string ISBN { get; set; }
-        public System.DateTime DateRemoved { get; set; }
+        public Nullable<System.DateTime> DateRemoved { get; set; }
     }
 }

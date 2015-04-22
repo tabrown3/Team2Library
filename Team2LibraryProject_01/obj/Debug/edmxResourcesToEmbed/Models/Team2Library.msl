@@ -188,7 +188,6 @@
         <MappingFragment StoreEntitySet="InventoryDeleteLog">
           <ScalarProperty Name="DateRemoved" ColumnName="DateRemoved" />
           <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-          <ScalarProperty Name="BookTitle" ColumnName="BookTitle" />
           <ScalarProperty Name="ItemID" ColumnName="ItemID" />
         </MappingFragment>
       </EntityTypeMapping>
