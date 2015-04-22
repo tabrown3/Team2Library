@@ -29,6 +29,7 @@
         <EntityTypeShape EntityType="Team2LibraryModel.MemberLoansView" Width="1.5" PointX="9.375" PointY="8.75" />
         <EntityTypeShape EntityType="Team2LibraryModel.RentsView" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="Team2LibraryModel.BookInventoryView" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="Team2LibraryModel.InventoryDeleteLog" Width="1.5" PointX="10.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

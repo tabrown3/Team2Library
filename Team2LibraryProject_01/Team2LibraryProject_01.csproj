@@ -213,6 +213,9 @@
     <Compile Include="Models\Inventory.cs">
       <DependentUpon>Team2Library.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\InventoryDeleteLog.cs">
+      <DependentUpon>Team2Library.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Language.cs">
       <DependentUpon>Team2Library.tt</DependentUpon>
     </Compile>

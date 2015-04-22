@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Team2LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="Team2LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Book">
     <Key>
       <PropertyRef Name="ISBN" />
@@ -33,6 +33,15 @@
     <Property Name="DateAdded" Type="date" Nullable="false" />
     <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="OnShelf" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InventoryDeleteLog">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="BookTitle" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="DateRemoved" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="Language">
     <Key>
@@ -314,6 +323,7 @@ warning 6002: The table/view 'TEAM2LIBRARY.dbo.RentsView' does not have a primar
     <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InventoryDeleteLog" EntityType="Self.InventoryDeleteLog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Loan" EntityType="Self.Loan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />

@@ -289,6 +289,7 @@
     <EntitySet Name="MemberLoansViews" EntityType="Team2LibraryModel.MemberLoansView" />
     <EntitySet Name="RentsViews" EntityType="Team2LibraryModel.RentsView" />
     <EntitySet Name="BookInventoryViews" EntityType="Team2LibraryModel.BookInventoryView" />
+    <EntitySet Name="InventoryDeleteLogs" EntityType="Team2LibraryModel.InventoryDeleteLog" />
   </EntityContainer>
   <EntityType Name="BookDetailsView">
     <Key>
@@ -363,5 +364,14 @@
     <Property Name="ItemPrice" Type="Single" Nullable="false" />
     <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="OnShelf" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InventoryDeleteLog">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="Int32" Nullable="false" />
+    <Property Name="BookTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ISBN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DateRemoved" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
 </Schema>
