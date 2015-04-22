@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-md-5">
                 <h2>Account Controls</h2>
-                <p style="font-size: 16px">Manage user accounts, including viewing and deletion of members.</p>
+                <p style="font-size: 16px">View and monitor current user accounts.</p>
 
                 <br />
 
@@ -33,7 +33,7 @@
 
             <div class="col-md-5">
                 <h2>Inventory Controls</h2>
-                <p style="font-size: 16px">Manage the library inventory for addition or removal of books on offer.</p>
+                <p style="font-size: 16px">Manage the library inventory for managing of books on offer.</p>
 
                 <br />
 
@@ -61,13 +61,10 @@
                 <div class="col-md-5">
                     <h3>Inventory Reports</h3>
                     <p style="font-size: 16px">@Html.ActionLink("Current Book Inventory", "InventoryReport", "Inventories")</p>
-                    <p style="font-size: 16px">@Html.ActionLink("Books in Catalog", "BookCatalogReport", "Books")</p>
-                    <p style="font-size: 16px">@Html.ActionLink("Loans on Books", "BookLoanReport", "Loans")</p>
+                    <p style="font-size: 16px">@Html.ActionLink("Loans on Books", "LoanReport", "Loans")</p>
                 </div>
                 <div class="col-md-5">
                     <h3>Member Reports</h3>
-                    <p style="font-size: 16px">@Html.ActionLink("Current Membership", "MemberReport", "Members")</p>
-                    <p style="font-size: 16px">@Html.ActionLink("Loans per Member", "LoanReport", "Loans")</p>
                     <p style="font-size: 16px">@Html.ActionLink("Reviews made by Members", "ReviewReport", "Reviews")</p>
                     <p style="font-size: 16px">@Html.ActionLink("Late fees on Members", "FeesReport", "Reservations")</p>
                     </div>

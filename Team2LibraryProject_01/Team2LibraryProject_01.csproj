@@ -423,7 +423,6 @@
     <Content Include="Views\Members\EditMember.cshtml" />
     <Content Include="Views\Members\MemberIndex.cshtml" />
     <Content Include="Views\Books\LoginError.cshtml" />
-    <Content Include="Views\Books\BookCatalogReport.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Reviews\ReviewReport.cshtml" />

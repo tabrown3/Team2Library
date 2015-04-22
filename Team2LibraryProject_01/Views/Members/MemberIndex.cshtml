@@ -31,8 +31,6 @@
         @helper GridManageItemColumn(int id)
         {
             @Html.ActionLink("Details", "MemberDetails", new { Id = id }, null)
-            <span>|</span>
-            @Html.ActionLink("Delete", "DeleteMember", new { Id = id }, null)
         }
 
         @Html.Grid(Model).Columns(columns =>

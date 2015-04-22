@@ -13,26 +13,34 @@
 
     @using (Html.BeginForm())
     {
-        <p>
-            <h5>
-                Search By
-
-                First Name: @Html.TextBox("firstName")
-                Last Name: @Html.TextBox("lastName")
-                Card Number: @Html.TextBox("cardNumber")
-                Book Title: @Html.TextBox("bookTitle")
-                Check Out from: @Html.TextBox("checkOutDate1")
-                to @Html.TextBox("checkOutDate2")
-                Due Date from: @Html.TextBox("dueDate1")
-                to @Html.TextBox("dueDate2")
-                Return Date from: @Html.TextBox("returnDate1")
-                to @Html.TextBox("returnDate2")
-                Fines: @Html.TextBox("fines")
-                Fines Paid: @Html.DropDownList("finesPaid")
-
+        <h4>Display a report on completed and pending loans based on query input.</h4>
+        <div class="row">
+            <div class="col-md-5">
+                <h3>Member and Book Details</h3>
+                <hr />
+                <h5>First Name: @Html.TextBox("firstName")</h5>
+                <h5>Last Name: @Html.TextBox("lastName")</h5>
+                <h5>Card Number: @Html.TextBox("cardNumber")</h5>
+                <h5>Book Title: @Html.TextBox("bookTitle")</h5>
+            </div>
+            <div class="col-md-6">
+                <h3>Date Range</h3>
+                <hr />
+                <h4>Checkout Date</h4>
+                <h5>From: @Html.TextBox("checkOutDate1") To: @Html.TextBox("checkOutDate2")</h5>
+                <h4>Due Date</h4>
+                <h5>From: @Html.TextBox("dueDate1") To: @Html.TextBox("dueDate2")</h5>
+                <h4>Return Date</h4>
+                <h5>From: @Html.TextBox("returnDate1") To: @Html.TextBox("returnDate2")</h5>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
                 <input type="submit" value="Search" />
-            </h5>
-        </p>
+            </div>
+            <hr />
+        </div>
     }
 
 
@@ -49,7 +57,5 @@
             columns.Add(model => model.CheckOutDate).Titled("Check Out Date");
             columns.Add(model => model.DueDate).Titled("Due Date");
             columns.Add(model => model.ReturnDate).Titled("Return Date");
-            columns.Add(model => model.Fines).Titled("Fines");
-            columns.Add(model => model.FinesPaid).Titled("Fines Paid");
         })
 </body>

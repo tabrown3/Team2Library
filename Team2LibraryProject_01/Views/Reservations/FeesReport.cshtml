@@ -14,21 +14,31 @@
 
     @using (Html.BeginForm())
     {
-        <p>
-            <h5>
-                Search By
-
-                First Name: @Html.TextBox("firstName")
-                Last Name: @Html.TextBox("lastName")
-                Card Number: @Html.TextBox("cardNumber")
-                Book Title: @Html.TextBox("bookTitle")
-                Compare Sign: @Html.DropDownList("compareSign")
-                Fines: @Html.TextBox("fines")
-                Fines Paid: @Html.DropDownList("finesPaid")
-
+        <h4>Display a report on fees incurred by members based on query input.</h4>
+        <div class="row">
+            <div class="col-md-5">
+                <h3>Member and Book Details</h3>
+                <hr />
+                <h5>First Name: @Html.TextBox("firstName")</h5>
+                <h5>Last Name: @Html.TextBox("lastName")</h5>
+                <h5>Card Number: @Html.TextBox("cardNumber")</h5>
+                <h5>Book Title: @Html.TextBox("bookTitle")</h5>
+            </div>
+            <div class="col-md-6">
+                <h3>Fines Range</h3>
+                <hr />
+                <h5>Compare Sign: @Html.DropDownList("compareSign")</h5>
+                <h5>Fines: @Html.TextBox("fines")</h5>
+                <h5>Fines Paid: @Html.DropDownList("finesPaid")</h5>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
                 <input type="submit" value="Search" />
-            </h5>
-        </p>
+            </div>
+            <hr />
+        </div>
     }
 
 

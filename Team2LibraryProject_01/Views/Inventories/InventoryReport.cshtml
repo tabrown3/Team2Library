@@ -13,20 +13,30 @@
 
     @using (Html.BeginForm())
     {
-        <p>
-            <h5>
-                Search By
-
-                ISBN: @Html.TextBox("isbn")
-                Title: @Html.TextBox("title")
-                Item Price: @Html.TextBox("itemPrice")
-                Date Added from: @Html.TextBox("dateAdded1")
-                to @Html.TextBox("dateAdded2")
-                On Shelf: @Html.DropDownList("onShelf")
-
+        <h4>Display a report on the current inventory based on query input.</h4>
+        <div class="row">
+            <div class="col-md-5">
+                <h3>Book Details</h3>
+                <hr />
+                <h5>ISBN: @Html.TextBox("isbn")</h5>
+                <h5>Title: @Html.TextBox("title")</h5>
+                <h5>Item Price: @Html.TextBox("itemPrice")</h5>
+                <h5>On Shelf: @Html.DropDownList("onShelf")</h5>
+            </div>
+            <div class="col-md-6">
+                <h3>Date Range</h3>
+                <hr />
+                <h4>Date Added</h4>
+                <h5>From: @Html.TextBox("dateAdded1") To: @Html.TextBox("dateAdded2")</h5>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
                 <input type="submit" value="Search" />
-            </h5>
-        </p>
+            </div>
+            <hr />
+        </div>
     }
 
 
