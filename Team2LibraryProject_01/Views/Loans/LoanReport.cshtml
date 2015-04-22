@@ -54,8 +54,8 @@
             columns.Add(model => model.LName).Titled("User Last Name");
             columns.Add(model => model.CardNo).Titled("Card Number");
             columns.Add(model => model.Title).Titled("Book Title");
-            columns.Add(model => model.CheckOutDate).Titled("Check Out Date");
-            columns.Add(model => model.DueDate).Titled("Due Date");
-            columns.Add(model => model.ReturnDate).Titled("Return Date");
+            columns.Add(model => model.CheckOutDate).Titled("Check Out Date").Format("{0:MM/dd/yyyy}");
+            columns.Add(model => model.DueDate).Titled("Due Date").Format("{0:MM/dd/yyyy}");
+            columns.Add(model => model.ReturnDate).Titled("Return Date").Format("{0:MM/dd/yyyy}");
         })
 </body>

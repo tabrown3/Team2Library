@@ -6,6 +6,8 @@
     string message = TempData["Success"] as string;
 }
 
+    @using GridMvc.Html
+
 <div class="jumbotron">
     <div class="container">
         <h1>Check-Ins</h1>
@@ -25,131 +27,49 @@
 <div class="row">
     <div class="col-md-12">
         <h3>All Completed Loans</h3>
-        <table class="table">
-            <tr>
-                <th>
-                    Loan ID
-                </th>
-                <th>
-                    Member Card Number
-                </th>
-                <th>
-                    Member Name
-                </th>
-                <th>
-                    Book ID
-                </th>
-                <th>
-                    Book Title
-                </th>
-                <th>
-                    Checkout Date
-                </th>
-                <th>
-                    Due Date
-                </th>
-                <th>
-                    Return Date
-                </th>
-                <th>
-                    Fines Paid
-                </th>
-                @foreach (var item in completedLoan)
-                {
-                <tr>
-                    <td>
-                        @item.LoanID
-                    </td>
-                    <td>
-                        @item.CardNo
-                    </td>
-                    <td>
-                        @item.Member.FName @item.Member.LName
-                    </td>
-                    <td>
-                        @item.ItemID
-                    </td>
-                    <td>
-                        @item.Title
-                    </td>
-                    <td>
-                        @item.CheckOutDate.ToShortDateString()
-                    </td>
-                    <td>
-                        @item.DueDate.ToShortDateString()
-                    </td>
-                    <td>
-                        @item.ReturnDate.Value.ToShortDateString()
-                    </td>
-                    <td>
-                        $@item.Fines
-                    </td>
-                </tr>
-                }
-            </table>
+
+        @{
+            var completeGrid = new WebGrid(source: completedLoan);
+        }
+
+        @Html.Grid(completedLoan).Columns(columns =>
+                              {
+                                  columns.Add(model => model.LoanID,"lID").Titled("Loan ID");
+                                  columns.Add(model => model.CardNo, "cNo").Titled("Member Card Number");
+                                  columns.Add(model => model.Member.FName, "fN").Titled("Member First Name");
+                                  columns.Add(model => model.Member.LName, "lN").Titled("Member Last Name");
+                                  columns.Add(model => model.ItemID, "iID").Titled("Item ID");
+                                  columns.Add(model => model.Title, "tt").Titled("Title");
+                                  columns.Add(model => model.CheckOutDate, "coD").Titled("Checkout Date").Format("{0:MM/dd/yyyy}");
+                                  columns.Add(model => model.DueDate, "dD").Titled("Due Date").Format("{0:MM/dd/yyyy}");
+                                  columns.Add(model => model.ReturnDate, "rD").Titled("Return Date").Format("{0:MM/dd/yyyy}");
+                                  columns.Add(model => model.Fines, "fn").Titled("Fines");
+                              }).WithPaging(20, 20, "paging1").Sortable(true)
         </div>
         <hr />
     </div>
 <div class="row">
     <div class="col-md-12">
         <h3>All Pending Loans</h3>
-        <table class="table">
-            <tr>
-                <th>
-                    Loan ID
-                </th>
-                <th>
-                    Member Card Number
-                </th>
-                <th>
-                    Member Name
-                </th>
-                <th>
-                    Book ID
-                </th>
-                <th>
-                    Book Title
-                </th>
-                <th>
-                    Checkout Date
-                </th>
-                <th>
-                    Due Date
-                </th>
-                <th>
-                    Fines Accrued
-                </th>
 
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LoanID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CardNo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Member.FName) @Html.DisplayFor(modelItem => item.Member.LName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ItemID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @item.CheckOutDate.ToShortDateString()
-                        </td>
-                        <td>
-                            @item.DueDate.ToShortDateString()
-                        </td>
-                        <td>
-                           $@Html.DisplayFor(modelItem => item.Fines)
-                        </td>
-                    </tr>
-                }
-        </table>
+        @{
+            var pendingGrid = new WebGrid(source: Model);
+        }
+
+        @Html.Grid(Model).Columns(columns =>
+                              {
+                                  columns.Add(model => model.LoanID).Titled("Loan ID");
+                                  columns.Add(model => model.CardNo).Titled("Member Card Number");
+                                  columns.Add(model => model.Member.FName).Titled("Member First Name");
+                                  columns.Add(model => model.Member.LName).Titled("Member Last Name");
+                                  columns.Add(model => model.ItemID).Titled("Item ID");
+                                  columns.Add(model => model.Title).Titled("Title");
+                                  columns.Add(model => model.CheckOutDate).Titled("Checkout Date").Format("{0:MM/dd/yyyy}");
+                                  columns.Add(model => model.DueDate).Titled("Due Date").Format("{0:MM/dd/yyyy}");
+                                  columns.Add(model => model.Fines).Titled("Fines");
+                              }).WithPaging(20).Sortable(true)
+
+
     </div>
     <hr />
     <div class="col-md-12">

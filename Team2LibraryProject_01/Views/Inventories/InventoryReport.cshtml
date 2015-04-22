@@ -49,7 +49,7 @@
             columns.Add(model => model.ISBN).Titled("ISBN");
             columns.Add(model => model.Title).Titled("Title");
             columns.Add(model => model.ItemPrice).Titled("Item Price");
-            columns.Add(model => model.DateAdded).Titled("Date Added");
+            columns.Add(model => model.DateAdded).Titled("Date Added").Format("{0:MM/dd/yyyy}");
             columns.Add(model => model.OnShelf).Titled("On Shelf");
         })
 </body>

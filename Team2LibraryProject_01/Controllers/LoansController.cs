@@ -148,7 +148,7 @@ namespace Team2LibraryProject_01.Controllers
             {
                 var loans = db.Loans.Include(l => l.Inventory).Include(l => l.Member).Where(x => !x.ReturnDate.HasValue);
 
-                ViewBag.ItemID = new SelectList(db.Loans.Where(x => x.ReturnDate == null), "ItemID", "ItemID");
+                ViewBag.ItemID = new SelectList(db.Loans.Where(x => x.ReturnDate == null).OrderBy(x => x.ItemID), "ItemID", "ItemID");
 
                 List<Team2LibraryProject_01.Models.Loan> loansList = loans.ToList();
 
