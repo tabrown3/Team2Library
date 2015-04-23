@@ -185,7 +185,7 @@ namespace Team2LibraryProject_01.Controllers
 
                         //Insert same values to Member relation
                         Random rand = new Random();
-                        int memberID = rand.Next(0, 5000);
+                        int memberID = rand.Next(0, 10000);
 
                         var memberRegisterSQL = @"INSERT INTO dbo.Member VALUES ({0}, {1}, {2}, {3}, {4}, {5})";
 

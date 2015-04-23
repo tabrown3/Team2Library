@@ -10,93 +10,53 @@
 
 <body>
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
             <img id="books" alt="books_cover" src="@Url.Content(ViewBag.Image)" onerror="this.onerror = null; this.src = 'http://placehold.it/400x600';">
         </div>
 
         <div class="col-md-6">
-            <dl class="dl-horizontal">
-                <dt style="font-size: 16px">
-                    @Html.DisplayNameFor(model => model.Title):
-                </dt>
+            <h3>Title</h3>
+            <h4>@Html.DisplayFor(model => model.Title)</h4>
+            <hr />
+            <h3>Author</h3>
+            <h4>@Html.DisplayFor(model => model.Author_FName) @Html.DisplayFor(model => model.Author_LName)</h4>
+            <hr />
+        </div>
+        <div class="col-md-3">
+            <h3>Publisher</h3>
+            <h4>@Html.DisplayFor(model => model.Publisher)</h4>
+            <hr />
 
-                <dd style="font-size: 16px">
-                    @Html.DisplayFor(model => model.Title)
-                </dd>
-
-                <dt style="font-size: 16px">
-                    Author:
-                </dt>
-
-                <dd style="font-size: 16px">
-                    @Html.DisplayFor(model => model.Author_FName) @Html.DisplayFor(model => model.Author_LName)
-                </dd>
-
-                <dt style="font-size: 16px">
-                    @Html.DisplayNameFor(model => model.Publisher):
-                </dt>
-
-                <dd style="font-size: 16px">
-                    @Html.DisplayFor(model => model.Publisher)
-                </dd>
-
-                <dt style="font-size: 16px">
-                    Pages:
-                </dt>
-
-                <dd style="font-size: 16px">
-                    @Html.DisplayFor(model => model.NumOfPages)
-                </dd>
-
-                <dt style="font-size: 16px">
-                    @Html.DisplayNameFor(model => model.Year):
-                </dt>
-
-                <dd style="font-size: 16px">
-                    @Html.DisplayFor(model => model.Year)
-                </dd>
-
-                <dt style="font-size: 16px">
-                    @Html.DisplayNameFor(model => model.Genre):
-                </dt>
-
-                <dd style="font-size: 16px">
-                    @Html.DisplayFor(model => model.Genre)
-                </dd>
-
-                <dt style="font-size: 16px">
-                    @Html.DisplayNameFor(model => model.Language):
-                </dt>
-
-                <dd style="font-size: 16px">
-                    @Html.DisplayFor(model => model.Language)
-                </dd>
-
-                <dt style="font-size: 16px">
-                    @Html.DisplayNameFor(model => model.Rating):
-                </dt>
-
-                <dd style="font-size: 16px">
-                    @Html.DisplayFor(model => model.Rating)/5  
-                    <p>@Html.ActionLink("View Reviews", "ReviewList", "Reviews", new { id = Model.ISBN }, null)</p>       
-                </dd>
-
-                <dt style="font-size: 16px">
-                    @Html.DisplayNameFor(model => model.Synopsis):
-                </dt>
-
-                <dd style="font-size: 16px">
-                    @Html.DisplayFor(model => model.Synopsis)
-                </dd>
-
-                <dt style="font-size: 16px">
-                    Found in:
-                </dt>
-
-                <dd style="font-size: 16px">
-                    Shelf @Html.DisplayFor(model => model.Shelf)
-                </dd>
-            </dl>
+            <h3>Year</h3>
+            <h4>@Html.DisplayFor(model => model.Year)</h4>
+            <hr />
+        </div>
+        <div class="col-md-3">
+            <h3>Genre</h3>
+            <h4>@Html.DisplayFor(model => model.Genre)</h4>
+            <hr />
+            <h3>Number of Pages</h3>
+            <h4>@Html.DisplayFor(model => model.NumOfPages)</h4>
+            <hr />
+        </div>
+        <div class="col-md-3">
+            <h3>Language</h3>
+            <h4>@Html.DisplayFor(model => model.Language)</h4>
+            <hr />
+        </div>
+        <div class="col-md-3">
+            <h3>Shelf</h3>
+            <h4>@Html.DisplayFor(model => model.Shelf)</h4>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Rating</h3>
+            <h2>@Html.DisplayFor(model => model.Rating)/5</h2>
+            <h4>@Html.ActionLink("View Reviews", "ReviewList", "Reviews", new { id = Model.ISBN }, null)</h4>
+        </div>
+        <div class="col-md-3">
             @if (!String.IsNullOrEmpty(message))
             {
                 <hr />
@@ -107,23 +67,39 @@
             }
         </div>
     </div>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Synopsis</h3>
+            <h4>@Html.DisplayFor(model => model.Synopsis)</h4>
+            <hr />
+        </div>
+    </div>
+
+        
+
     <hr />
 
+    <div class="row">
+        <div class="col-md-12">
+            @if (!inStock)
+            {
+                <h5 style="color: red; text-align: center">*We currently have no stocks of this book. Reserve today to guarantee a copy.</h5>
+                <p>@Html.ActionLink("Reserve this Book", "ReserveConfirmation", new { id = Model.ISBN })</p>
+            }
 
-    @if (!inStock)
-    {
-        <h5 style="color: red">*We currently have no stocks of this book. Reserve today to guarantee a copy.</h5>
-        <p>@Html.ActionLink("Reserve this Book", "ReserveConfirmation", new { id = Model.ISBN })</p>
-    }
-    
-    @if (User.IsInRole("Admin"))
-    {
-        <p>@Html.ActionLink("Rent this book", "LoanConfirmation", new { id = Model.ISBN })</p>
-    }
-    
-    <p>
-        @Html.ActionLink("Review this book", "Reviews") |
+            @if (User.IsInRole("Admin"))
+            {
+                <p>@Html.ActionLink("Rent this book", "LoanConfirmation", new { id = Model.ISBN })</p>
+            }
 
-        @Html.ActionLink("Back to List", "Books", "Home") 
-    </p>
+            <p>
+                @Html.ActionLink("Review this book", "Reviews") |
+
+                @Html.ActionLink("Back to List", "Books", "Home")
+            </p>
+
+        </div>
+    </div>
 </body>
