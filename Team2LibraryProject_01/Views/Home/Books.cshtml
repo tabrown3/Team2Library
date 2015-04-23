@@ -7,17 +7,15 @@
 }
 
 <body>
-    <div class="jumbotron">
-        <div class="container">
-            <h1>Book Catalog</h1>
-            <p class="lead">Choose from our growing selection of books.</p>
-        </div>
-    </div>
+
+    <h1 style="font-size: 80px">Book Catalog</h1>
+    <h3>Choose from our growing selection of books.</h3>
+    <hr />
 
     @if(!String.IsNullOrEmpty(message))
     {
         <div class="message">
-            <p style="color: darkorange">@message</p>
+            <p style="color: darkorange; text-align: center">@message</p>
         </div>
     }
     

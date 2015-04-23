@@ -8,18 +8,15 @@
 
     @using GridMvc.Html
 
-<div class="jumbotron">
-    <div class="container">
-        <h1>Check-Ins</h1>
-        <p class="lead">All book returns right here.</p>
-    </div>
-</div>
+<h1 style="font-size: 80px">Book Check-Ins</h1>
+<h3>Center for all loans, pending and completed.</h3>
+<hr />
 
 @if (!String.IsNullOrEmpty(message))
 {
     <hr />
     <div class="message">
-        <p style="color: darkorange">@message</p>
+        <p style="color: darkorange; text-align: center">@message</p>
     </div>
     <hr />
 }

@@ -7,14 +7,14 @@
         @Html.AntiForgeryToken()
         
         <div class="form-horizontal">
-            <h4>Review</h4>
+            <h2>Edit Review for: <span style="font-size: 26px">@ViewBag.Title</span></h2>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ReviewID)
     
-    
+            <br />
             <div class="form-group">
-                @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label("Rating:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.Rating, new List<SelectListItem>
                 {
@@ -28,9 +28,9 @@
             </div>
     
             <div class="form-group">
-                @Html.LabelFor(model => model.ReviewText, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label("Review Text:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ReviewText, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.ReviewText, new { htmlAttributes = new { @class = "form-control"}})
                     @Html.ValidationMessageFor(model => model.ReviewText, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -43,7 +43,9 @@
         </div>
     }
     
+    <br />
+    <hr />
     <div>
-        @Html.ActionLink("Back", "Index", "Manage")
+        @Html.ActionLink("Back to Lounge", "Index", "Manage")
     </div>
 </body>

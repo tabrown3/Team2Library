@@ -21,7 +21,7 @@ namespace Team2LibraryProject_01.Controllers
                 var pendingLoan = db.Loans.Where(x => x.CardNo == Globals.currentID).ToList();
                 foreach(var item in pendingLoan)
                 {
-                    if(item.Fines > 0)
+                    if(item.Fines > 0 && item.FinesPaid == false)
                     {
                         ViewBag.Alert = "Alert! You have pending fines. Please go to the account page as soon as possible.";
                         return View();

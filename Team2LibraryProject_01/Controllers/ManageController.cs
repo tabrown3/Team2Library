@@ -151,7 +151,9 @@ namespace Team2LibraryProject_01.Controllers
                            where l.CardNo == Globals.currentID && l.ReturnDate.Value.ToString() == ""
                            select l).ToList();
 
-            if ((maxLoan.Count == 5 && User.IsInRole("Student")) || (maxLoan.Count == 10 && User.IsInRole("Faculty")))
+            Member currentUser = db.Members.Find(Globals.currentID);
+
+            if (maxLoan.Count == currentUser.Role.LoanMax)
             {
                 ViewBag.MaxAlert = 1;
             }

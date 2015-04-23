@@ -226,7 +226,7 @@ namespace Team2LibraryProject_01.Controllers
             db.Reservations.Remove(reservation);
             db.SaveChanges();
 
-            TempData["Success"] = "The reservation has been deleted.";
+            TempData["Success"] = "Success: The reservation has been deleted.";
             return RedirectToAction("Index", "Manage");
         }
 

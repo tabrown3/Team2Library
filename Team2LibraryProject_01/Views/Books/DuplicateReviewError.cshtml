@@ -3,23 +3,14 @@
 }
 
 <body>
-    <div class="jumbotron">
-        <div class="container">
-            <h1>Error!</h1>
-            <p class="lead">Something's not right.</p>
-        </div>
-    </div>
-
+    <h1 style="font-size: 80px">Error!</h1>
+    <h3>Duplicate review submission.</h3>
     <hr />
 
-    <br />
-    <h3>Duplicate Review Error</h3>
+    <h4 style="font-weight: 300">Oops, it seems you already reviewed this book.</h4>
+    <h4 style="font-weight: 300">Go to your profile page to edit your existing review if you wish.</h4>
 
     <hr />
-
-    <p>Oops, it seems you already reviewed this book.</p>
-    <p>Go to your profile page to edit your existing review if you wish.</p>
-
     <p>
         @Html.ActionLink("Back to List", "Books", "Home")
     </p>

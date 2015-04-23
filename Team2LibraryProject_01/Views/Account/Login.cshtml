@@ -4,14 +4,16 @@
     ViewBag.Title = "Log in";
 }
 
-<h2 style="font-size: 42px">@ViewBag.Title.</h2>
+<h1 style="font-size: 80px">Login</h1>
+<h3>Welcome back.</h3>
+<hr />
 <div class="row">
     <div class="col-md-6">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h3>Welcome back.</h3>
+                <h3>Enter Credentials:</h3>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
@@ -51,10 +53,11 @@
         <h3>Did You Know?</h3>
         <hr />
         <p style="font-size: 18px; font-weight: 300">
-            Students are allotted 30 days with a maximum of 5 concurrent books, while faculty staff 
-            are given 120 days with a maximum of 10 concurrent books for loaning. We're generous like that.
+            Students are allotted 30 days with a maximum of 5 concurrent loans, while faculty staff 
+            are given 120 days with a maximum of 10 concurrent loans on books.
         </p>
-    </div>
+        <p style="font-size: 18px; font-weight: 300">We're generous like that.</p>
+</div>
 </div>
 
 @section Scripts {

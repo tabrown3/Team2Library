@@ -170,6 +170,8 @@ namespace Team2LibraryProject_01.Controllers
             ViewBag.ISBN = new SelectList(db.Books, "ISBN", "Author_FName", review.ISBN);
             ViewBag.CardNo = new SelectList(db.Members, "CardNo", "FName", review.CardNo);
             currentISBN = review.ISBN;
+
+            ViewBag.Title = review.Book.Title;
             return View(review);
         }
 
@@ -205,7 +207,7 @@ namespace Team2LibraryProject_01.Controllers
                 var bookUpdateSQL = @"UPDATE dbo.Book SET Rating = {0} WHERE ISBN = {1}";
                 db.Database.ExecuteSqlCommand(bookUpdateSQL, System.Math.Round(ratingAv, 2), currentISBN);
 
-                TempData["Success"] = "The review has been edited.";
+                TempData["Success"] = "Success: The review has been edited.";
                 return RedirectToAction("Index", "Manage");
             }
             ViewBag.ISBN = new SelectList(db.Books, "ISBN", "Author_FName", review.ISBN);
@@ -263,7 +265,7 @@ namespace Team2LibraryProject_01.Controllers
                 db.Database.ExecuteSqlCommand(bookUpdateSQL, System.Math.Round(ratingAv, 2), currentISBN);
             }
 
-            TempData["Success"] = "The review has been deleted.";
+            TempData["Success"] = "Success: The review has been deleted.";
             return RedirectToAction("Index", "Manage");
         }
 

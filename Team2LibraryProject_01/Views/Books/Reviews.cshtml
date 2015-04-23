@@ -4,19 +4,16 @@
 }
 
 
-<div class="jumbotron">
-    <div class="container">
-        <h1>Review</h1>
-        <p class="lead">Let us know what you thought of the title.</p>
-    </div>
-</div>
+<h1 style="font-size: 80px">Review</h1>
+<h3>Let us know what you think of the title.</h3>
+<hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Review for: @ViewBag.BookTitle</h4>
+        <h2>Review for: <span style="font-size: 26px">@ViewBag.BookTitle</span></h2>
         <hr />
 
         <br />
