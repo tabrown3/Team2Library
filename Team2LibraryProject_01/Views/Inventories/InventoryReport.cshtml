@@ -4,22 +4,22 @@
     ViewBag.Title = "Inventory Report";
 }
 
-<h2>Inventory Report</h2>
+<h1 style="font-size: 80px">Inventory Report</h1>
 
 @using GridMvc.Html
 
-<hr />
 <body>
 
     @using (Html.BeginForm())
     {
         <h4>Display a report on the current inventory based on query input.</h4>
+        <hr />
         <div class="row">
             <div class="col-md-5">
                 <h3>Book Details</h3>
                 <hr />
                 <h5>ISBN: @Html.TextBox("isbn")</h5>
-                <h5>Title: @Html.TextBox("title")</h5>
+                <h5>Title: @Html.TextBox("booktitle")</h5>
                 <h5>Item Price: @Html.TextBox("itemPrice")</h5>
                 <h5>On Shelf: @Html.DropDownList("onShelf")</h5>
             </div>
@@ -32,19 +32,25 @@
         </div>
         <hr />
         <div class="row">
-            <div class="col-md-12">
-                <input type="submit" value="Search" />
-                <h5>Hide Columns:</h5>
-                <h5>ISBN @Html.CheckBox("hidChecks[0]")
-                Title @Html.CheckBox("hidChecks[1]")
-                Item Price @Html.CheckBox("hidChecks[2]")
-                Date Added @Html.CheckBox("hidChecks[3]")
-                On Shelf @Html.CheckBox("hidChecks[4]")</h5>
+            <div class="col-md-6">
+                <h3>Hide Data Attribute/s</h3>
+                <hr />
+                <h5>ISBN: @Html.CheckBox("hidChecks[0]") 
+                Title: @Html.CheckBox("hidChecks[1]") 
+                Item Price: @Html.CheckBox("hidChecks[2]") 
+                Date Added: @Html.CheckBox("hidChecks[3]") 
+                On Shelf: @Html.CheckBox("hidChecks[4]")</h5>
             </div>
-            <hr />
+            <div class="col-md-6">
+                <br />
+                <h4><input type="submit" value="Search" /></h4>
+            </div>
         </div>
     }
 
+
+    <hr />
+    <br />
 
     @{
         var grid = new WebGrid(source: Model, rowsPerPage: 20);

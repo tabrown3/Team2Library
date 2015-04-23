@@ -90,11 +90,15 @@ namespace Team2LibraryProject_01.Controllers
             {
                 case SignInStatus.Success:
                     {
-                        if (model.Password != "Admin_rights01")
+
+                        var test = db.Members.Where(x => x.Password == model.Password).FirstOrDefault();
+
+                        if(test != null)
                         {
                             var currentStateID = db.Database.SqlQuery<int>("SELECT CardNo FROM dbo.Member WHERE Email = {0} AND Password = {1}", model.Email, model.Password).Single();
 
                             Globals.currentID = currentStateID;
+
                         }
                         return RedirectToLocal(returnUrl);
                     }

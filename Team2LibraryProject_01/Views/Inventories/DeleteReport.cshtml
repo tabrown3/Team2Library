@@ -4,16 +4,16 @@
     ViewBag.Title = "Item Deletion Report";
 }
 
-<h2>Item Deletion Report</h2>
+<h1 style="font-size: 80px">Item Deletion Report</h1>
 
 @using GridMvc.Html
 
-<hr />
 <body>
 
     @using (Html.BeginForm())
     {
         <h4>Display a report on deleted inventory items based on query input.</h4>
+        <hr />
         <div class="row">
             <div class="col-md-5">
                 <h3>Book Details</h3>
@@ -30,15 +30,22 @@
         </div>
         <hr />
         <div class="row">
-            <div class="col-md-12">
-                <input type="submit" value="Search" />
-                <h5>Hide Columns:</h5>
-                <h5>Item ID @Html.CheckBox("hidChecks[0]")   ISBN @Html.CheckBox("hidChecks[1]")   Date Removed @Html.CheckBox("hidChecks[2]")</h5>
+            <div class="col-md-6">
+                <h3>Hide Data Attribute/s</h3>
+                <hr />
+                <h5>Item ID: @Html.CheckBox("hidChecks[0]")   
+                ISBN: @Html.CheckBox("hidChecks[1]")   
+                Date Removed: @Html.CheckBox("hidChecks[2]")</h5>
             </div>
-            <hr />
+            <div class="col-md-6">
+                <br />
+                <h4><input type="submit" value="Search" /></h4>
+            </div>
         </div>
     }
 
+    <hr />
+    <br />
 
     @{
         var grid = new WebGrid(source: Model, rowsPerPage: 20);

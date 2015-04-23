@@ -76,7 +76,7 @@ namespace Team2LibraryProject_01.Controllers
                 return View("~/Views/Home/Index.cshtml");
         }
 
-        public ActionResult InventoryReport(string isbn, string title, string authorName, string itemPrice, string dateAdded1, string dateAdded2, string onShelf, List<bool> hidChecks)
+        public ActionResult InventoryReport(string isbn, string booktitle, string authorName, string itemPrice, string dateAdded1, string dateAdded2, string onShelf, List<bool> hidChecks)
         {
             List<string> onShelfOptions = new List<string>(new string[] { "ALL", "TRUE", "FALSE" });
             var bookInvViewList = new List<BookInventoryView>();
@@ -102,9 +102,9 @@ namespace Team2LibraryProject_01.Controllers
                 filterList.Add("ISBN = '" + isbn + "'");
                 searchUsed = true;
             }
-            if (!String.IsNullOrEmpty(title))
+            if (!String.IsNullOrEmpty(booktitle))
             {
-                filterList.Add("Title = '" + title + "'");
+                filterList.Add("Title = '" + booktitle + "'");
                 searchUsed = true;
             }
             if (!String.IsNullOrEmpty(authorName))

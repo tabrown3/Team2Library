@@ -17,9 +17,9 @@
                 <h3>Item Price:</h3>
                 <h4>$@Html.DisplayFor(model => model.Inventory.ItemPrice)</h4>
                 <h3>Date Rented:</h3>
-                <h4>@Model.CheckOutDate.ToShortDateString()</h4>
+                <h4>@Model.CheckOutDate.ToString("MM/dd/yyyy")</h4>
                 <h3>Return Deadline:</h3>
-                <h4>@Model.DueDate.ToShortDateString()</h4>
+                <h4>@Model.DueDate.ToString("MM/dd/yyyy")</h4>
             </div>
         </div>
         <br />

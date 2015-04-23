@@ -8,6 +8,18 @@
     string message = TempData["Success"] as string;
 }
 
+@if (!String.IsNullOrEmpty(message))
+{
+    <hr />
+    <div class="message">
+        <p style="color: darkorange; text-align: center">@message</p>
+    </div>
+    <hr />
+}
+
+
+
+
 <body>
     <div class="row">
         <div class="col-md-6">
@@ -55,16 +67,6 @@
             <h3>Rating</h3>
             <h2>@Html.DisplayFor(model => model.Rating)/5</h2>
             <h4>@Html.ActionLink("View Reviews", "ReviewList", "Reviews", new { id = Model.ISBN }, null)</h4>
-        </div>
-        <div class="col-md-3">
-            @if (!String.IsNullOrEmpty(message))
-            {
-                <hr />
-                <div class="message">
-                    <p style="color: darkorange; text-align: center">@message</p>
-                </div>
-                <hr />
-            }
         </div>
     </div>
 

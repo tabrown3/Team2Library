@@ -9,7 +9,7 @@
     @using GridMvc.Html
 
 <h1 style="font-size: 80px">Book Check-Ins</h1>
-<h3>Center for all loans, pending and completed.</h3>
+<h3>The hub for all loans, pending and completed.</h3>
 <hr />
 
 @if (!String.IsNullOrEmpty(message))
@@ -41,7 +41,7 @@
                                   columns.Add(model => model.DueDate, "dD").Titled("Due Date").Format("{0:MM/dd/yyyy}");
                                   columns.Add(model => model.ReturnDate, "rD").Titled("Return Date").Format("{0:MM/dd/yyyy}");
                                   columns.Add(model => model.Fines, "fn").Titled("Fines");
-                              }).WithPaging(20, 20, "paging1").Sortable(true)
+                              }).WithPaging(10, 10, "paging1").Sortable(true)
         </div>
         <hr />
     </div>
@@ -64,7 +64,7 @@
                                   columns.Add(model => model.CheckOutDate).Titled("Checkout Date").Format("{0:MM/dd/yyyy}");
                                   columns.Add(model => model.DueDate).Titled("Due Date").Format("{0:MM/dd/yyyy}");
                                   columns.Add(model => model.Fines).Titled("Fines");
-                              }).WithPaging(20).Sortable(true)
+                              }).WithPaging(10).Sortable(true)
 
 
     </div>
