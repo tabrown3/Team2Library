@@ -16,13 +16,26 @@ namespace Team2LibraryProject_01.Controllers
 
         public ActionResult LoanReport(string firstName, string lastName, string cardNumber, string bookTitle,
             string checkOutDate1, string checkOutDate2, string dueDate1, string dueDate2, string returnDate1,
-            string returnDate2, string fines, string finesPaid)
+            string returnDate2, string fines, string finesPaid, List<bool> hidChecks)
         {
 
             List<string> filterList = new List<string>();
             List<string> compareSigns = new List<string>(new string[] { "=", ">", "<" });
             List<string> finesPaidOptions = new List<string>(new string[] { "ALL", "TRUE", "FALSE" });
             var memLoanViewList = new List<MemberLoansView>();
+
+            if (hidChecks == null)
+            {
+                hidChecks = new List<bool>();
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+            }
+            ViewBag.hidChecks = hidChecks;
 
             ViewBag.finesPaid = new SelectList(finesPaidOptions);
 

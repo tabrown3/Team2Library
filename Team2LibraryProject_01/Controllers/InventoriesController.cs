@@ -14,10 +14,19 @@ namespace Team2LibraryProject_01.Controllers
     {
         private Team2LibraryEntities db = new Team2LibraryEntities();
 
-        public ActionResult DeleteReport(string itemID, string isbn, string dateRemoved1, string dateRemoved2)
+        public ActionResult DeleteReport(string itemID, string isbn, string dateRemoved1, string dateRemoved2, List<bool> hidChecks)
         {
             var invDeleteLogList = new List<InventoryDeleteLog>();
             List<string> filterList = new List<string>();
+
+            if (hidChecks == null)
+            {
+                hidChecks = new List<bool>();
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+            }
+            ViewBag.hidChecks = hidChecks;
 
             bool searchUsed = false;
 
@@ -67,11 +76,22 @@ namespace Team2LibraryProject_01.Controllers
                 return View("~/Views/Home/Index.cshtml");
         }
 
-        public ActionResult InventoryReport(string isbn, string title, string authorName, string itemPrice, string dateAdded1, string dateAdded2, string onShelf)
+        public ActionResult InventoryReport(string isbn, string title, string authorName, string itemPrice, string dateAdded1, string dateAdded2, string onShelf, List<bool> hidChecks)
         {
             List<string> onShelfOptions = new List<string>(new string[] { "ALL", "TRUE", "FALSE" });
             var bookInvViewList = new List<BookInventoryView>();
             List<string> filterList = new List<string>();
+
+            if (hidChecks == null)
+            {
+                hidChecks = new List<bool>();
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+            }
+            ViewBag.hidChecks = hidChecks;
 
             ViewBag.onShelf = new SelectList(onShelfOptions);
 

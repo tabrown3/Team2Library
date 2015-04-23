@@ -32,6 +32,8 @@
         <div class="row">
             <div class="col-md-12">
                 <input type="submit" value="Search" />
+                <h5>Hide Columns:</h5>
+                <h5>Item ID @Html.CheckBox("hidChecks[0]")   ISBN @Html.CheckBox("hidChecks[1]")   Date Removed @Html.CheckBox("hidChecks[2]")</h5>
             </div>
             <hr />
         </div>
@@ -44,8 +46,11 @@
 
     @Html.Grid(Model).Columns(columns =>
         {
-            columns.Add(model => model.ItemID).Titled("Item ID");
-            columns.Add(model => model.ISBN).Titled("ISBN");
-            columns.Add(model => model.DateRemoved).Titled("Date Removed").Format("{0:MM/dd/yyyy}");
+            if(!ViewBag.hidChecks[0])
+                columns.Add(model => model.ItemID).Titled("Item ID");
+            if (!ViewBag.hidChecks[1])
+                columns.Add(model => model.ISBN).Titled("ISBN");
+            if (!ViewBag.hidChecks[2])
+                columns.Add(model => model.DateRemoved).Titled("Date Removed").Format("{0:MM/dd/yyyy}");
         })
 </body>

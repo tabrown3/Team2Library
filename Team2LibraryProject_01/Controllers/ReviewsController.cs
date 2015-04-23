@@ -17,11 +17,23 @@ namespace Team2LibraryProject_01.Controllers
         static string currentISBN;
 
         //Review Report
-        public ActionResult ReviewReport(string firstName, string lastName, string cardNumber, string bookTitle, string compareSign, string rating)
+        public ActionResult ReviewReport(string firstName, string lastName, string cardNumber, string bookTitle, string compareSign, string rating, List<bool> hidChecks)
         {
             List<string> filterList = new List<string>();
             List<string> compareSigns = new List<string>(new string[] { "=", ">", "<" });
             var memRevViewList = new List<MemberReviewsView>();
+
+            if (hidChecks == null)
+            {
+                hidChecks = new List<bool>();
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+            }
+            ViewBag.hidChecks = hidChecks;
 
             ViewBag.compareSign = new SelectList(compareSigns);
 

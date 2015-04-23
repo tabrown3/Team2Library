@@ -36,6 +36,15 @@
         <div class="row">
             <div class="col-md-12">
                 <input type="submit" value="Search" />
+                <h5>Hide Columns:</h5>
+                <h5>
+                    First Name @Html.CheckBox("hidChecks[0]")
+                    Last Name @Html.CheckBox("hidChecks[1]")
+                    Card No. @Html.CheckBox("hidChecks[2]")
+                    Book Title @Html.CheckBox("hidChecks[3]")
+                    Fines @Html.CheckBox("hidChecks[4]")
+                    Fines Paid @Html.CheckBox("hidChecks[5]")
+                </h5>
             </div>
             <hr />
         </div>
@@ -48,11 +57,17 @@
 
     @Html.Grid(Model).Columns(columns =>
         {
-            columns.Add(model => model.FName).Titled("User First Name");
-            columns.Add(model => model.LName).Titled("User Last Name");
-            columns.Add(model => model.CardNo).Titled("Card Number");
-            columns.Add(model => model.Title).Titled("Book Title");
-            columns.Add(model => model.Fines).Titled("Fines");
-            columns.Add(model => model.FinesPaid).Titled("Fines Paid");
+            if(!ViewBag.hidChecks[0])
+                columns.Add(model => model.FName).Titled("User First Name");
+            if (!ViewBag.hidChecks[1])
+                columns.Add(model => model.LName).Titled("User Last Name");
+            if (!ViewBag.hidChecks[2])
+                columns.Add(model => model.CardNo).Titled("Card Number");
+            if (!ViewBag.hidChecks[3])
+                columns.Add(model => model.Title).Titled("Book Title");
+            if (!ViewBag.hidChecks[4])
+                columns.Add(model => model.Fines).Titled("Fines");
+            if (!ViewBag.hidChecks[5])
+                columns.Add(model => model.FinesPaid).Titled("Fines Paid");
         })
 </body>

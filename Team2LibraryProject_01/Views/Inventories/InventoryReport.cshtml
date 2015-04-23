@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Team2LibraryProject_01.Models.BookInventoryView>
 
 @{
-    //ViewBag.Title = "Inventory Report";
+    ViewBag.Title = "Inventory Report";
 }
 
 <h2>Inventory Report</h2>
@@ -34,6 +34,12 @@
         <div class="row">
             <div class="col-md-12">
                 <input type="submit" value="Search" />
+                <h5>Hide Columns:</h5>
+                <h5>ISBN @Html.CheckBox("hidChecks[0]")
+                Title @Html.CheckBox("hidChecks[1]")
+                Item Price @Html.CheckBox("hidChecks[2]")
+                Date Added @Html.CheckBox("hidChecks[3]")
+                On Shelf @Html.CheckBox("hidChecks[4]")</h5>
             </div>
             <hr />
         </div>
@@ -46,10 +52,15 @@
 
     @Html.Grid(Model).Columns(columns =>
         {
-            columns.Add(model => model.ISBN).Titled("ISBN");
-            columns.Add(model => model.Title).Titled("Title");
-            columns.Add(model => model.ItemPrice).Titled("Item Price");
-            columns.Add(model => model.DateAdded).Titled("Date Added").Format("{0:MM/dd/yyyy}");
-            columns.Add(model => model.OnShelf).Titled("On Shelf");
+            if(!ViewBag.hidChecks[0])
+                columns.Add(model => model.ISBN).Titled("ISBN");
+            if (!ViewBag.hidChecks[1])
+                columns.Add(model => model.Title).Titled("Title");
+            if (!ViewBag.hidChecks[2])
+                columns.Add(model => model.ItemPrice).Titled("Item Price");
+            if (!ViewBag.hidChecks[3])
+                columns.Add(model => model.DateAdded).Titled("Date Added").Format("{0:MM/dd/yyyy}");
+            if (!ViewBag.hidChecks[4])
+                columns.Add(model => model.OnShelf).Titled("On Shelf");
         })
 </body>

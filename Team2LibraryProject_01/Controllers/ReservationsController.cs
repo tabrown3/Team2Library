@@ -14,13 +14,25 @@ namespace Team2LibraryProject_01.Controllers
     {
         private Team2LibraryEntities db = new Team2LibraryEntities();
 
-        public ActionResult FeesReport(string firstName, string lastName, string cardNumber, string bookTitle, string compareSign, string fines, string finesPaid)
+        public ActionResult FeesReport(string firstName, string lastName, string cardNumber, string bookTitle, string compareSign, string fines, string finesPaid, List<bool> hidChecks)
         {
 
             List<string> filterList = new List<string>();
             List<string> compareSigns = new List<string>(new string[] { "=", ">", "<" });
             List<string> finesPaidOptions = new List<string>(new string[] { "ALL", "TRUE", "FALSE" });
             var memLoanViewList = new List<MemberLoansView>();
+
+            if (hidChecks == null)
+            {
+                hidChecks = new List<bool>();
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+                hidChecks.Add(false);
+            }
+            ViewBag.hidChecks = hidChecks;
 
             ViewBag.compareSign = new SelectList(compareSigns);
             ViewBag.finesPaid = new SelectList(finesPaidOptions);
