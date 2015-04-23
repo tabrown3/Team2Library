@@ -5,20 +5,18 @@
 }
 
 <body>
-    <div class="jumbotron">
-        <div class="container">
-            <h1>Admin Area</h1>
-            <p class="lead">Welcome to the control center, Head Librarian.</p>
-        </div>
-    </div>
+    <h1 style="font-size: 80px">Admin Page</h1>
+    <h3>Welcome to the control center, head librarian.</h3>
+    <hr />
+
     @if (!String.IsNullOrEmpty(message))
     {
         <hr />
         <div class="message">
-            <p style="color: darkorange; font-size: 16px">@message</p>
+            <p style="color: darkorange; font-size: 16px; text-align: center">@message</p>
         </div>
     }
-    <hr />
+
     <div class="admincontrols">
         <div class="row">
             <div class="col-md-5">

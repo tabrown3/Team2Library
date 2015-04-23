@@ -3,23 +3,14 @@
 }
 
 <body>
-    <div class="jumbotron">
-        <div class="container">
-            <h1>Error!</h1>
-            <p class="lead">Something's not right.</p>
-        </div>
-    </div>
-
+    <h1 style="font-size: 80px">Error!</h1>
+    <h3>Duplicate reservation attempt.</h3>
     <hr />
 
-    <br />
-    <h3>Duplicate Reserve Error</h3>
+    <h4 style="font-weight: 300">Oops, it seems you already reserved this book.</h4>
+    <h4 style="font-weight: 300">You can either modify your rentals at your profile page, or reserve a different title.</h4>
 
     <hr />
-
-    <p>Oops, it seems you already reserved this book.</p>
-    <p>You can either modify your rentals at your profile page, or reserve a different title.</p>
-
     <p>
         @Html.ActionLink("Back to List", "Books", "Home")
     </p>

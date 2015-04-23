@@ -9,17 +9,14 @@
 }
 
 <body>
-    <div class="jumbotron">
-        <div class="container">
-            <h1>The Lounge</h1>
-            <p class="lead">Welcome to your own personal space.</p>
-        </div>
-    </div>
+    <h1 style="font-size: 80px">The Lounge</h1>
+    <h3>Welcome to your own personal space.</h3>
+    <br />
     @if (!String.IsNullOrEmpty(message))
     {
         <hr />
         <div class="message">
-            <p style="color: darkorange">Success: @message</p>
+            <p style="color: darkorange; text-align: center">@message</p>
         </div>
     }
     <hr />

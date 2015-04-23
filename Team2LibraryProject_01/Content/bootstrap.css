@@ -5008,11 +5008,12 @@ a.list-group-item.active > .badge,
   padding: 30px;
   margin-bottom: 30px;
   font-size: 21px;
+  color: black;
   font-weight: 200;
   border-radius: 0px !important;
   line-height: 2.1428571435;
   color: inherit;
-  background: url('Images/library_jumbo.png') !important;
+  background: url('Images/Main/library.png') !important;
 }
 
 .widewrapper {

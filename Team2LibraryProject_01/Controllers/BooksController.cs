@@ -262,21 +262,14 @@ namespace Team2LibraryProject_01.Controllers
                                where l.CardNo == loan.CardNo && l.ReturnDate.Value.ToString() == ""
                                select l).ToList();
 
-                if ((maxLoan.Count == 5 && loanMember.RoleID == 1) || (maxLoan.Count == 10 && loanMember.RoleID == 2))
+                if (maxLoan.Count == loanMember.Role.LoanMax)
                 {
                     TempData["Success"] = "Error: That member has reached the maximum pending loans and could not rent more.";
                     return RedirectToAction("Books", "Home");
                 }
 
-                //Due date dependent on membership
-                if (loanMember.RoleID == 1)
-                {
-                    loan.DueDate = today.AddDays(30);
-                }
-                else if (loanMember.RoleID == 2)
-                {
-                    loan.DueDate = today.AddDays(120);
-                }
+                //Add due date according to role
+                loan.DueDate = today.AddDays(loanMember.Role.LoanDuration);
 
                 loan.Title = loanBook.Book.Title;
                 loan.FinesPaid = true;
@@ -346,7 +339,7 @@ namespace Team2LibraryProject_01.Controllers
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
 
-                TempData["Success"] = "The book has been reserved.";
+                TempData["Success"] = "Success: The book has been reserved.";
                 return RedirectToAction("Books", "Home");
             }
 
