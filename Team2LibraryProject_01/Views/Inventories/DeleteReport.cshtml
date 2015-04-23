@@ -60,4 +60,14 @@
             if (!ViewBag.hidChecks[2])
                 columns.Add(model => model.DateRemoved).Titled("Date Removed").Format("{0:MM/dd/yyyy}");
         })
+
+    <hr />
+
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <p>@Html.ActionLink("Return to Admin Section", "Admin", "Home")</p>
+        </div>
+    </div>
 </body>

@@ -81,4 +81,12 @@
             if (!ViewBag.hidChecks[6])
                 columns.Add(model => model.ReturnDate).Titled("Return Date").Format("{0:MM/dd/yyyy}");
         })
+
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <p>@Html.ActionLink("Return to Admin Section", "Admin", "Home")</p>
+        </div>
+    </div>
 </body>

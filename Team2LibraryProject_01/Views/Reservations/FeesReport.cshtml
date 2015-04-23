@@ -34,8 +34,7 @@
         <hr />
         <div class="row">
             <div class="col-md-6">
-                <input type="submit" value="Search" />
-                <h5>Hide Data Attribute/s</h5>
+                <h3>Hide Data Attribute/s</h3>
                 <h5>
                     First Name: @Html.CheckBox("hidChecks[0]")
                     Last Name: @Html.CheckBox("hidChecks[1]")
@@ -74,4 +73,12 @@
             if (!ViewBag.hidChecks[5])
                 columns.Add(model => model.FinesPaid).Titled("Fines Paid");
         })
+
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <p>@Html.ActionLink("Return to Admin Section", "Admin", "Home")</p>
+        </div>
+    </div>
 </body>
