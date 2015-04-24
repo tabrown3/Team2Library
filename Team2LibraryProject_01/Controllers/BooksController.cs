@@ -389,6 +389,7 @@ namespace Team2LibraryProject_01.Controllers
         {
             if (ModelState.IsValid)
             {
+                book.Rating = null;
                 db.Books.Add(book);
                 db.SaveChanges();
 
